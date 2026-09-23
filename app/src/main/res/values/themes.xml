@@ -1,0 +1,5 @@
+<resources>
+    <style name="Theme.PersonalAssistantApp" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/primary_dark</item>
+    </style>
+</resources>
