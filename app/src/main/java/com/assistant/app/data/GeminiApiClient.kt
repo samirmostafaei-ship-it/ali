@@ -63,7 +63,7 @@ class GeminiApiClient(
                 "https://generativelanguage.googleapis.com"
             }
 
-            val url = "$baseHost/v1beta/models/gemini-1.5-flash:generateContent?key=$apiKey"
+            val url = "$baseHost/v1beta/models/gemini-3.6-flash:generateContent?key=$apiKey"
 
             val systemInstruction = type.promptInstruction
             val userPrompt = "موضوع درخواستی: $topic\n\nلطفاً طبق دستورالعمل، خروجی کامل و تخصصی با قالب‌بندی مرتب Markdown ارائه دهید."

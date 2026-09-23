@@ -104,13 +104,13 @@ fun MainScreen(taskRepo: TaskRepository) {
                 NavigationBarItem(
                     selected = selectedTab == 0,
                     onClick = { selectedTab = 0 },
-                    icon = { Icon(Icons.Default.AutoAwesome, contentDescription = "تولید خودکار") },
+                    icon = { Icon(Icons.Default.Star, contentDescription = "تولید خودکار") },
                     label = { Text("تولید خودکار") }
                 )
                 NavigationBarItem(
                     selected = selectedTab == 1,
                     onClick = { selectedTab = 1 },
-                    icon = { Icon(Icons.Default.NotificationsActive, contentDescription = "شبکه‌ها") },
+                    icon = { Icon(Icons.Default.Notifications, contentDescription = "شبکه‌ها") },
                     label = { Text("پیام‌ها") }
                 )
                 NavigationBarItem(
@@ -289,7 +289,7 @@ fun AutoContentScreen(
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD32F2F)),
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Icon(Icons.Default.Stop, contentDescription = null)
+                        Icon(Icons.Default.Close, contentDescription = null)
                         Spacer(modifier = Modifier.width(6.dp))
                         Text("لغو و توقف تولید خودکار (Cancel)")
                     }
@@ -365,7 +365,7 @@ fun AutoContentScreen(
                 Spacer(modifier = Modifier.width(8.dp))
                 Text("در حال تدوین خودکار موضوع بعدی...")
             } else {
-                Icon(Icons.Default.Bolt, contentDescription = null)
+                Icon(Icons.Default.PlayArrow, contentDescription = null)
                 Spacer(modifier = Modifier.width(6.dp))
                 Text("تولید آنی موضوع بعدی (با یک کلیک بدون نوشتن)")
             }
@@ -391,7 +391,7 @@ fun AutoContentScreen(
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
                 ) {
-                    Icon(Icons.Default.PictureAsPdf, contentDescription = null)
+                    Icon(Icons.Default.Share, contentDescription = null)
                     Spacer(modifier = Modifier.width(4.dp))
                     Text("خروجی PDF")
                 }
@@ -519,7 +519,7 @@ fun SocialMessageCard(msg: SocialMessage) {
             }
             Spacer(modifier = Modifier.height(6.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.OpenInNew, contentDescription = null, modifier = Modifier.size(14.dp), tint = MaterialTheme.colorScheme.secondary)
+                Icon(Icons.Default.ArrowForward, contentDescription = null, modifier = Modifier.size(14.dp), tint = MaterialTheme.colorScheme.secondary)
                 Spacer(modifier = Modifier.width(4.dp))
                 Text("برای باز شدن در برنامه ضربه بزنید", fontSize = 11.sp, color = MaterialTheme.colorScheme.secondary)
             }
