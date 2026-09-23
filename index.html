@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>دستیار هوشمند مهندسی (نسخه ۴۲ - اتصال خودکار به گیت‌هاب)</title>
-    <meta name="app-version" content="42.0">
+    <title>دستیار هوشمند مهندسی (نسخه ۴۳ - پشتیبانی کامل از کلیدهای AQ و x-goog-api-key)</title>
+    <meta name="app-version" content="43.0">
     <meta name="cache-control" content="no-cache, no-store, must-revalidate">
     <meta name="theme-color" content="#1e40af">
     <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22%D8%AF%D8%B3%D8%AA%DB%8C%D8%A7%D8%B1%20%D9%87%D9%88%D8%B4%D9%85%D9%86%D8%AF%20%D9%85%D9%87%D9%86%D8%AF%D8%B3%DB%8C%22%2C%22short_name%22%3A%22%D8%AF%D8%B3%D8%AA%DB%8C%D8%A7%D8%B1%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F8F9FA%22%2C%22theme_color%22%3A%22%231e40af%22%7D">
@@ -200,7 +200,7 @@
                 <h1>دستیار هوشمند مهندسی</h1>
                 <div style="display: flex; align-items: center; gap: 6px; margin-top: 2px;">
                     <span class="version-badge" onclick="openAboutModal()" title="کلیک برای مشاهده مشخصات نسخه و بررسی لود فایل‌ها">
-                        <span>نسخه ۴۲</span>
+                        <span>نسخه ۴۳</span>
                         <span style="font-size:0.65rem;">● سیستم فیدبک فعال</span>
                     </span>
                 </div>
@@ -213,7 +213,7 @@
             <button id="ttsToggleBtn" class="icon-btn" onclick="toggleTts()" title="خوانش صوتی پاسخ‌ها">
                 <svg id="ttsIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
             </button>
-            <button class="icon-btn" onclick="openAboutModal()" title="درباره صفحه و وضعیت لود فایل‌ها (نسخه ۴۲)">
+            <button class="icon-btn" onclick="openAboutModal()" title="درباره صفحه و وضعیت لود فایل‌ها (نسخه ۴۳)">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
             </button>
             <button class="icon-btn" onclick="openSettings()" title="تنظیمات">
@@ -489,7 +489,7 @@
             <div style="background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border: 1.5px solid #86efac; border-radius: 14px; padding: 14px; margin-bottom: 14px;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <span style="font-size: 0.9rem; font-weight: 700; color: #166534;">ورژن در حال اجرا:</span>
-                    <span style="background: #16a34a; color: white; font-size: 0.85rem; font-weight: 700; padding: 3px 12px; border-radius: 20px; box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);">نسخه ۴۲ (Version 42.0 - همگام‌سازی مستقیم با گیت‌هاب و دور زدن تحریم)</span>
+                    <span style="background: #16a34a; color: white; font-size: 0.85rem; font-weight: 700; padding: 3px 12px; border-radius: 20px; box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);">نسخه ۴۳ (Version 43.0 - سازگاری پیشرفته با کلیدهای جدید گوگل AQ و AIza)</span>
                 </div>
                 <div style="font-size: 0.78rem; color: #15803d; margin-top: 6px; line-height: 1.6;">
                     ✅ فایل‌های جدید بارگذاری شده‌اند و نسخه قبلی (۳۸) با موفقیت به‌روزرسانی شد. تمام ماژول‌ها آماده خدمت‌رسانی هستند.
@@ -502,7 +502,7 @@
                 <div style="display:flex; flex-direction:column; gap:6px; font-size: 0.82rem;">
                     <div style="display:flex; justify-content:space-between; padding:8px 10px; background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
                         <span>فایل اصلی برنامه (index.html):</span>
-                        <span style="color:#16a34a; font-weight:700;">لود شد (Build 42) ✅</span>
+                        <span style="color:#16a34a; font-weight:700;">لود شد (Build 43) ✅</span>
                     </div>
                     <div style="display:flex; justify-content:space-between; padding:8px 10px; background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
                         <span>گزینه اختصاصی نوت‌بوک‌ال‌ام (NotebookLM):</span>
@@ -518,7 +518,7 @@
                     </div>
                     <div style="display:flex; justify-content:space-between; padding:8px 10px; background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
                         <span>سرویس‌ورکر PWA و کش هوشمند:</span>
-                        <span style="color:#16a34a; font-weight:700;">ثبت شد (cache-v42) ✅</span>
+                        <span style="color:#16a34a; font-weight:700;">ثبت شد (cache-v43) ✅</span>
                     </div>
                 </div>
             </div>
@@ -731,7 +731,7 @@
         // PWA Service Worker با کش نسخه ۳۹
         if ('serviceWorker' in navigator) {
             const swCode = `
-                const CACHE_NAME = 'smart-assistant-v42';
+                const CACHE_NAME = 'smart-assistant-v43';
                 self.addEventListener('install', e => {
                     self.skipWaiting();
                 });
@@ -1072,25 +1072,71 @@
                 }
 
                 try {
-                    const url = `${baseHost}/v1beta/models/${currentModel}:generateContent?key=${key}`;
+                    const cleanKey = key.trim();
                     const contents = [];
                     if (systemPrompt) {
                         contents.push({ role: 'user', parts: [{ text: `${systemPrompt}\n\n${promptText}` }] });
                     } else {
                         contents.push({ parts: [{ text: promptText }] });
                     }
-
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: contents,
-                            generationConfig: { maxOutputTokens: maxTokens, temperature: temperature }
-                        })
+                    const reqPayload = JSON.stringify({
+                        contents: contents,
+                        generationConfig: { maxOutputTokens: maxTokens, temperature: temperature }
                     });
 
-                    const json = await response.json();
-                    const rawStr = JSON.stringify(json);
+                    // روش‌های مختلف ارسال کلید برای سازگاری با کلیدهای جدید AQ و استانداردهای گوگل
+                    let response, json, rawStr;
+
+                    // تلاش ۱: ارسال از طریق هدر رسمی x-goog-api-key بدون پارامتر URL
+                    try {
+                        const url1 = `${baseHost}/v1beta/models/${currentModel}:generateContent`;
+                        response = await fetch(url1, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'x-goog-api-key': cleanKey
+                            },
+                            body: reqPayload
+                        });
+                        json = await response.json();
+                        rawStr = JSON.stringify(json);
+                    } catch(e1) {
+                        rawStr = e1.message;
+                    }
+
+                    // تلاش ۲: اگر خطای OAuth یا احراز هویت داد، ارسال همزمان در URL و هدر
+                    if (!response || !response.ok && (rawStr.includes('Expected OAuth') || rawStr.includes('UNAUTHENTICATED'))) {
+                        try {
+                            const url2 = `${baseHost}/v1beta/models/${currentModel}:generateContent?key=${encodeURIComponent(cleanKey)}`;
+                            response = await fetch(url2, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'x-goog-api-key': cleanKey
+                                },
+                                body: reqPayload
+                            });
+                            json = await response.json();
+                            rawStr = JSON.stringify(json);
+                        } catch(e2) {}
+                    }
+
+                    // تلاش ۳: هدر Authorization Bearer (برای حالتی که کلید به عنوان Auth Token پذیرفته می‌شود)
+                    if (!response || !response.ok && (rawStr.includes('Expected OAuth') || rawStr.includes('UNAUTHENTICATED'))) {
+                        try {
+                            const url3 = `${baseHost}/v1beta/models/${currentModel}:generateContent`;
+                            response = await fetch(url3, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${cleanKey}`
+                                },
+                                body: reqPayload
+                            });
+                            json = await response.json();
+                            rawStr = JSON.stringify(json);
+                        } catch(e3) {}
+                    }
 
                     // بررسی موفقیت
                     if (response.ok && json.candidates && json.candidates[0].content && json.candidates[0].content.parts) {
@@ -1456,7 +1502,7 @@
 
 
         // مدیریت نسخه و کش
-        const APP_VERSION = '42.0';
+        const APP_VERSION = '43.0';
         function openAboutModal() {
             document.getElementById('aboutModal').classList.add('open');
         }
