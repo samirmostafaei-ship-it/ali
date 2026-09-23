@@ -2,466 +2,710 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>دستیار هوشمند مهندسی (نسخه نهایی ۴۴)</title>
-    <meta name="app-version" content="44.0">
-    <meta name="cache-control" content="no-cache, no-store, must-revalidate">
-    <meta name="theme-color" content="#1e40af">
-    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22%D8%AF%D8%B3%D8%AA%DB%8C%D8%A7%D8%B1%20%D9%87%D9%88%D8%B4%D9%85%D9%86%D8%AF%20%D9%85%D9%87%D9%86%D8%AF%D8%B3%DB%8C%22%2C%22short_name%22%3A%22%D8%AF%D8%B3%D8%AA%DB%8C%D8%A7%D8%B1%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F8F9FA%22%2C%22theme_color%22%3A%22%231e40af%22%7D">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>دستیار هوشمند مهندسی | نسخه حرفه‌ای</title>
+    <meta name="theme-color" content="#1e3a8a">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vazirmatn@33.003/Vazirmatn-font-face.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Vazirmatn, system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: #f8fafc; color: #0f172a; padding-bottom: 80px; }
-        header { background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%); color: white; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15); }
-        .header-brand { display: flex; align-items: center; gap: 10px; }
-        .brand-icon { width: 34px; height: 34px; background: rgba(255, 255, 255, 0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; backdrop-filter: blur(4px); }
-        header h1 { font-size: 1.05rem; font-weight: 700; }
-        .header-actions { display: flex; gap: 10px; align-items: center; }
-        .icon-btn { background: rgba(255, 255, 255, 0.12); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
-        .icon-btn:hover { background: rgba(255, 255, 255, 0.25); }
-        .icon-btn svg { width: 18px; height: 18px; fill: currentColor; }
-        
-        .container { padding: 14px; max-width: 600px; margin: 0 auto; }
-        .card { background: white; border-radius: 16px; padding: 16px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; }
-        .status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 10px; }
-        .status-active { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
-        .status-inactive { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-        
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; border-radius: 12px; font-weight: 600; border: none; cursor: pointer; font-size: 0.95rem; margin-top: 8px; transition: 0.2s; }
-        .btn-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25); }
-        .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; box-shadow: 0 3px 8px rgba(239, 68, 68, 0.25); }
-        .btn-outline { background: white; border: 1.5px solid #2563eb; color: #2563eb; }
-        .btn-secondary { background: #0288D1; color: white; }
-        .btn-sm { width: auto; padding: 6px 14px; font-size: 0.85rem; margin: 0; border-radius: 8px; }
-        
-        input, textarea, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; margin-top: 6px; font-size: 0.95rem; background: white; outline: none; transition: 0.2s; }
-        input:focus, textarea:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
-        
-        /* چت زنده با هوش مصنوعی */
-        .chat-container { display: flex; flex-direction: column; height: calc(100vh - 230px); min-height: 420px; }
-        .chat-messages { flex: 1; overflow-y: auto; padding: 8px 4px; display: flex; flex-direction: column; gap: 12px; }
-        .msg { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 0.92rem; line-height: 1.7; word-break: break-word; }
-        .msg-ai { align-self: flex-start; background: white; color: #0f172a; border-bottom-right-radius: 4px; border: 1px solid #e2e8f0; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
-        .msg-user { align-self: flex-end; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; border-bottom-left-radius: 4px; }
-        .chat-input-bar { display: flex; align-items: center; gap: 8px; background: white; padding: 8px 12px; border-radius: 30px; box-shadow: 0 3px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; margin-top: 10px; }
-        .chat-input-bar input { border: none; margin: 0; padding: 6px 10px; font-size: 0.95rem; background: transparent; }
-        .chat-input-bar input:focus { box-shadow: none; }
-        .mic-btn { width: 42px; height: 42px; border-radius: 50%; border: none; background: #f1f5f9; color: #2563eb; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; flex-shrink: 0; }
-        .mic-btn.recording { background: #ef4444; color: white; animation: pulse 1.2s infinite; }
-        .send-btn { width: 42px; height: 42px; border-radius: 50%; border: none; background: #2563eb; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-        
-        /* ناوبری پایین */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; border-top: 1px solid #e2e8f0; height: 65px; z-index: 100; box-shadow: 0 -3px 10px rgba(0,0,0,0.04); }
-        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.72rem; color: #64748b; cursor: pointer; transition: 0.2s; }
-        .nav-item.active { color: #2563eb; font-weight: 700; }
-        .nav-item svg { width: 22px; height: 22px; margin-bottom: 3px; fill: none; stroke: currentColor; stroke-width: 2; }
-        
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; padding: 16px; backdrop-filter: blur(2px); }
-        .modal.open { display: flex; }
-        .modal-body { background: white; border-radius: 18px; width: 100%; max-width: 500px; padding: 22px; max-height: 85vh; overflow-y: auto; }
-        
-        .type-chips { display: flex; gap: 8px; margin: 10px 0; }
-        .chip { flex: 1; padding: 9px; text-align: center; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 0.85rem; cursor: pointer; background: white; font-weight: 500; transition: 0.2s; }
-        .chip.selected { background: #2563eb; color: white; border-color: #2563eb; font-weight: 700; }
-        .output-box { background: #f8fafc; border-radius: 12px; padding: 16px; margin-top: 12px; font-size: 0.92rem; line-height: 1.85; border-right: 4px solid #2563eb; white-space: pre-wrap; color: #1e293b; max-height: 420px; overflow-y: auto; }
-    
-        /* کارت‌های شبکه‌های اجتماعی */
-        .social-card { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 12px; background: #ffffff; border: 1px solid #e2e8f0; text-decoration: none; color: inherit; transition: all 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
-        .social-card:hover, .social-card:active { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.08); background: #f8fafc; }
-        .social-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
-        .social-info { display: flex; flex-direction: column; }
-        .social-title { font-size: 0.88rem; font-weight: 700; color: #0f172a; }
-        .social-sub { font-size: 0.72rem; color: #64748b; margin-top: 1px; }
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #eff6ff;
+            --primary-border: #bfdbfe;
+            --surface: #ffffff;
+            --bg: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --success-bg: #ecfdf5;
+            --danger: #ef4444;
+            --danger-bg: #fef2f2;
+            --warning: #f59e0b;
+            --warning-bg: #fffbeb;
+            --radius-lg: 18px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 14px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 25px -5px rgba(37,99,235,0.08);
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Vazirmatn, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-        /* نشانگر نسخه و تاریخچه محتوا */
-        .version-badge {
-            background: rgba(34, 197, 94, 0.25);
-            border: 1px solid #4ade80;
-            color: #f0fdf4;
-            font-size: 0.72rem;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            padding-bottom: 90px;
+            min-height: 100vh;
         }
-        .version-badge:hover {
-            background: rgba(34, 197, 94, 0.45);
-            transform: scale(1.05);
-        }
-        
-        .history-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 12px 14px;
-            margin-bottom: 10px;
-            transition: all 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-        }
-        .history-card:hover {
-            border-color: #93c5fd;
-            box-shadow: 0 3px 10px rgba(37,99,235,0.06);
-        }
-        .history-header {
+
+        /* هدر مدرن با افکت شیشه‌ای */
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            color: white;
+            padding: 14px 20px;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            gap: 8px;
-            margin-bottom: 6px;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.2);
+            backdrop-filter: blur(10px);
         }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2);
+            color: #60a5fa;
+        }
+
+        .brand-title h1 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.68rem;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #6ee7b7;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .container {
+            padding: 16px;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        /* کارت‌ها */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 18px;
+            margin-bottom: 14px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* دکمه‌ها */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 18px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-size: 0.92rem;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1.5px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .btn-sm {
+            width: auto;
+            padding: 7px 14px;
+            font-size: 0.8rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        /* فیلدهای ورودی */
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: var(--radius-md);
+            border: 1.5px solid var(--border);
+            font-size: 0.92rem;
+            background: white;
+            outline: none;
+            transition: all 0.2s ease;
+            color: var(--text-main);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        /* چت روم زنده */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 220px);
+            min-height: 440px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            scroll-behavior: smooth;
+        }
+
+        .msg {
+            max-width: 86%;
+            padding: 14px 18px;
+            border-radius: 20px;
+            font-size: 0.92rem;
+            line-height: 1.8;
+            word-break: break-word;
+        }
+
+        .msg-ai {
+            align-self: flex-start;
+            background: white;
+            color: var(--text-main);
+            border-bottom-right-radius: 4px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .msg-user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 3px 10px rgba(37, 99, 235, 0.2);
+        }
+
+        .chat-input-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 35px;
+            box-shadow: var(--shadow-md);
+            border: 1.5px solid var(--border);
+            margin-top: 10px;
+        }
+
+        .chat-input-bar input {
+            border: none;
+            margin: 0;
+            padding: 8px 12px;
+            font-size: 0.95rem;
+            background: transparent;
+        }
+
+        .chat-input-bar input:focus {
+            box-shadow: none;
+        }
+
+        .mic-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: #f1f5f9;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .mic-btn.recording {
+            background: var(--danger);
+            color: white;
+            animation: pulse 1.2s infinite;
+        }
+
+        .send-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .send-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+            100% { transform: scale(1); }
+        }
+
+        /* چیپ‌های انتخاب */
+        .type-chips {
+            display: flex;
+            gap: 8px;
+            margin: 12px 0;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .chip {
+            flex: 1;
+            min-width: fit-content;
+            padding: 10px 14px;
+            text-align: center;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: white;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .chip.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25);
+        }
+
+        /* باکس خروجی متون */
+        .output-box {
+            background: #f8fafc;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-top: 14px;
+            font-size: 0.92rem;
+            line-height: 1.85;
+            border-right: 4px solid var(--primary);
+            white-space: pre-wrap;
+            color: #1e293b;
+            max-height: 440px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-right-width: 4px;
+        }
+
+        /* کارت‌های تاریخچه */
+        .history-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .history-card:hover {
+            border-color: var(--primary-border);
+            box-shadow: var(--shadow-md);
+        }
+
         .history-title {
             font-size: 0.9rem;
             font-weight: 700;
-            color: #0f172a;
-            line-height: 1.5;
+            color: var(--text-main);
+            margin-bottom: 4px;
         }
-        .history-badge {
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 3px 8px;
-            border-radius: 6px;
-            white-space: nowrap;
-        }
-        .badge-notebook { background: #e0e7ff; color: #4338ca; }
-        .badge-slides { background: #fef3c7; color: #b45309; }
-        .badge-doc { background: #dbeafe; color: #1d4ed8; }
-        .badge-pdf { background: #fee2e2; color: #b91c1c; }
-        .badge-local { background: #dcfce7; color: #15803d; }
-        
+
         .history-desc {
             font-size: 0.8rem;
-            color: #475569;
+            color: var(--text-muted);
             line-height: 1.6;
             margin-bottom: 10px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
-        .history-actions {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        
-        .hub-grid {
+
+        /* درگاه شبکه‌های اجتماعی و پیام‌رسان‌ها */
+        .social-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-top: 10px;
-        }
-        .hub-card {
-            background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
-            border: 1px solid #bfdbfe;
-            border-radius: 12px;
-            padding: 12px;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            transition: all 0.2s;
-        }
-        .hub-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(37,99,235,0.1);
-            border-color: #3b82f6;
-        }
-        .hub-icon {
-            font-size: 1.3rem;
-            margin-bottom: 2px;
-        }
-        .hub-title {
-            font-size: 0.84rem;
-            font-weight: 700;
-            color: #1e3a8a;
-        }
-        .hub-sub {
-            font-size: 0.72rem;
-            color: #64748b;
         }
 
+        .social-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: var(--radius-md);
+            background: white;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .social-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            background: #f8fafc;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        /* ناوبری پایین صفحه */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            border-top: 1px solid var(--border);
+            height: 68px;
+            z-index: 100;
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.05);
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            gap: 4px;
+            font-weight: 600;
+        }
+
+        .nav-item svg {
+            width: 22px;
+            height: 22px;
+            stroke-width: 2;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item.active svg {
+            transform: translateY(-2px);
+            stroke-width: 2.3;
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* مودال‌ها */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.6);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            backdrop-filter: blur(4px);
+        }
+        .modal.open { display: flex; }
+
+        .modal-body {
+            background: white;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 520px;
+            padding: 22px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
     </style>
 </head>
 <body>
 
+    <!-- هدر اصلی -->
     <header>
         <div class="header-brand">
-            <div class="brand-icon">⚡</div>
-            <div>
+            <div class="brand-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div class="brand-title">
                 <h1>دستیار هوشمند مهندسی</h1>
-                <div style="display: flex; align-items: center; gap: 6px; margin-top: 2px;">
-                    <span class="version-badge" onclick="openAboutModal()" title="کلیک برای مشاهده مشخصات نسخه و بررسی لود فایل‌ها">
-                        <span>نسخه ۴۴</span>
-                        <span style="font-size:0.65rem;">● سیستم فیدبک فعال</span>
-                    </span>
+                <div class="status-pill">
+                    <span style="font-size:8px;">●</span> اتصال مستقیم گوگل با VPN
                 </div>
             </div>
         </div>
         <div class="header-actions">
-            <button class="icon-btn" onclick="openFeedbackModal()" title="ثبت بازخورد و گزارش خطا (Feedback)" style="background: rgba(239, 68, 68, 0.25); border: 1px solid rgba(239, 68, 68, 0.4);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-            </button>
             <button id="ttsToggleBtn" class="icon-btn" onclick="toggleTts()" title="خوانش صوتی پاسخ‌ها">
-                <svg id="ttsIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                <svg id="ttsIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
             </button>
-            <button class="icon-btn" onclick="openAboutModal()" title="درباره صفحه و وضعیت لود فایل‌ها (نسخه ۴۴)">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-            </button>
-            <button class="icon-btn" onclick="openSettings()" title="تنظیمات">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <button class="icon-btn" onclick="openSettings()" title="تنظیمات کلید API">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
             </button>
         </div>
     </header>
 
     <div class="container">
 
-        <!-- تب ۱: گفتگوی صوتی و متنی با جمینای (دستیار شخصی) -->
+        <!-- تب ۱: گفتگوی صوتی و متنی با جمینای -->
         <div id="tab-chat" class="tab-content active">
             <div class="chat-container">
                 <div id="chatMessages" class="chat-messages">
                     <div class="msg msg-ai">
-                        سلام مهندس میرمصطفائی عزیز. من دستیار هوشمند شما هستم. می‌توانید با صوت یا متن با من گفتگو کنید، موضوعی برای تدوین مقاله/جزوه بگویید یا بفرمایید: «یادآوری کن فردا جلسه دارم» تا مستقیماً به کارهایتان اضافه کنم.
+                        سلام مهندس میرمصطفائی عزیز. من دستیار تخصصی شما در حوزه فیبر نوری، هوشمندسازی ساختمان (BMS) و مقررات ملی هستم. می‌توانید سوالات فنی بپرسید، موضوعی برای تدوین مقاله بگویید یا امور روزانه خود را برای یادآوری ثبت نمایید.
                     </div>
                 </div>
 
                 <div class="chat-input-bar">
                     <button id="micBtn" class="mic-btn" onclick="toggleVoiceRecording()" title="دستیار صوتی">
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
                     </button>
-                    <input type="text" id="chatInput" placeholder="گفتگو یا ثبت کار (با صوت یا متن)..." onkeypress="if(event.key==='Enter') sendChatMessage()">
-                    <button class="send-btn" onclick="sendChatMessage()">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    <input type="text" id="chatInput" placeholder="گفتگو یا ثبت کار (صوتی یا متنی)..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+                    <button class="send-btn" onclick="sendChatMessage()" title="ارسال پیام">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- تب ۲: تولید خودکار و مقالات -->
+        <!-- تب ۲: تولید محتوای مهندسی -->
         <div id="tab-ai" class="tab-content">
-            <div class="card">
-                <div id="statusBadge" class="status-badge status-active">● وضعیت: تولید خودکار روزانه فعال است</div>
-                <p style="font-size: 0.85rem; color: #475569; line-height: 1.6;">
-                    دستیار به صورت مستمر و خودکار مقالات، جزوات و کتابچه‌های تخصصی (BMS، فیبر نوری، مقررات ملی و نیروگاه خورشیدی) را تدوین و ذخیره می‌کند.
+            <div class="card" style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); border-color: var(--primary-border);">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div class="card-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        استودیوی تدوین محتوای تخصصی
+                    </div>
+                </div>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin: 8px 0 14px 0; line-height:1.6;">
+                    تولید ساختاریافته مقالات علمی، جزوات درسی، کتابچه‌ها و منابع تحلیلی سازگار با NotebookLM بر پایه استانداردهای IEC و مقررات ملی.
                 </p>
-                <button id="toggleBtn" class="btn btn-danger" onclick="toggleAutoMode()">🛑 لغو و توقف تولید خودکار (Cancel)</button>
+                <button class="btn btn-primary" onclick="generateImmediate()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    تولید آنی موضوع بعدی (پیشنهادی دستیار)
+                </button>
             </div>
 
-            <button class="btn btn-primary" onclick="generateImmediate()">⚡ تولید آنی موضوع خودکار بعدی (بدون نوشتن درخواست)</button>
-
-            <!-- بخش تولید اختیاری با موضوع دلخواه -->
-            <div class="card" style="margin-top: 14px;">
-                <h3 style="font-size: 0.95rem; margin-bottom: 6px;">تولید موضوع دلخواه (اختیاری)</h3>
-                <input type="text" id="manualTopic" placeholder="موضوع مورد نظر خود را بنویسید (اختیاری)...">
+            <!-- بخش موضوع دلخواه -->
+            <div class="card">
+                <div class="card-title">تدوین با موضوع انتخابی شما</div>
+                <input type="text" id="manualTopic" placeholder="موضوع مورد نظر (مثال: تحلیل پروتکل BACnet در بیمارستان‌ها)..." style="margin-top:10px;">
                 <div class="type-chips">
-                    <div class="chip selected" onclick="selectType('article', this)">مقاله</div>
-                    <div class="chip" onclick="selectType('notes', this)">جزوه درسی</div>
-                    <div class="chip" onclick="selectType('booklet', this)">کتابچه</div>
-                    <div class="chip" onclick="selectType('notebooklm', this)">📘 نوت‌بوک‌ال‌ام (NotebookLM)</div>
+                    <div class="chip selected" onclick="selectType('article', this)">📄 مقاله علمی</div>
+                    <div class="chip" onclick="selectType('notes', this)">📚 جزوه درسی</div>
+                    <div class="chip" onclick="selectType('booklet', this)">📕 کتابچه جامع</div>
+                    <div class="chip" onclick="selectType('notebooklm', this)">📘 منبع NotebookLM</div>
                 </div>
-                <button class="btn btn-outline" onclick="generateManual()">تولید محتوای دلخواه</button>
+                <button class="btn btn-outline" onclick="generateManual()">شروع تولید محتوا</button>
             </div>
 
             <!-- کارت نمایش نتیجه -->
-            <div id="resultCard" class="card" style="display:none; margin-top: 14px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+            <div id="resultCard" class="card" style="display:none;">
+                <div class="card-header" style="border-bottom:1px solid var(--border); padding-bottom:10px;">
                     <div>
-                        <h3 id="resultTitle" style="font-size: 0.95rem; color: #1e40af;"></h3>
-                        <span id="resultMeta" style="font-size: 0.75rem; color: #64748b;"></span>
+                        <h3 id="resultTitle" style="font-size: 0.95rem; color: var(--primary);"></h3>
+                        <span id="resultMeta" style="font-size: 0.75rem; color: var(--text-muted);"></span>
                     </div>
                     <div style="display:flex; gap:6px;">
                         <button class="btn btn-outline btn-sm" onclick="copyResultText()">📋 کپی</button>
-                        <button class="btn btn-secondary btn-sm" onclick="window.print()">📄 چاپ / PDF</button>
+                        <button class="btn btn-outline btn-sm" onclick="window.print()">📄 چاپ / PDF</button>
                     </div>
                 </div>
                 <div id="resultText" class="output-box"></div>
                 <div id="notebooklmResultAction" style="display:none; margin-top:10px;">
-                    <button class="btn btn-primary" onclick="window.open('https://notebooklm.google.com', '_blank')">
-                        🚀 باز کردن نوت‌بوک‌ال‌ام جهت افزودن این محتوا به عنوان منبع جدید
-                    </button>
-                </div>
-            </div>
-
-            <!-- هاب و دسترسی سریع نوت‌بوک‌ال‌ام (NotebookLM Hub) -->
-            <div class="card" style="margin-top: 14px; background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%); border: 1.5px solid #bfdbfe;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 1.3rem;">📘</span>
-                        <div>
-                            <h3 style="font-size: 0.95rem; font-weight: 700; color: #1e3a8a;">درگاه هوشمند NotebookLM</h3>
-                            <span style="font-size: 0.72rem; color: #475569;">اتصال و انتقال مستقیم به پایگاه دانش تخصصی گوگل</span>
-                        </div>
-                    </div>
                     <button class="btn btn-primary btn-sm" onclick="window.open('https://notebooklm.google.com', '_blank')">
-                        ورود به نوتبوک
+                        🚀 انتقال به نوت‌بوک‌ال‌ام (NotebookLM)
                     </button>
-                </div>
-                
-                <div class="hub-grid">
-                    <a href="https://gemini.google.com/notebook/c3f851b7-9fe0-46f3-83f3-81b1dac71538" target="_blank" class="hub-card">
-                        <span class="hub-icon">🏢</span>
-                        <span class="hub-title">سلسله‌مراتب هوشمندسازی</span>
-                        <span class="hub-sub">معماری ۴ لایه و مقایسه BMS و IBMS (۲ منبع)</span>
-                    </a>
-                    <a href="https://gemini.google.com/notebook/ef8003c7-02fb-4305-9db4-07ae0e6dc96f" target="_blank" class="hub-card">
-                        <span class="hub-icon">🌐</span>
-                        <span class="hub-title">جزوه دانشگاهی فیبر نوری</span>
-                        <span class="hub-sub">کتاب کیزر و کابل‌کشی ساختمانی FTTH (۲ منبع)</span>
-                    </a>
-                    <a href="https://notebooklm.google.com/notebook/4b48d5e8-7674-4d47-80a1-8e47a1e45e07" target="_blank" class="hub-card">
-                        <span class="hub-icon">⚖️</span>
-                        <span class="hub-title">مقررات ملی و BMS</span>
-                        <span class="hub-sub">انطباق مباحث ۱۳، ۱۵، ۱۹ و ۲۲ مقررات ملی</span>
-                    </a>
-                    <a href="https://gemini.google.com/notebook/4b88bb3e-140b-4623-8211-67823ea55c70" target="_blank" class="hub-card">
-                        <span class="hub-icon">🔌</span>
-                        <span class="hub-title">شبکه‌های جریان ضعیف</span>
-                        <span class="hub-sub">دیتاسنتر ساختمانی، FAT و نظارت تصویری</span>
-                    </a>
                 </div>
             </div>
 
-            <!-- بخش جامع تاریخچه تولید محتوا (جمینای و نوت‌بوک‌ال‌ام) -->
-            <div class="card" style="margin-top: 14px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
-                    <div style="display:flex; align-items:center; gap:6px;">
-                        <span style="font-size:1.2rem;">📚</span>
-                        <h3 style="font-size: 0.95rem; font-weight: 700; color: #0f172a;">تاریخچه و آرشیو تولیدات محتوا</h3>
+            <!-- تاریخچه و آرشیو پروژه‌ها -->
+            <div class="card" style="margin-top:14px;">
+                <div class="card-header">
+                    <div class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                        آرشیو محتواهای پیشین شما
                     </div>
-                    <span id="historyCountBadge" style="background:#e0f2fe; color:#0369a1; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:10px;">۹ منبع ثبت‌شده</span>
                 </div>
-                
-                <p style="font-size: 0.8rem; color: #64748b; line-height: 1.6; margin-bottom: 12px;">
-                    فهرست مقالات، جزوات، اسلایدها و پروژه‌های تحلیلی که تا کنون با هوش مصنوعی جمینای (Gemini) و نوت‌بوک‌ال‌ام (NotebookLM) تدوین شده است:
-                </p>
-
-                <!-- فیلترهای تاریخچه -->
-                <div class="type-chips" style="margin-bottom: 12px;">
-                    <div class="chip selected" onclick="filterHistory('all', this)">همه موارد</div>
-                    <div class="chip" onclick="filterHistory('notebooklm', this)">📘 نوتبوک‌ال‌ام</div>
-                    <div class="chip" onclick="filterHistory('gemini', this)">✨ جمینای</div>
-                    <div class="chip" onclick="filterHistory('local', this)">⚡ تولیدات اخیر</div>
-                </div>
-
-                <!-- لیست تاریخچه‌ها -->
                 <div id="historyList"></div>
             </div>
-
         </div>
 
-        <!-- تب ۳: یادآورها و وظایف روزانه -->
+        <!-- تب ۳: یادآورها -->
         <div id="tab-tasks" class="tab-content">
             <div class="card">
-                <h3 style="font-size: 0.95rem; margin-bottom: 8px;">افزودن یادآور روزانه</h3>
-                <input type="text" id="taskTitle" placeholder="عنوان کار (مثال: بررسی کابل‌های پروژه یا تماس با مهندس ناظر)">
-                <input type="number" id="taskMins" placeholder="یادآوری بعد از چند دقیقه؟" value="15">
-                <button class="btn btn-primary" onclick="addTask()">⏰ زمان‌بندی یادآور</button>
+                <div class="card-title">ثبت کار و یادآور جدید</div>
+                <input type="text" id="taskTitle" placeholder="عنوان کار (مثلاً: بررسی کابل‌های پروژه یا تماس با مهندس ناظر)" style="margin-top:10px;">
+                <div style="display:flex; gap:10px; margin-top:8px;">
+                    <input type="number" id="taskMins" placeholder="چند دقیقه دیگر؟" value="15" style="flex:1;">
+                    <button class="btn btn-primary" style="flex:1.2;" onclick="addTask()">⏰ زمان‌بندی</button>
+                </div>
             </div>
             <div class="card">
-                <h3 style="font-size: 0.95rem; margin-bottom: 8px;">فهرست یادآورها و کارهای شما</h3>
-                <div id="tasksList" style="font-size: 0.85rem; color: #64748b;">هیچ یادآوری ثبت نشده است.</div>
+                <div class="card-title">فهرست یادآورهای فعال</div>
+                <div id="tasksList" style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">هیچ کاری ثبت نشده است.</div>
             </div>
         </div>
 
-        <!-- تب ۴: پیام‌ها و شبکه‌های اجتماعی -->
+        <!-- تب ۴: شبکه‌ها و پیام‌رسان‌ها -->
         <div id="tab-messages" class="tab-content">
             <div class="card">
-                <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 4px; color: #0f172a;">درگاه ارتباطی پیام‌رسان‌ها و شبکه‌ها</h3>
-                <p style="font-size: 0.82rem; color: #64748b; margin-bottom: 14px; line-height: 1.6;">
-                    با لمس هر پیام‌رسان، مستقیماً اپلیکیشن مربوطه روی گوشی شما باز می‌شود:
-                </p>
-
-                <div style="font-size: 0.82rem; font-weight: 700; color: #1e40af; margin-bottom: 8px;">پیام‌رسان‌های ایرانی:</div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
-                    <!-- ایتا -->
-                    <a href="eitaa://" onclick="setTimeout(() => window.open('https://web.eitaa.com', '_blank'), 800)" class="social-card" style="border-right: 4px solid #ea580c;">
-                        <div class="social-icon" style="background: #ffedd5; color: #ea580c;">🟠</div>
-                        <div class="social-info">
-                            <span class="social-title">ایتا (Eitaa)</span>
-                            <span class="social-sub">پیام‌رسان و کانال‌ها</span>
+                <div class="card-title" style="margin-bottom:12px;">درگاه پیام‌رسان‌های ایرانی و بین‌المللی</div>
+                <div class="social-grid">
+                    <a href="eitaa://" onclick="setTimeout(()=>window.open('https://web.eitaa.com','_blank'),800)" class="social-card" style="border-right: 4px solid #ea580c;">
+                        <div class="social-icon" style="background:#ffedd5; color:#ea580c;">🟠</div>
+                        <div>
+                            <div style="font-weight:700; font-size:0.88rem;">ایتا</div>
+                            <div style="font-size:0.72rem; color:var(--text-muted);">Eitaa Messenger</div>
                         </div>
                     </a>
-
-                    <!-- بله -->
-                    <a href="ble://" onclick="setTimeout(() => window.open('https://web.bale.ai', '_blank'), 800)" class="social-card" style="border-right: 4px solid #059669;">
-                        <div class="social-icon" style="background: #d1fae5; color: #059669;">🟢</div>
-                        <div class="social-info">
-                            <span class="social-title">بله (Bale)</span>
-                            <span class="social-sub">پیام‌رسان و خدمات</span>
+                    <a href="ble://" onclick="setTimeout(()=>window.open('https://web.bale.ai','_blank'),800)" class="social-card" style="border-right: 4px solid #059669;">
+                        <div class="social-icon" style="background:#d1fae5; color:#059669;">🟢</div>
+                        <div>
+                            <div style="font-weight:700; font-size:0.88rem;">بله</div>
+                            <div style="font-size:0.72rem; color:var(--text-muted);">Bale Messenger</div>
                         </div>
                     </a>
-
-                    <!-- روبیکا -->
-                    <a href="rubika://" onclick="setTimeout(() => window.open('https://web.rubika.ir', '_blank'), 800)" class="social-card" style="border-right: 4px solid #7c3aed;">
-                        <div class="social-icon" style="background: #ede9fe; color: #7c3aed;">🟣</div>
-                        <div class="social-info">
-                            <span class="social-title">روبیکا (Rubika)</span>
-                            <span class="social-sub">پیام‌رسان و محتوا</span>
+                    <a href="tg://" onclick="setTimeout(()=>window.open('https://web.telegram.org','_blank'),800)" class="social-card" style="border-right: 4px solid #0288d1;">
+                        <div class="social-icon" style="background:#e0f2fe; color:#0288d1;">✈️</div>
+                        <div>
+                            <div style="font-weight:700; font-size:0.88rem;">تلگرام</div>
+                            <div style="font-size:0.72rem; color:var(--text-muted);">Telegram</div>
                         </div>
                     </a>
-
-                    <!-- سروش پلاس -->
-                    <a href="soroush://" onclick="setTimeout(() => window.open('https://web.splus.ir', '_blank'), 800)" class="social-card" style="border-right: 4px solid #0284c7;">
-                        <div class="social-icon" style="background: #e0f2fe; color: #0284c7;">🔵</div>
-                        <div class="social-info">
-                            <span class="social-title">سروش (Soroush)</span>
-                            <span class="social-sub">سروش پلاس</span>
+                    <a href="whatsapp://" onclick="setTimeout(()=>window.open('https://web.whatsapp.com','_blank'),800)" class="social-card" style="border-right: 4px solid #16a34a;">
+                        <div class="social-icon" style="background:#dcfce7; color:#16a34a;">💬</div>
+                        <div>
+                            <div style="font-weight:700; font-size:0.88rem;">واتساپ</div>
+                            <div style="font-size:0.72rem; color:var(--text-muted);">WhatsApp</div>
                         </div>
                     </a>
-                </div>
-
-                <div style="font-size: 0.82rem; font-weight: 700; color: #1e40af; margin-bottom: 8px;">شبکه‌ها و پیام‌رسان‌های بین‌المللی:</div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <!-- تلگرام -->
-                    <a href="tg://" onclick="setTimeout(() => window.open('https://web.telegram.org', '_blank'), 800)" class="social-card" style="border-right: 4px solid #0288d1;">
-                        <div class="social-icon" style="background: #e1f5fe; color: #0288d1;">✈️</div>
-                        <div class="social-info">
-                            <span class="social-title">تلگرام</span>
-                            <span class="social-sub">Telegram</span>
-                        </div>
-                    </a>
-
-                    <!-- واتساپ -->
-                    <a href="whatsapp://" onclick="setTimeout(() => window.open('https://web.whatsapp.com', '_blank'), 800)" class="social-card" style="border-right: 4px solid #16a34a;">
-                        <div class="social-icon" style="background: #dcfce7; color: #16a34a;">💬</div>
-                        <div class="social-info">
-                            <span class="social-title">واتساپ</span>
-                            <span class="social-sub">WhatsApp</span>
-                        </div>
-                    </a>
-
-                    <!-- اینستاگرام -->
-                    <a href="instagram://" onclick="setTimeout(() => window.open('https://instagram.com', '_blank'), 800)" class="social-card" style="border-right: 4px solid #db2777;">
-                        <div class="social-icon" style="background: #fce7f3; color: #db2777;">📷</div>
-                        <div class="social-info">
-                            <span class="social-title">اینستاگرام</span>
-                            <span class="social-sub">Instagram</span>
-                        </div>
-                    </a>
-
-                    <!-- لینکدین -->
                     <a href="https://linkedin.com" target="_blank" class="social-card" style="border-right: 4px solid #0a66c2;">
-                        <div class="social-icon" style="background: #e0f2fe; color: #0a66c2;">💼</div>
-                        <div class="social-info">
-                            <span class="social-title">لینکدین</span>
-                            <span class="social-sub">LinkedIn</span>
+                        <div class="social-icon" style="background:#e0f2fe; color:#0a66c2;">💼</div>
+                        <div>
+                            <div style="font-weight:700; font-size:0.88rem;">لینکدین</div>
+                            <div style="font-size:0.72rem; color:var(--text-muted);">LinkedIn</div>
                         </div>
                     </a>
-
-                    <!-- جیمیل -->
-                    <a href="mailto:" onclick="setTimeout(() => window.open('https://mail.google.com', '_blank'), 800)" class="social-card" style="border-right: 4px solid #ea4335; grid-column: span 2;">
-                        <div class="social-icon" style="background: #fee2e2; color: #ea4335;">📧</div>
-                        <div class="social-info">
-                            <span class="social-title">جیمیل (Google Mail)</span>
-                            <span class="social-sub">مدیریت ایمیل‌ها و مکاتبات رسمی</span>
+                    <a href="mailto:" onclick="setTimeout(()=>window.open('https://mail.google.com','_blank'),800)" class="social-card" style="border-right: 4px solid #ea4335;">
+                        <div class="social-icon" style="background:#fee2e2; color:#ea4335;">📧</div>
+                        <div>
+                            <div style="font-weight:700; font-size:0.88rem;">جیمیل</div>
+                            <div style="font-size:0.72rem; color:var(--text-muted);">Google Mail</div>
                         </div>
                     </a>
                 </div>
@@ -470,880 +714,300 @@
 
     </div>
 
-
-    <!-- دیالوگ درباره صفحه و وضعیت نسخه ۳۹ -->
-    <div id="aboutModal" class="modal">
-        <div class="modal-body">
-            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid #e2e8f0; padding-bottom:10px; margin-bottom:14px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <div style="font-size:1.4rem;">ℹ️</div>
-                    <div>
-                        <h2 style="font-size: 1.05rem; color:#0f172a;">درباره صفحه و وضعیت نسخه</h2>
-                        <span style="font-size: 0.75rem; color: #64748b;">بررسی سلامت بیلد و بارگذاری بدون وقفه فایل‌ها</span>
-                    </div>
-                </div>
-                <button class="icon-btn" style="background:#f1f5f9; color:#64748b; width:30px; height:30px; font-weight:bold;" onclick="closeAboutModal()">✕</button>
-            </div>
-
-            <!-- کارت نسخه -->
-            <div style="background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border: 1.5px solid #86efac; border-radius: 14px; padding: 14px; margin-bottom: 14px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-size: 0.9rem; font-weight: 700; color: #166534;">ورژن در حال اجرا:</span>
-                    <span style="background: #16a34a; color: white; font-size: 0.85rem; font-weight: 700; padding: 3px 12px; border-radius: 20px; box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);">نسخه ۴۳ (Version 43.0 - سازگاری پیشرفته با کلیدهای جدید گوگل AQ و AIza)</span>
-                </div>
-                <div style="font-size: 0.78rem; color: #15803d; margin-top: 6px; line-height: 1.6;">
-                    ✅ فایل‌های جدید بارگذاری شده‌اند و نسخه قبلی (۳۸) با موفقیت به‌روزرسانی شد. تمام ماژول‌ها آماده خدمت‌رسانی هستند.
-                </div>
-            </div>
-
-            <!-- وضعیت بارگذاری فایل‌ها -->
-            <div style="margin-bottom: 14px;">
-                <h4 style="font-size: 0.85rem; font-weight: 700; color: #1e40af; margin-bottom: 8px;">وضعیت بارگذاری فایل‌ها و سرویس‌ها:</h4>
-                <div style="display:flex; flex-direction:column; gap:6px; font-size: 0.82rem;">
-                    <div style="display:flex; justify-content:space-between; padding:8px 10px; background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
-                        <span>فایل اصلی برنامه (index.html):</span>
-                        <span style="color:#16a34a; font-weight:700;">لود شد (Build 43) ✅</span>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; padding:8px 10px; background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
-                        <span>گزینه اختصاصی نوت‌بوک‌ال‌ام (NotebookLM):</span>
-                        <span style="color:#16a34a; font-weight:700;">اضافه شد به تولید محتوا ✅</span>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; padding:8px 10px; background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
-                        <span>تاریخچه‌های تولید محتوای جمینای و نوت‌بوک:</span>
-                        <span style="color:#16a34a; font-weight:700;">بارگذاری شد (۹ سند مرجع) ✅</span>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; padding:8px 10px; background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
-                        <span>سرویس صوتی دوطرفه (TTS & STT):</span>
-                        <span style="color:#16a34a; font-weight:700;">آماده گفتگو ✅</span>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; padding:8px 10px; background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
-                        <span>سرویس‌ورکر PWA و کش هوشمند:</span>
-                        <span style="color:#16a34a; font-weight:700;">ثبت شد (cache-v43) ✅</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- لیست تغییرات نسخه ۳۹ -->
-            <div style="margin-bottom: 16px; background:#f8fafc; padding:12px; border-radius:12px; border:1px solid #e2e8f0;">
-                <h4 style="font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 6px;">ویژگی‌های افزوده شده در نسخه ۳۹:</h4>
-                <ul style="font-size: 0.78rem; color: #475569; padding-right: 18px; line-height: 1.7;">
-                    <li>اضافه شدن گزینه <b>نوت‌بوک‌ال‌ام (NotebookLM)</b> در انواع تولید محتوا با دستور تخصصی جهت تولید منابع پژوهشی عمیق.</li>
-                    <li>اضافه شدن بخش جامع <b>تاریخچه و آرشیو تولیدات</b> شامل نوت‌بوک‌ها، اسلایدهای ۴ لایه IEC، اسناد مبحث ۱۳، ۱۵، ۱۹ و ۲۲.</li>
-                    <li>پنجره نمایش درون‌برنامه‌ای (Preview Modal) برای مطالعه سریع و کپی اسناد بدون خروج از برنامه.</li>
-                    <li>نمایش زنده برچسب نسخه ۳۹ در بالای صفحه و دکمه اختصاصی تخلیه کش برای حصول اطمینان ۱۰۰٪ از لود فایل‌ها.</li>
-                </ul>
-            </div>
-
-            <!-- دکمه‌ها -->
-            <div style="display:flex; flex-direction:column; gap:8px;">
-                <button class="btn btn-primary" onclick="forceUpdateApp()">
-                    🔄 بارگذاری مجدد و پاک‌سازی کش مرورگر (Force Reload)
-                </button>
-                <button class="btn btn-outline" onclick="closeAboutModal()">بستن پنجره</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- دیالوگ مشاهده پیش‌نمایش متن سند (Preview Modal) -->
-    <div id="previewModal" class="modal">
-        <div class="modal-body" style="max-width: 580px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid #e2e8f0; padding-bottom:10px; margin-bottom:12px;">
-                <div>
-                    <h3 id="previewTitle" style="font-size: 1rem; color: #1e40af;"></h3>
-                    <span id="previewMeta" style="font-size: 0.75rem; color: #64748b;"></span>
-                </div>
-                <button class="icon-btn" style="background:#f1f5f9; color:#64748b; width:30px; height:30px; font-weight:bold;" onclick="closePreviewModal()">✕</button>
-            </div>
-            <div id="previewBody" class="output-box" style="margin-top:0; max-height: 52vh;"></div>
-            <div style="display:flex; gap:8px; margin-top:14px;">
-                <button id="previewLinkBtn" class="btn btn-primary btn-sm" style="flex:1.2;" onclick="">🔗 باز کردن منبع اصلی</button>
-                <button class="btn btn-outline btn-sm" style="flex:1;" onclick="copyPreviewText()">📋 کپی متن</button>
-                <button class="btn btn-secondary btn-sm" style="flex:1;" onclick="printPreview()">📄 چاپ</button>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- دیالوگ ثبت و ارسال فیدبک و گزارش خطا -->
-    <div id="feedbackModal" class="modal">
-        <div class="modal-body" style="max-width: 540px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid #e2e8f0; padding-bottom:10px; margin-bottom:14px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <div style="font-size:1.4rem;">💬</div>
-                    <div>
-                        <h2 style="font-size: 1.05rem; color:#0f172a;">ثبت فیدبک و گزارش خطای برنامه</h2>
-                        <span style="font-size: 0.75rem; color: #64748b;">ارسال مستقیم مشکلات به هوش مصنوعی جهت رفع در نسخه بعد</span>
-                    </div>
-                </div>
-                <button class="icon-btn" style="background:#f1f5f9; color:#64748b; width:30px; height:30px; font-weight:bold;" onclick="closeFeedbackModal()">✕</button>
-            </div>
-
-            <!-- انتخاب نوع فیدبک -->
-            <label style="font-size: 0.82rem; font-weight: 700; color: #334155;">نوع مشکل یا بازخورد:</label>
-            <div class="type-chips" style="margin: 8px 0 12px 0;">
-                <div class="chip selected" onclick="selectFeedbackType('server_error', this)">⚠️ خطای سرور / ترافیک</div>
-                <div class="chip" onclick="selectFeedbackType('content_issue', this)">📄 تولید محتوا</div>
-                <div class="chip" onclick="selectFeedbackType('chat_voice', this)">🎙️ چت و صوت</div>
-                <div class="chip" onclick="selectFeedbackType('suggestion', this)">💡 پیشنهاد بهبود</div>
-            </div>
-
-            <!-- شرح بازخورد -->
-            <label style="font-size: 0.82rem; font-weight: 700; color: #334155;">شرح مشکل یا درخواست شما:</label>
-            <textarea id="feedbackText" rows="4" placeholder="توضیح دهید چه کاری انجام دادید و چه مشکلی پیش آمد..." style="resize:vertical;"></textarea>
-
-            <!-- اطلاعات فنی و لاگ خطا به صورت خودکار -->
-            <div style="margin-top: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                    <span style="font-size: 0.78rem; font-weight: 700; color: #475569;">اطلاعات تشخیصی و لاگ سیستم:</span>
-                    <span style="font-size: 0.7rem; color: #16a34a; font-weight: 600;">ضمیمه خودکار ✅</span>
-                </div>
-                <div id="diagnosticDetails" style="font-size: 0.72rem; color: #64748b; line-height: 1.6; font-family: monospace; direction: ltr; text-align: left; background: white; padding: 6px 8px; border-radius: 6px; border: 1px solid #cbd5e1; max-height: 90px; overflow-y: auto;"></div>
-            </div>
-
-            <!-- دکمه‌های اقدام -->
-            <div style="display:flex; flex-direction:column; gap:8px; margin-top: 14px;">
-                <button class="btn btn-primary" onclick="copyFullFeedbackReport()">
-                    📋 کپی کامل گزارش فیدبک (جهت ارسال به هوش مصنوعی)
-                </button>
-                <div style="display:flex; gap:8px;">
-                    <button class="btn btn-outline" style="flex:1;" onclick="saveFeedbackLocally()">
-                        💾 ذخیره در تاریخچه فیدبک‌ها
-                    </button>
-                    <button class="btn btn-secondary" style="flex:1;" onclick="sendFeedbackEmail()">
-                        📧 ارسال با ایمیل
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- دیالوگ راهنمای ساخت فایل در گیت‌هاب -->
-    <div id="githubHelpModal" class="modal">
-        <div class="modal-body" style="max-width: 540px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid #e2e8f0; padding-bottom:10px; margin-bottom:12px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <div style="font-size:1.3rem;">🐙</div>
-                    <h2 style="font-size: 1.05rem; color:#0f172a;">راهنمای ذخیره و خواندن از گیت‌هاب</h2>
-                </div>
-                <button class="icon-btn" style="background:#f1f5f9; color:#64748b; width:30px; height:30px; font-weight:bold;" onclick="closeGitHubHelpModal()">✕</button>
-            </div>
-
-            <div style="font-size:0.82rem; color:#334155; line-height:1.7;">
-                <p style="margin-bottom:8px;">
-                    <b>گام اول:</b> در گیت‌هاب خود یک فایل متنی با نام <code>config.json</code> (ترجیحاً در یک ریپازیتوری Private یا به صورت Secret Gist) بسازید.
-                </p>
-                <p style="margin-bottom:6px;">
-                    <b>گام دوم:</b> محتوای زیر را در آن قرار دهید:
-                </p>
-                <pre style="direction:ltr; text-align:left; background:#1e293b; color:#f8fafc; padding:10px; border-radius:8px; font-size:0.78rem; font-family:monospace; margin-bottom:10px; overflow-x:auto;">{
-  "apiKey": "AIzaSyYOUR_GEMINI_API_KEY",
-  "baseUrl": "https://my-proxy.workers.dev",
-  "model": "gemini-3.6-flash"
-}</pre>
-                <div style="background:#fef3c7; border:1px solid #fde68a; border-radius:8px; padding:10px; color:#92400e; font-size:0.78rem; margin-bottom:10px;">
-                    ⚠️ <b>نکته مهم امنیتی و تحریم:</b><br>
-                    ۱. اگر ریپازیتوری شما عمومی (Public) باشد، گوگل بلافاصله کلید API را باطل می‌کند؛ بنابراین ریپازیتوری را <b>Private</b> بسازید یا از <b>Secret Gist</b> استفاده کنید.<br>
-                    ۲. برای دور زدن تحریم گوگل، فیلد <code>baseUrl</code> را برابر با آدرس سرور واسط (مثلاً Cloudflare Worker) قرار دهید تا درخواست بدون فیلتر و تحریم عبور کند.
-                </div>
-                <p style="margin-bottom:8px;">
-                    <b>گام سوم:</b> دکمه <b>Raw</b> را در گیت‌هاب بزنید و لینک آدرس Raw را کپی کرده و در فیلد مربوطه قرار دهید.
-                </p>
-            </div>
-
-            <button class="btn btn-primary" style="margin-top:12px;" onclick="closeGitHubHelpModal()">متوجه شدم</button>
-        </div>
-    </div>
-
-    <!-- دیالوگ تنظیمات -->
+    <!-- پنجره تنظیمات ساده و مستقیم -->
     <div id="settingsModal" class="modal">
         <div class="modal-body">
-            <h2 style="font-size: 1.05rem; margin-bottom: 12px;">تنظیمات دستیار و شبکه</h2>
-            <!-- بخش خواندن خودکار از گیت‌هاب -->
-            <div style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); border: 1.5px solid #93c5fd; border-radius: 14px; padding: 14px; margin-bottom: 16px;">
-                <div style="display:flex; align-items:center; gap:8px; margin-bottom: 6px;">
-                    <span style="font-size: 1.3rem;">🐙</span>
-                    <div>
-                        <h3 style="font-size: 0.92rem; font-weight:700; color: #1e3a8a;">خواندن خودکار API و آدرس سرور از گیت‌هاب</h3>
-                        <span style="font-size: 0.72rem; color: #475569;">عدم نیاز به وارد کردن مستقیم کلید و به‌روزرسانی متمرکز</span>
-                    </div>
-                </div>
-
-                <label style="font-size: 0.78rem; font-weight: 700; color: #334155; display:block; margin-top:8px;">آدرس فایل کانفیگ در گیت‌هاب (Raw URL یا GitHub Gist):</label>
-                <input type="text" id="githubConfigUrlInput" placeholder="https://raw.githubusercontent.com/username/repo/main/config.json">
-
-                <label style="font-size: 0.78rem; font-weight: 700; color: #334155; display:block; margin-top:8px;">توکن گیت‌هاب (اختیاری - فقط برای مخازن Private):</label>
-                <input type="password" id="githubTokenInput" placeholder="ghp_... (تنها در صورت خصوصی بودن مخزن لازم است)">
-
-                <div style="display:flex; gap:8px; margin-top:10px;">
-                    <button class="btn btn-primary btn-sm" style="flex:1.2;" onclick="syncFromGitHub(true)">🔄 دریافت و همگام‌سازی از گیت‌هاب</button>
-                    <button class="btn btn-outline btn-sm" style="flex:1;" onclick="showGitHubHelpModal()">❓ راهنمای ساخت فایل</button>
-                </div>
-                <div id="githubSyncStatus" style="font-size:0.75rem; margin-top:8px; font-weight:600; min-height:18px;"></div>
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:12px; margin-bottom:14px;">
+                <h3 style="font-size:1.05rem; font-weight:800; color:var(--text-main);">تنظیمات اتصال به هوش مصنوعی گوگل</h3>
+                <button class="icon-btn" style="background:#f1f5f9; color:#64748b; width:32px; height:32px;" onclick="closeSettings()">✕</button>
             </div>
 
-            
-            <label style="font-size: 0.85rem; font-weight: 600;">کلید Gemini API (Google AI Studio):</label>
-            <input type="text" id="apiKeyInput" placeholder="AIzaSy...">
+            <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:12px; margin-bottom:14px;">
+                <div style="font-size:0.84rem; font-weight:700; color:#1e40af; margin-bottom:4px;">📌 اتصال با VPN فعال است</div>
+                <div style="font-size:0.78rem; color:#3b82f6; line-height:1.6;">
+                    تنها کافیست کلید رسمی Gemini API خود را وارد کنید. نیازی به تنظیمات گیت‌هاب، کلادفلر یا موارد پیچیده دیگر نیست.
+                </div>
+            </div>
 
-            <label style="font-size: 0.85rem; font-weight: 600; display:block; margin-top: 10px;">مدل هوش مصنوعی جمینای (Gemini Model):</label>
-            <p style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">مدل پیشنهادی گوگل و پیش‌فرض برنامه: gemini-3.6-flash</p>
-            <select id="modelSelect" style="width:100%; padding:10px; border-radius:10px; border:1px solid #cbd5e1; margin-top:4px; font-size:0.9rem;">
-                <option value="gemini-3.6-flash" selected>gemini-3.6-flash (جدیدترین مدل گوگل - توصیه شده)</option>
-                <option value="gemini-2.5-flash">gemini-2.5-flash</option>
-                <option value="gemini-1.5-flash">gemini-1.5-flash (قدیمی)</option>
-                <option value="custom">مدل دلخواه...</option>
+            <label style="font-size:0.84rem; font-weight:700; color:var(--text-main);">کلید Gemini API (Google AI Studio):</label>
+            <input type="text" id="apiKeyInput" placeholder="AIzaSy..." style="margin-top:6px;">
+
+            <label style="font-size:0.84rem; font-weight:700; color:var(--text-main); display:block; margin-top:14px;">مدل هوش مصنوعی (Model):</label>
+            <select id="modelSelect" style="margin-top:6px;">
+                <option value="gemini-2.5-flash" selected>gemini-2.5-flash (پایدارترین و سریع‌ترین)</option>
+                <option value="gemini-1.5-flash">gemini-1.5-flash (سبک)</option>
+                <option value="gemini-3.6-flash">gemini-3.6-flash (جدیدترین)</option>
+                <option value="gemini-2.5-pro">gemini-2.5-pro (استدلال عمیق)</option>
             </select>
-            <input type="text" id="customModelInput" placeholder="نام مدل دلخواه را وارد کنید..." style="display:none; margin-top:6px;">
 
-            <label style="font-size: 0.85rem; font-weight: 600; display:block; margin-top: 10px;">آدرس سرور واسط (Reverse Proxy / Cloudflare Worker):</label>
-            <p style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">جهت دور زدن تحریم و محدودیت مکانی با دامنه‌های غیرگوگل:</p>
-            <input type="text" id="baseUrlInput" placeholder="https://my-proxy.workers.dev (اختیاری)">
-
-            <div style="display: flex; gap: 8px; margin-top: 16px;">
+            <div style="display:flex; gap:10px; margin-top:20px;">
                 <button class="btn btn-primary" onclick="saveSettings()">ذخیره تنظیمات</button>
-                <button class="btn btn-outline" onclick="closeSettings()">بستن</button>
+                <button class="btn btn-outline" onclick="closeSettings()">انصراف</button>
             </div>
         </div>
     </div>
 
-    <!-- ناوبری پایین صفحه با آیکون‌های مدرن SVG -->
+    <!-- ناوبری پایین صفحه با آیکون‌های SVG مدرن -->
     <div class="bottom-nav">
         <div class="nav-item active" onclick="switchTab('chat', this)">
-            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-            <div>گفتگو و صوت</div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>گفتگو</span>
         </div>
         <div class="nav-item" onclick="switchTab('ai', this)">
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <div>تولید محتوا</div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>تولید محتوا</span>
         </div>
         <div class="nav-item" onclick="switchTab('tasks', this)">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            <div>یادآورها</div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>یادآورها</span>
         </div>
         <div class="nav-item" onclick="switchTab('messages', this)">
-            <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-            <div>شبکه‌ها</div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span>شبکه‌ها</span>
         </div>
     </div>
 
     <script>
-        // PWA Service Worker با کش نسخه ۳۹
-        if ('serviceWorker' in navigator) {
-            const swCode = `
-                const CACHE_NAME = 'smart-assistant-v44';
-                self.addEventListener('install', e => {
-                    self.skipWaiting();
-                });
-                self.addEventListener('activate', e => {
-                    e.waitUntil(
-                        caches.keys().then(keys => Promise.all(
-                            keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
-                        )).then(() => self.clients.claim())
-                    );
-                });
-                self.addEventListener('fetch', e => {
-                    e.respondWith(
-                        fetch(e.request).catch(() => caches.match(e.request))
-                    );
-                });
-            `;
-            const blob = new Blob([swCode], { type: 'application/javascript' });
-            navigator.serviceWorker.register(URL.createObjectURL(blob)).then(reg => {
-                console.log('ServiceWorker v41 registered successfully');
-            }).catch(console.error);
-        }
-
-        let isAuto = localStorage.getItem('isAuto') !== 'false';
         let currentType = 'article';
         let tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
         let ttsEnabled = localStorage.getItem('ttsEnabled') === 'true';
         let recognition = null;
         let isRecording = false;
 
-        // خوانش صوتی (Text to Speech)
+        // تنظیمات صوتی TTS
         function toggleTts() {
             ttsEnabled = !ttsEnabled;
             localStorage.setItem('ttsEnabled', ttsEnabled);
-            updateTtsIcon();
-            alert(ttsEnabled ? 'خوانش صوتی پاسخ‌ها فعال شد 🔊' : 'خوانش صوتی پاسخ‌ها غیرفعال شد 🔇');
+            document.getElementById('ttsToggleBtn').style.background = ttsEnabled ? 'rgba(16, 185, 129, 0.4)' : 'rgba(255, 255, 255, 0.12)';
+            alert(ttsEnabled ? 'خوانش صوتی پاسخ‌ها فعال شد 🔊' : 'خوانش صوتی غیرفعال شد 🔇');
         }
-
-        function updateTtsIcon() {
-            const btn = document.getElementById('ttsToggleBtn');
-            btn.style.background = ttsEnabled ? 'rgba(34, 197, 94, 0.4)' : 'rgba(255, 255, 255, 0.12)';
-        }
-        updateTtsIcon();
+        if (ttsEnabled) document.getElementById('ttsToggleBtn').style.background = 'rgba(16, 185, 129, 0.4)';
 
         function speakText(text) {
             if (!ttsEnabled || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
             const cleanText = text.replace(/[#*`_\-]/g, '');
-            const utterance = new SpeechSynthesisUtterance(cleanText);
-            utterance.lang = 'fa-IR';
-            utterance.rate = 1.0;
-            window.speechSynthesis.speak(utterance);
+            const u = new SpeechSynthesisUtterance(cleanText);
+            u.lang = 'fa-IR';
+            window.speechSynthesis.speak(u);
         }
 
-        // دستیار صوتی (Speech Recognition)
+        // ورودی صوتی میکروفون
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
             recognition = new SpeechRec();
             recognition.lang = 'fa-IR';
-            recognition.continuous = false;
-            recognition.interimResults = false;
-
-            recognition.onstart = () => {
-                isRecording = true;
-                document.getElementById('micBtn').classList.add('recording');
-            };
-
-            recognition.onresult = (event) => {
-                const speechResult = event.results[0][0].transcript;
-                document.getElementById('chatInput').value = speechResult;
+            recognition.onstart = () => { isRecording = true; document.getElementById('micBtn').classList.add('recording'); };
+            recognition.onresult = (e) => {
+                document.getElementById('chatInput').value = e.results[0][0].transcript;
                 sendChatMessage();
             };
-
-            recognition.onend = () => {
-                isRecording = false;
-                document.getElementById('micBtn').classList.remove('recording');
-            };
-
-            recognition.onerror = (e) => {
-                isRecording = false;
-                document.getElementById('micBtn').classList.remove('recording');
-                console.error(e);
-            };
+            recognition.onend = () => { isRecording = false; document.getElementById('micBtn').classList.remove('recording'); };
         }
 
         function toggleVoiceRecording() {
-            if (!recognition) {
-                alert('مرورگر شما از ورودی صوتی پشتیبانی نمی‌کند یا دسترسی میکروفون داده نشده است.');
-                return;
-            }
-            if (isRecording) {
-                recognition.stop();
-            } else {
-                recognition.start();
-            }
+            if (!recognition) { alert('مرورگر شما از ورودی صوتی پشتیبانی نمی‌کند.'); return; }
+            if (isRecording) recognition.stop(); else recognition.start();
         }
 
-        // گفتگو و افزودن هوشمند کارهای روزانه
+        // تابع استاندارد و مستقیم ارتباط با گوگل Gemini
+        async function callGeminiApiDirect(promptText, systemPrompt = '', maxTokens = 4096) {
+            const key = localStorage.getItem('geminiApiKey');
+            if (!key) {
+                alert('لطفاً ابتدا از آیکون ⚙️ چرخ‌دنده، کلید Gemini API خود را وارد کنید.');
+                openSettings();
+                throw new Error('NO_API_KEY');
+            }
+
+            const model = localStorage.getItem('geminiModel') || 'gemini-2.5-flash';
+            const cleanKey = key.trim();
+
+            const contents = [];
+            if (systemPrompt) {
+                contents.push({ role: 'user', parts: [{ text: `${systemPrompt}\n\n${promptText}` }] });
+            } else {
+                contents.push({ parts: [{ text: promptText }] });
+            }
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${cleanKey}`;
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-goog-api-key': cleanKey
+                },
+                body: JSON.stringify({
+                    contents: contents,
+                    generationConfig: { maxOutputTokens: maxTokens, temperature: 0.4 }
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                const err = (data.error && data.error.message) ? data.error.message : JSON.stringify(data);
+                throw new Error(err);
+            }
+
+            if (data.candidates && data.candidates[0].content && data.candidates[0].content.parts) {
+                return data.candidates[0].content.parts[0].text;
+            }
+            throw new Error('پاسخ خالی از سرور دریافت شد.');
+        }
+
+        // ارسال پیام در چت
         async function sendChatMessage() {
             const input = document.getElementById('chatInput');
             const text = input.value.trim();
             if (!text) return;
 
-            lastFailedChatMessage = text;
-            addMessageToChat(text, 'user');
+            addMsg(text, 'user');
             input.value = '';
 
-            const key = localStorage.getItem('geminiApiKey');
-            if (!key) {
-                addMessageToChat('لطفاً ابتدا از آیکون ⚙️ چرخ‌دنده، کلید Gemini API خود را وارد کنید.', 'ai');
-                openSettings();
-                return;
-            }
-
-            // تشخیص هوشمند ثبت تسک در گفتگو
-            const reminderMatch = text.match(/(یادآوری|یادآور|تسک|کار|جلسه|قرار)\s*(کن|بگذار|ثبت کن|بذار)?\s*(.+)/);
-            if (reminderMatch && (text.includes('یادآور') || text.includes('تسک') || text.includes('جلسه') || text.includes('ساعت'))) {
-                const taskName = text;
-                scheduleTaskDirect(taskName, 15);
-                const reply = `✅ یادآور شما برای «${taskName}» با موفقیت در بخش یادآورها ثبت و زمان‌بندی شد.`;
-                addMessageToChat(reply, 'ai');
+            // تشخیص یادآور
+            if (text.includes('یادآور') || text.includes('یادآوری')) {
+                scheduleTask(text, 15);
+                const reply = `✅ یادآور شما برای «${text}» با موفقیت برای ۱۵ دقیقه دیگر ثبت شد.`;
+                addMsg(reply, 'ai');
                 speakText(reply);
                 return;
             }
 
-            // ارسال پیام به Gemini با مدل gemini-3.6-flash و سیستم خودکار بازیابی ترافیک بالا
-            const systemPrompt = `شما دستیار شخصی و مهندسی آقای سید علی میرمصطفائی (متخصص فیبر نوری، هوشمندسازی ساختمان BMS/IBMS و نیروگاه‌های خورشیدی) هستید. لحن شما حرفه‌ای، محترمانه، دقیق و صمیمی باشد. پاسخ‌های کوتاه، کاربردی و روان به زبان فارسی بدهید.`;
-
+            const sys = `شما دستیار مهندسی آقای سید علی میرمصطفائی (متخصص فیبر نوری، BMS و نیروگاه خورشیدی) هستید. پاسخ‌های دقیق، علمی، محترمانه و به زبان فارسی بدهید.`;
             try {
-                const aiReply = await callGeminiApi(`کاربر: ${text}`, systemPrompt, 2048, 0.5);
-                addMessageToChat(aiReply, 'ai');
-                speakText(aiReply);
+                const reply = await callGeminiApiDirect(`کاربر: ${text}`, sys, 2048);
+                addMsg(reply, 'ai');
+                speakText(reply);
             } catch (e) {
                 if (e.message !== 'NO_API_KEY') {
-                    const errStr = e.message;
-                    logSystemError(errStr);
-                    const container = document.getElementById('chatMessages');
-                    const errDiv = document.createElement('div');
-                    errDiv.className = 'msg msg-ai';
-                    errDiv.style.background = '#fef2f2';
-                    errDiv.style.border = '1px solid #fecaca';
-                    errDiv.style.color = '#991b1b';
-                    errDiv.innerHTML = `
-                        <div style="font-weight:bold; margin-bottom:4px;">⚠️ خطای ارتباط با سرور:</div>
-                        <div style="font-size:0.82rem; line-height:1.6; margin-bottom:8px;">${errStr}</div>
-                        <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                            <button class="btn btn-sm btn-primary" style="padding:4px 10px; font-size:0.78rem;" onclick="retryChatMessage()">🔄 تلاش مجدد</button>
-                            <button class="btn btn-sm btn-outline" style="padding:4px 10px; font-size:0.78rem; color:#b91c1c; border-color:#fca5a5;" onclick="openFeedbackModal('${encodeURIComponent(errStr)}')">💬 ارسال فیدبک</button>
-                        </div>
-                    `;
-                    container.appendChild(errDiv);
-                    container.scrollTop = container.scrollHeight;
+                    addMsg(`❌ خطا در اتصال: ${e.message}\n(لطفاً از روشن بودن VPN خود اطمینان حاصل فرمایید)`, 'ai');
                 }
             }
         }
 
-        async function retryChatMessage() {
-            if (lastFailedChatMessage) {
-                document.getElementById('chatInput').value = lastFailedChatMessage;
-                sendChatMessage();
-            }
-        }
-        function addMessageToChat(text, sender) {
-            const container = document.getElementById('chatMessages');
-            const div = document.createElement('div');
-            div.className = `msg msg-${sender}`;
-            div.innerText = text;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
+        function addMsg(txt, sender) {
+            const c = document.getElementById('chatMessages');
+            const d = document.createElement('div');
+            d.className = `msg msg-${sender}`;
+            d.innerText = txt;
+            c.appendChild(d);
+            c.scrollTop = c.scrollHeight;
         }
 
-        function updateStatusUI() {
-            const b = document.getElementById('statusBadge');
-            const btn = document.getElementById('toggleBtn');
-            if (isAuto) {
-                b.className = 'status-badge status-active';
-                b.innerText = '● وضعیت: تولید خودکار روزانه فعال است';
-                btn.className = 'btn btn-danger';
-                btn.innerText = '🛑 لغو و توقف تولید خودکار (Cancel)';
-            } else {
-                b.className = 'status-badge status-inactive';
-                b.innerText = '○ وضعیت: تولید خودکار متوقف شده است';
-                btn.className = 'btn btn-primary';
-                btn.innerText = '▶️ فعال‌سازی مجدد تولید خودکار';
-            }
-        }
-
-        function toggleAutoMode() {
-            isAuto = !isAuto;
-            localStorage.setItem('isAuto', isAuto);
-            updateStatusUI();
-        }
-
+        // تولید محتوا
         function selectType(t, el) {
             currentType = t;
-            document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('.type-chips .chip').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
         }
 
         const topics = [
-            "تحلیل سلسله‌مراتب هوشمندسازی ساختمان: معماری ۴ لایه استانداردهای IEC/ISO و مقایسه Home Automation، BMS و IBMS",
-            "تحلیل جامع پروتکل‌های باز هوشمندسازی ساختمان (BACnet, KNX, LoRaWAN, DALI) و انطباق با مباحث ۱۳ و ۱۹ مقررات ملی",
-            "طراحی شبکه فیبر نوری FTTH، محاسبات بودجه تلفات نوری (Link Budget) و جایگاه اسپلیترها در ساختمان‌های مدرن",
-            "انطباق چک‌لیست‌های نظارت مهندسان برق و مکانیک با مباحث ۱۳، ۱۵، ۱۹ و ۲۲ مقررات ملی ساختمان در سیستم‌های BMS",
-            "سیستم‌های مدیریت و پایش انرژی در نیروگاه‌های خورشیدی فتوولتائیک و الزامات نظارتی تحویل تجهیزات",
-            "طراحی سیستم‌های نظارت تصویری مداربسته مبتنی بر استاندارد IEC 62676 و مدیریت پهنای باند و ذخیره‌سازی"
+            "سلسله‌مراتب هوشمندسازی ساختمان: معماری ۴ لایه IEC و تفکیک مرزهای Home Automation، BMS و IBMS",
+            "طراحی شبکه فیبر نوری FTTH، محاسبات Link Budget و ساختار اسپلیترها بر اساس کتاب کیزر",
+            "انطباق چک‌لیست‌های نظارت مهندسان برق و مکانیک با مباحث ۱۳، ۱۵ و ۱۹ مقررات ملی ساختمان",
+            "سیستم‌های مدیریت و پایش انرژی در نیروگاه‌های خورشیدی فتوولتائیک و الزامات نظارتی تحویل تجهیزات"
         ];
-
-
-        
-        // سیستم ثبت خطا و لاگ عیب‌یابی
-        let lastCapturedError = 'هیچ خطایی ثبت نشده است.';
-        let lastFailedTopic = '';
-        let lastFailedType = '';
-        let lastFailedChatMessage = '';
-        let currentFeedbackCategory = 'server_error';
-
-        function logSystemError(err) {
-            const time = new Date().toLocaleTimeString('fa-IR');
-            lastCapturedError = `[${time}] ${err}`;
-            try {
-                let errLogs = JSON.parse(localStorage.getItem('systemErrorLogs') || '[]');
-                errLogs.unshift({ time: new Date().toISOString(), message: err });
-                if (errLogs.length > 20) errLogs.pop();
-                localStorage.setItem('systemErrorLogs', JSON.stringify(errLogs));
-            } catch(e) {}
-        }
-
-        window.onerror = function(msg, url, line) {
-            logSystemError(`خطای اسکریپت: ${msg} (سطر ${line})`);
-        };
-        window.onunhandledrejection = function(e) {
-            logSystemError(`خطای پرامیس: ${e.reason}`);
-        };
-
-        // باز و بسته کردن پنجره فیدبک
-        function openFeedbackModal(prefilledError = '') {
-            if (prefilledError) {
-                lastCapturedError = decodeURIComponent(prefilledError);
-            }
-            updateDiagnosticInfo();
-            const textEl = document.getElementById('feedbackText');
-            if (lastCapturedError && lastCapturedError !== 'هیچ خطایی ثبت نشده است.' && !textEl.value) {
-                textEl.value = `با خطای زیر مواجه شدم:\n${lastCapturedError}`;
-            }
-            document.getElementById('feedbackModal').classList.add('open');
-        }
-
-        function closeFeedbackModal() {
-            document.getElementById('feedbackModal').classList.remove('open');
-        }
-
-        function selectFeedbackType(type, el) {
-            currentFeedbackCategory = type;
-            el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
-            el.classList.add('selected');
-        }
-
-        function updateDiagnosticInfo() {
-            const diagEl = document.getElementById('diagnosticDetails');
-            if (!diagEl) return;
-            const model = localStorage.getItem('geminiModel') || 'gemini-3.6-flash';
-            const base = localStorage.getItem('customBaseUrl') || 'default-google-ai';
-            diagEl.innerText = `App Version: 41.0 (Build 2026.09.23)\nActive Model: ${model}\nProxy/Base: ${base}\nLast Error: ${lastCapturedError}\nUserAgent: ${navigator.userAgent}`;
-        }
-
-        function copyFullFeedbackReport() {
-            const text = document.getElementById('feedbackText').value.trim();
-            const model = localStorage.getItem('geminiModel') || 'gemini-3.6-flash';
-            const report = `📋 گزارش بازخورد و خطای برنامه دستیار هوشمند (نسخه ۴۱):\n` +
-                           `دسته‌بندی: ${currentFeedbackCategory}\n` +
-                           `شرح مشکل کاربر: ${text || 'بدون توضیح اضافی'}\n` +
-                           `مدل فعال: ${model}\n` +
-                           `آخرین خطای ثبت‌شده: ${lastCapturedError}\n` +
-                           `زمان: ${new Date().toLocaleString('fa-IR')}\n` +
-                           `مشخصات مرورگر: ${navigator.userAgent}`;
-
-            navigator.clipboard.writeText(report).then(() => {
-                alert('گزارش فیدبک با موفقیت در حافظه کپی شد! ✅\nمی‌توانید آن را مستقیماً برای برطرف‌سازی ارسال کنید.');
-                closeFeedbackModal();
-            }).catch(() => {
-                alert('خطا در کپی متن.');
-            });
-        }
-
-        function saveFeedbackLocally() {
-            const text = document.getElementById('feedbackText').value.trim();
-            if (!text) { alert('لطفاً شرح بازخورد را بنویسید.'); return; }
-            let list = JSON.parse(localStorage.getItem('userFeedbackList') || '[]');
-            list.unshift({
-                id: Date.now(),
-                category: currentFeedbackCategory,
-                text: text,
-                error: lastCapturedError,
-                time: new Date().toLocaleString('fa-IR')
-            });
-            localStorage.setItem('userFeedbackList', JSON.stringify(list));
-            alert('بازخورد شما در حافظه برنامه ذخیره شد ✅');
-            closeFeedbackModal();
-        }
-
-        function sendFeedbackEmail() {
-            const text = document.getElementById('feedbackText').value.trim();
-            const subject = encodeURIComponent('گزارش خطای دستیار هوشمند مهندسی');
-            const body = encodeURIComponent(`شرح مشکل:\n${text}\n\nآخرین خطا:\n${lastCapturedError}\n\nنسخه: ۴۱`);
-            window.open(`mailto:s.a.mirmostafaei@gmail.com?subject=${subject}&body=${body}`, '_blank');
-        }
-
-        // مدل‌های جایگزین برای مقابله با ترافیک بالا (High Demand)
-        const FALLBACK_MODELS = [
-            'gemini-3.6-flash',
-            'gemini-2.5-flash',
-            'gemini-1.5-flash',
-            'gemini-2.5-pro'
-        ];
-
-        // هسته ارتباط با API با مدیریت صف، ترافیک بالا و خطاهای مدل
-        async function callGeminiApi(promptText, systemPrompt = '', maxTokens = 4096, temperature = 0.4, statusCallback = null) {
-            const key = localStorage.getItem('geminiApiKey');
-            if (!key) {
-                alert('لطفاً ابتدا از آیکون ⚙️ چرخ‌دنده در بالای صفحه، کلید Gemini API خود را وارد کنید.');
-                openSettings();
-                throw new Error('NO_API_KEY');
-            }
-
-            const customBase = localStorage.getItem('customBaseUrl') || 'https://generativelanguage.googleapis.com';
-            const baseHost = customBase.replace(/\/$/, '');
-            let initialModel = localStorage.getItem('geminiModel') || 'gemini-3.6-flash';
-
-            // ترتیب بررسی مدل‌ها: اول مدل انتخابی، سپس سایر مدل‌های لیست جایگزین
-            const modelsToTry = [initialModel, ...FALLBACK_MODELS.filter(m => m !== initialModel)];
-
-            let lastErr = null;
-
-            for (let i = 0; i < modelsToTry.length; i++) {
-                const currentModel = modelsToTry[i];
-                if (i > 0 && statusCallback) {
-                    statusCallback(`ترافیک بالا در مدل قبلی؛ در حال سوئیچ و تلاش با مدل پشتیبان (${currentModel})...`);
-                }
-
-                try {
-                    const cleanKey = key.trim();
-                    const contents = [];
-                    if (systemPrompt) {
-                        contents.push({ role: 'user', parts: [{ text: `${systemPrompt}\n\n${promptText}` }] });
-                    } else {
-                        contents.push({ parts: [{ text: promptText }] });
-                    }
-                    const reqPayload = JSON.stringify({
-                        contents: contents,
-                        generationConfig: { maxOutputTokens: maxTokens, temperature: temperature }
-                    });
-
-                    // روش‌های مختلف ارسال کلید برای سازگاری با کلیدهای جدید AQ و استانداردهای گوگل
-                    let response, json, rawStr;
-
-                    // تلاش ۱: ارسال از طریق هدر رسمی x-goog-api-key بدون پارامتر URL
-                    try {
-                        const url1 = `${baseHost}/v1beta/models/${currentModel}:generateContent`;
-                        response = await fetch(url1, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'x-goog-api-key': cleanKey
-                            },
-                            body: reqPayload
-                        });
-                        json = await response.json();
-                        rawStr = JSON.stringify(json);
-                    } catch(e1) {
-                        rawStr = e1.message;
-                    }
-
-                    // تلاش ۲: اگر خطای OAuth یا احراز هویت داد، ارسال همزمان در URL و هدر
-                    if (!response || !response.ok && (rawStr.includes('Expected OAuth') || rawStr.includes('UNAUTHENTICATED'))) {
-                        try {
-                            const url2 = `${baseHost}/v1beta/models/${currentModel}:generateContent?key=${encodeURIComponent(cleanKey)}`;
-                            response = await fetch(url2, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'x-goog-api-key': cleanKey
-                                },
-                                body: reqPayload
-                            });
-                            json = await response.json();
-                            rawStr = JSON.stringify(json);
-                        } catch(e2) {}
-                    }
-
-                    // تلاش ۳: هدر Authorization Bearer (برای حالتی که کلید به عنوان Auth Token پذیرفته می‌شود)
-                    if (!response || !response.ok && (rawStr.includes('Expected OAuth') || rawStr.includes('UNAUTHENTICATED'))) {
-                        try {
-                            const url3 = `${baseHost}/v1beta/models/${currentModel}:generateContent`;
-                            response = await fetch(url3, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': `Bearer ${cleanKey}`
-                                },
-                                body: reqPayload
-                            });
-                            json = await response.json();
-                            rawStr = JSON.stringify(json);
-                        } catch(e3) {}
-                    }
-
-                    // بررسی موفقیت
-                    if (response.ok && json.candidates && json.candidates[0].content && json.candidates[0].content.parts) {
-                        if (currentModel !== initialModel) {
-                            console.log(`Successfully recovered using fallback model: ${currentModel}`);
-                        }
-                        return json.candidates[0].content.parts[0].text;
-                    }
-
-                    // خطای ترافیک بالا (High Demand / 429 / 503)
-                    const isHighDemand = !response.ok && (
-                        response.status === 429 || 
-                        response.status === 503 || 
-                        rawStr.includes('high demand') || 
-                        rawStr.includes('Spikes in demand') || 
-                        rawStr.includes('RESOURCE_EXHAUSTED') ||
-                        rawStr.includes('Overloaded')
-                    );
-
-                    // خطای از رده خارج بودن مدل (No longer available)
-                    const isDeprecated = !response.ok && (
-                        rawStr.includes('no longer available') || 
-                        rawStr.includes('is not found')
-                    );
-
-                    let errMsg = (json.error && json.error.message) ? json.error.message : rawStr;
-                    lastErr = new Error(errMsg);
-
-                    if (isHighDemand || isDeprecated) {
-                        console.warn(`Model ${currentModel} returned ${isHighDemand ? 'high demand' : 'deprecated'}. Retrying with next model...`);
-                        // اگر هنوز مدل دیگری باقی مانده، کمی مکث و تلاش با مدل بعدی
-                        if (i < modelsToTry.length - 1) {
-                            await new Promise(r => setTimeout(r, 1200));
-                            continue;
-                        }
-                    }
-
-                    // خطای احراز هویت (کلید نامعتبر) نیازی به امتحان سایر مدل‌ها ندارد
-                    if (response.status === 400 && rawStr.includes('API_KEY_INVALID')) {
-                        throw new Error('کلید API وارد شده نامعتبر است. لطفاً از بخش تنظیمات کلید صحیح را وارد نمایید.');
-                    }
-
-                } catch (networkErr) {
-                    if (networkErr.message === 'NO_API_KEY') throw networkErr;
-                    lastErr = networkErr;
-                    console.warn(`Network/Fetch error with ${currentModel}:`, networkErr.message);
-                    if (i < modelsToTry.length - 1) {
-                        await new Promise(r => setTimeout(r, 1000));
-                        continue;
-                    }
-                }
-            }
-
-            logSystemError(lastErr ? lastErr.message : 'خطای نامشخص در ارتباط با سرور');
-            throw lastErr || new Error('پاسخی از سرور دریافت نشد.');
-        }
-
-
-        async function callGemini(topic, type) {
-            let instruction = "یک مقاله جامع و علمی مهندسی بنویسید شامل چکیده، مبانی فنی، استانداردهای بین‌المللی و تحلیل.";
-            if (type === 'notes') instruction = "یک جزوه درسی و آموزشی ساختاریافته بنویسید شامل سرفصل‌ها، نکات اجرایی و پرسش و پاسخ.";
-            if (type === 'booklet') instruction = "یک کتابچه و هندبوک جامع مهندسی چندبخشی تدوین کنید شامل فهرست، فصول فنی و چک‌لیست‌های نظارت.";
-            if (type === 'notebooklm') instruction = "یک سند پژوهشی غنی و ساختاریافته ویژه استفاده به عنوان منبع تحلیلی در NotebookLM تدوین کنید؛ شامل چکیده اجرایی، مفاهیم کلیدی، ارجاعات صریح به استانداردهای IEC/ISO و مقررات ملی، تحلیل تطبیقی عمیق، و پرسش‌ها و پاسخ‌های چالشی.";
-
-            const prompt = `${instruction}\n\nموضوع: ${topic}\n\nپاسخ را کاملاً تخصصی، ساختاریافته و با تیتربندی منظم فارسی بنویسید.`;
-            return await callGeminiApi(prompt, '', 8192, 0.4);
-        }
 
         async function generateImmediate() {
-            const randomTopic = topics[Math.floor(Math.random() * topics.length)];
-            const types = ['article', 'notes', 'booklet', 'notebooklm'];
-            const randomType = types[Math.floor(Math.random() * types.length)];
-            await executeGeneration(randomTopic, randomType);
+            const topic = topics[Math.floor(Math.random() * topics.length)];
+            await executeGeneration(topic, currentType);
         }
 
         async function generateManual() {
             const topic = document.getElementById('manualTopic').value.trim();
-            if (!topic) { alert('لطفاً موضوع را وارد کنید.'); return; }
+            if (!topic) { alert('لطفاً موضوع را وارد فرمایید.'); return; }
             await executeGeneration(topic, currentType);
         }
 
         async function executeGeneration(topic, type) {
-            lastFailedTopic = topic;
-            lastFailedType = type;
-            const typeLabels = {
-                article: 'مقاله علمی',
-                notes: 'جزوه آموزشی',
-                booklet: 'کتابچه تخصصی',
-                notebooklm: 'منبع پژوهشی نوت‌بوک‌ال‌ام (NotebookLM)'
-            };
-            const typeLabel = typeLabels[type] || 'محتوای تخصصی';
+            const typeLabels = { article: 'مقاله علمی', notes: 'جزوه درسی', booklet: 'کتابچه تخصصی', notebooklm: 'منبع NotebookLM' };
             document.getElementById('resultCard').style.display = 'block';
             document.getElementById('resultTitle').innerText = topic;
-            document.getElementById('resultMeta').innerText = `قالب: ${typeLabel} | در حال تدوین با هوش مصنوعی...`;
-            document.getElementById('resultText').innerText = 'لطفاً چند ثانیه صبر کنید؛ در حال برقراری ارتباط با مدل...';
+            document.getElementById('resultMeta').innerText = `قالب: ${typeLabels[type]} | در حال دریافت از هوش مصنوعی...`;
+            document.getElementById('resultText').innerText = 'لطفاً چند ثانیه شکیبا باشید؛ درخواست مستقیماً در حال ارسال به گوگل است...';
             document.getElementById('notebooklmResultAction').style.display = (type === 'notebooklm') ? 'block' : 'none';
 
+            let prompt = `یک ${typeLabels[type]} کامل و تخصصی فارسی درباره موضوع زیر تدوین کنید:\n${topic}`;
+            if (type === 'notebooklm') {
+                prompt = `یک سند تحلیلی چندبخشی غنی و ساختاریافته ویژه استفاده در NotebookLM درباره موضوع زیر بنویسید شامل چکیده، استانداردهای بین‌المللی مرجع و پرسش و پاسخ‌های عمیق:\n${topic}`;
+            }
+
             try {
-                const statusCb = (statusMsg) => {
-                    document.getElementById('resultMeta').innerText = `قالب: ${typeLabel} | ${statusMsg}`;
-                };
-                const text = await callGeminiApi(
-                    type === 'notebooklm'
-                        ? `یک سند پژوهشی غنی و ساختاریافته ویژه استفاده به عنوان منبع تحلیلی در NotebookLM تدوین کنید؛ شامل چکیده اجرایی، مفاهیم کلیدی، ارجاعات صریح به استانداردهای IEC/ISO و مقررات ملی، تحلیل تطبیقی عمیق، و پرسش‌ها و پاسخ‌های چالشی.\n\nموضوع: ${topic}`
-                        : `یک محتوای تخصصی به صورت ${typeLabel} درباره موضوع زیر بنویسید:\n\nموضوع: ${topic}`,
-                    '',
-                    8192,
-                    0.4,
-                    statusCb
-                );
+                const text = await callGeminiApiDirect(prompt, '', 8192);
+                document.getElementById('resultMeta').innerText = `قالب: ${typeLabels[type]} | زمان: ${new Date().toLocaleTimeString('fa-IR')}`;
+                document.getElementById('resultText').innerText = text;
+                saveHistoryItem(topic, typeLabels[type], text);
+            } catch(e) {
+                document.getElementById('resultText').innerText = `❌ خطا در برقراری ارتباط:\n${e.message}\n\nنکته: لطفاً از روشن بودن فیلترشکن (VPN) خود اطمینان حاصل نمایید.`;
+            }
+        }
 
-                if (text) {
-                    document.getElementById('resultMeta').innerText = `قالب: ${typeLabel} | زمان: ${new Date().toLocaleTimeString('fa-IR')}`;
-                    document.getElementById('resultText').innerText = text;
-                    saveGeneratedToHistory(topic, type, text);
-                }
-            } catch (e) {
-                const errText = e.message;
-                logSystemError(errText);
-                document.getElementById('resultMeta').innerText = `⚠️ خطا در اتصال | زمان: ${new Date().toLocaleTimeString('fa-IR')}`;
-                
-                const isDemand = errText.includes('high demand') || errText.includes('Spikes in demand');
-                const friendlyMsg = isDemand 
-                    ? 'ترافیک تقاضای جهانی روی این مدل لحظه‌ای افزایش یافته است (High Demand). سیستم به صورت خودکار مدل‌های دیگر را نیز تست می‌کند، اما می‌توانید مجدداً دکمه تلاش را بزنید یا فیدبک ارسال نمایید.'
-                    : errText;
+        function copyResultText() {
+            const t = document.getElementById('resultText').innerText;
+            navigator.clipboard.writeText(t).then(() => alert('متن در حافظه کپی شد ✅'));
+        }
 
-                document.getElementById('resultText').innerHTML = `
-                    <div style="background:#fef2f2; border:1.5px solid #fecaca; border-radius:12px; padding:14px; color:#991b1b;">
-                        <div style="display:flex; align-items:center; gap:8px; font-weight:bold; font-size:0.92rem; margin-bottom:6px; color:#b91c1c;">
-                            <span>⚠️</span>
-                            <span>خطای اتصال به سرور هوش مصنوعی</span>
-                        </div>
-                        <div style="font-size:0.82rem; line-height:1.7; margin-bottom:12px;">${friendlyMsg}</div>
-                        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                            <button class="btn btn-primary btn-sm" onclick="retryLastGeneration()">🔄 تلاش مجدد فوری</button>
-                            <button class="btn btn-outline btn-sm" style="color:#b91c1c; border-color:#fca5a5;" onclick="openFeedbackModal('${encodeURIComponent(errText)}')">💬 ارسال فیدبک و گزارش به هوش مصنوعی</button>
-                            <button class="btn btn-secondary btn-sm" onclick="openSettings()">⚙️ تغییر مدل یا آدرس سرور</button>
-                        </div>
+        // آرشیو و تاریخچه
+        const initialArchive = [
+            { title: "سلسله‌مراتب هوشمندسازی ساختمان: معماری ۴ لایه و مقایسه BMS و IBMS", type: "ارائه و اسلایدها", desc: "تحلیل لایه‌های فیلد، اتوماسیون، مدیریت محلی و اینترپرایز ابری بر اساس ISO/IEC 16484", link: "https://docs.google.com/presentation/d/1k4NE-YJumF_bZ7RZYfyjllY0x39Uq86wN77xdcbXJKU/edit" },
+            { title: "دفترچه NotebookLM: از اتوماسیون خانگی تا IBMS", type: "دفترچه NotebookLM", desc: "نوت‌بوک پردازش‌شده با دو منبع تحلیلی لایه‌بندی ۴ گانه", link: "https://gemini.google.com/notebook/c3f851b7-9fe0-46f3-83f3-81b1dac71538" },
+            { title: "راهنمای هوشمندسازی و انطباق با مباحث مقررات ملی (۱۳، ۱۵، ۱۹)", type: "سند فنی Google Docs", desc: "چک‌لیست ۴ مرحله‌ای مهندسان ناظر از بررسی نقشه تا آزمون عملکردی تحویل کارگاه", link: "https://docs.google.com/document/d/1ScWemQFXEU0e79SdTVTb1CYEfm6HGSpdtHsMD2mosHM/edit" },
+            { title: "جزوه دانشگاهی فیبر نوری بر اساس کتاب کیزر", type: "دفترچه NotebookLM", desc: "مبانی انتشار نور، تضعیف، بودجه تلفات لینک و زیرساخت FTTH", link: "https://gemini.google.com/notebook/ef8003c7-02fb-4305-9db4-07ae0e6dc96f" }
+        ];
+
+        function renderHistory() {
+            const el = document.getElementById('historyList');
+            const local = JSON.parse(localStorage.getItem('myGeneratedHistory') || '[]');
+            const all = [...local, ...initialArchive];
+            el.innerHTML = all.map(item => `
+                <div class="history-card">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                        <div class="history-title">${item.title}</div>
+                        <span style="font-size:0.7rem; background:#eff6ff; color:#1d4ed8; padding:2px 8px; border-radius:6px; font-weight:600;">${item.type}</span>
                     </div>
-                `;
-            }
+                    <div class="history-desc">${item.desc}</div>
+                    ${item.link ? `<a href="${item.link}" target="_blank" class="btn btn-outline btn-sm" style="text-decoration:none;">🔗 باز کردن منبع سند</a>` : ''}
+                </div>
+            `).join('');
         }
 
-        async function retryLastGeneration() {
-            if (lastFailedTopic && lastFailedType) {
-                await executeGeneration(lastFailedTopic, lastFailedType);
-            } else {
-                await generateImmediate();
-            }
-        }
-        function playAlarmSound() {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.5);
-                osc.stop(audioCtx.currentTime + 1.5);
-            } catch (e) {}
+        function saveHistoryItem(title, type, text) {
+            let local = JSON.parse(localStorage.getItem('myGeneratedHistory') || '[]');
+            local.unshift({ title, type, desc: text.substring(0, 150) + '...' });
+            if (local.length > 20) local.pop();
+            localStorage.setItem('myGeneratedHistory', JSON.stringify(local));
+            renderHistory();
         }
 
+        // یادآورها
         function addTask() {
             const title = document.getElementById('taskTitle').value.trim();
             const mins = parseInt(document.getElementById('taskMins').value) || 15;
             if (!title) return;
-            scheduleTaskDirect(title, mins);
-            alert(`یادآور برای ${mins} دقیقه دیگر زمان‌بندی شد.`);
+            scheduleTask(title, mins);
             document.getElementById('taskTitle').value = '';
+            alert(`یادآور برای ${mins} دقیقه دیگر ثبت شد.`);
         }
 
-        function scheduleTaskDirect(title, mins) {
-            if ('Notification' in window && Notification.permission !== 'granted') {
-                Notification.requestPermission();
-            }
-
-            const targetTime = Date.now() + mins * 60000;
-            const timeStr = new Date(targetTime).toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
-            
-            const task = { id: Date.now(), title, timeStr, targetTime };
-            tasks.push(task);
+        function scheduleTask(title, mins) {
+            const targetTime = Date.now() + (mins * 60000);
+            const timeStr = new Date(targetTime).toLocaleTimeString('fa-IR', {hour:'2-digit', minute:'2-digit'});
+            tasks.push({ title, timeStr });
             localStorage.setItem('tasks', JSON.stringify(tasks));
             renderTasks();
-
             setTimeout(() => {
-                playAlarmSound();
-                if ('Notification' in window && Notification.permission === 'granted') {
-                    new Notification('⏰ یادآور دستیار هوشمند', { body: title });
-                } else {
-                    alert('⏰ موعد کار فرا رسید: ' + title);
-                }
+                alert(`⏰ موعد کار فرا رسید: ${title}`);
             }, mins * 60000);
         }
 
         function renderTasks() {
             const el = document.getElementById('tasksList');
-            if (tasks.length === 0) { el.innerHTML = 'هیچ یادآوری ثبت نشده است.'; return; }
+            if (tasks.length === 0) { el.innerText = 'هیچ کاری ثبت نشده است.'; return; }
             el.innerHTML = tasks.map((t, i) => `
-                <div style="padding: 10px 0; border-bottom: 1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <b>${t.title}</b>
-                        <div style="font-size:0.75rem; color:#0288D1;">موعد: ${t.timeStr}</div>
-                    </div>
-                    <button style="color:#dc2626; background:none; border:none; cursor:pointer; font-weight:bold;" onclick="deleteTask(${i})">حذف</button>
+                <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #f1f5f9;">
+                    <span><b>${t.title}</b> (ساعت ${t.timeStr})</span>
+                    <button style="color:#ef4444; border:none; background:none; cursor:pointer;" onclick="deleteTask(${i})">حذف</button>
                 </div>
             `).join('');
         }
@@ -1354,454 +1018,34 @@
             renderTasks();
         }
 
-
-        // مدیریت خواندن تنظیمات از گیت‌هاب (GitHub Config Sync)
-        function showGitHubHelpModal() {
-            document.getElementById('githubHelpModal').classList.add('open');
-        }
-        function closeGitHubHelpModal() {
-            document.getElementById('githubHelpModal').classList.remove('open');
-        }
-
-        async function syncFromGitHub(isManual = false) {
-            const urlInput = document.getElementById('githubConfigUrlInput');
-            const tokenInput = document.getElementById('githubTokenInput');
-            const statusEl = document.getElementById('githubSyncStatus');
-
-            const url = (urlInput ? urlInput.value.trim() : '') || localStorage.getItem('githubConfigUrl');
-            const token = (tokenInput ? tokenInput.value.trim() : '') || localStorage.getItem('githubToken');
-
-            if (!url) {
-                if (isManual) alert('لطفاً ابتدا آدرس فایل خام در گیت‌هاب (GitHub Raw URL) را وارد فرمایید.');
-                return;
-            }
-
-            if (statusEl) {
-                statusEl.style.color = '#0284c7';
-                statusEl.innerText = '⏳ در حال دریافت تنظیمات از گیت‌هاب...';
-            }
-
-            try {
-                const headers = {};
-                if (token) {
-                    headers['Authorization'] = `token ${token}`;
-                    headers['Accept'] = 'application/vnd.github.v3.raw';
-                }
-
-                // جلوگیری از کش شدن با کوئری تایم‌استمپ
-                const fetchUrl = url + (url.includes('?') ? '&' : '?') + 't=' + Date.now();
-                const res = await fetch(fetchUrl, { headers });
-
-                if (!res.ok) {
-                    throw new Error(`خطای دریافت از گیت‌هاب (${res.status}): ${res.statusText}`);
-                }
-
-                const config = await res.json();
-
-                let updatedKeys = [];
-                if (config.apiKey) {
-                    localStorage.setItem('geminiApiKey', config.apiKey);
-                    if (document.getElementById('apiKeyInput')) document.getElementById('apiKeyInput').value = config.apiKey;
-                    updatedKeys.push('کلید API');
-                }
-                if (config.baseUrl) {
-                    localStorage.setItem('customBaseUrl', config.baseUrl);
-                    if (document.getElementById('baseUrlInput')) document.getElementById('baseUrlInput').value = config.baseUrl;
-                    updatedKeys.push('آدرس سرور واسط');
-                }
-                if (config.model) {
-                    localStorage.setItem('geminiModel', config.model);
-                    if (document.getElementById('modelSelect')) document.getElementById('modelSelect').value = config.model;
-                    updatedKeys.push('مدل: ' + config.model);
-                }
-
-                localStorage.setItem('githubConfigUrl', url);
-                if (token) localStorage.setItem('githubToken', token);
-
-                const msg = `✅ همگام‌سازی موفق با گیت‌هاب (${updatedKeys.join(' ، ')})`;
-                if (statusEl) {
-                    statusEl.style.color = '#16a34a';
-                    statusEl.innerText = msg;
-                }
-                if (isManual) {
-                    alert(msg + '\nتنظیمات به صورت خودکار در برنامه اعمال گردید.');
-                }
-            } catch (err) {
-                const errMsg = '❌ خطا در اتصال به گیت‌هاب: ' + err.message;
-                if (statusEl) {
-                    statusEl.style.color = '#dc2626';
-                    statusEl.innerText = errMsg;
-                }
-                if (isManual) {
-                    alert(errMsg + '\nلطفاً مطمئن شوید آدرس Raw فایل صحیح است و در صورت Private بودن، توکن گیت‌هاب را وارد کرده‌اید.');
-                }
-            }
-        }
-
+        // تنظیمات
         function openSettings() {
             document.getElementById('apiKeyInput').value = localStorage.getItem('geminiApiKey') || '';
-            document.getElementById('baseUrlInput').value = localStorage.getItem('customBaseUrl') || '';
-            if (document.getElementById('githubConfigUrlInput')) {
-                document.getElementById('githubConfigUrlInput').value = localStorage.getItem('githubConfigUrl') || '';
-            }
-            if (document.getElementById('githubTokenInput')) {
-                document.getElementById('githubTokenInput').value = localStorage.getItem('githubToken') || '';
-            }
-            
-            const savedModel = localStorage.getItem('geminiModel') || 'gemini-3.6-flash';
-            const selectEl = document.getElementById('modelSelect');
-            const customInput = document.getElementById('customModelInput');
-            
-            if (['gemini-3.6-flash', 'gemini-2.5-flash', 'gemini-1.5-flash'].includes(savedModel)) {
-                selectEl.value = savedModel;
-                customInput.style.display = 'none';
-            } else {
-                selectEl.value = 'custom';
-                customInput.value = savedModel;
-                customInput.style.display = 'block';
-            }
-
-            selectEl.onchange = () => {
-                customInput.style.display = (selectEl.value === 'custom') ? 'block' : 'none';
-            };
-
+            document.getElementById('modelSelect').value = localStorage.getItem('geminiModel') || 'gemini-2.5-flash';
             document.getElementById('settingsModal').classList.add('open');
         }
-
         function closeSettings() {
             document.getElementById('settingsModal').classList.remove('open');
         }
-
         function saveSettings() {
-            localStorage.setItem('geminiApiKey', document.getElementById('apiKeyInput').value.trim());
-            localStorage.setItem('customBaseUrl', document.getElementById('baseUrlInput').value.trim());
-            if (document.getElementById('githubConfigUrlInput')) {
-                localStorage.setItem('githubConfigUrl', document.getElementById('githubConfigUrlInput').value.trim());
-            }
-            if (document.getElementById('githubTokenInput')) {
-                localStorage.setItem('githubToken', document.getElementById('githubTokenInput').value.trim());
-            }
-            
-            const selectEl = document.getElementById('modelSelect');
-            let chosenModel = selectEl.value;
-            if (chosenModel === 'custom') {
-                chosenModel = document.getElementById('customModelInput').value.trim() || 'gemini-3.6-flash';
-            }
-            localStorage.setItem('geminiModel', chosenModel);
-
+            const key = document.getElementById('apiKeyInput').value.trim();
+            const model = document.getElementById('modelSelect').value;
+            localStorage.setItem('geminiApiKey', key);
+            localStorage.setItem('geminiModel', model);
             closeSettings();
-            alert(`تنظیمات ذخیره شد. مدل فعال: ${chosenModel} ✅`);
+            alert('تنظیمات با موفقیت ذخیره شد ✅');
         }
 
-        function switchTab(tabId, el) {
+        // سوئیچ تب‌ها
+        function switchTab(id, el) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            document.getElementById('tab-' + tabId).classList.add('active');
+            document.getElementById('tab-' + id).classList.add('active');
             el.classList.add('active');
         }
 
-
-        // مدیریت نسخه و کش
-        const APP_VERSION = '44.0';
-        function openAboutModal() {
-            document.getElementById('aboutModal').classList.add('open');
-        }
-        function closeAboutModal() {
-            document.getElementById('aboutModal').classList.remove('open');
-        }
-        async function forceUpdateApp() {
-            if ('caches' in window) {
-                const names = await caches.keys();
-                await Promise.all(names.map(name => caches.delete(name)));
-            }
-            if ('serviceWorker' in navigator) {
-                const regs = await navigator.serviceWorker.getRegistrations();
-                for (const reg of regs) {
-                    await reg.unregister();
-                }
-            }
-            localStorage.setItem('lastCacheBust', Date.now().toString());
-            window.location.reload(true);
-        }
-
-        // تاریخچه جامع محتواهای تولید شده با Gemini و NotebookLM
-        const staticHistoryItems = [
-            {
-                id: 'nb-1',
-                category: 'notebooklm',
-                badgeText: 'NotebookLM',
-                badgeClass: 'badge-notebook',
-                title: 'سلسله‌مراتب هوشمندسازی ساختمان: از اتوماسیون خانگی تا IBMS',
-                date: '۲۳ سپتامبر ۲۰۲۶',
-                desc: 'دفترچه تحلیلی جامع با ۲ منبع پردازش‌شده؛ کالبدشکافی معماری ۴ لایه مرجع استانداردهای بین‌المللی IEC/ISO و مقایسه تفکیکی Home Automation، BMS و IBMS ویژه مهندسان نظام مهندسی.',
-                link: 'https://gemini.google.com/notebook/c3f851b7-9fe0-46f3-83f3-81b1dac71538',
-                linkText: 'باز کردن دفترچه در Gemini Notebook',
-                content: `سلسله‌مراتب هوشمندسازی ساختمان: از اتوماسیون خانگی تا IBMS\n\nدفترچه هوشمند تحلیل معماری ۴ لایه مرجع IEC و تفاوت‌های Home Automation، BMS و IBMS.\n\nمنابع بارگذاری‌شده در این نوت‌بوک:\n۱. معماری ۴ لایه استانداردهای IEC/ISO (لایه‌های فیلد، اتوماسیون، مدیریت محلی و اینترپرایز ابری).\n۲. اسلایدهای ارائه استاندارد و ماتریس مقایسه فنی و حقوقی پروتکل‌های BACnet، KNX، Modbus، DALI و LoRaWAN.\n\nانطباق کامل با مباحث مقررات ملی:\n- مبحث ۱۳ (تاسیسات الکتریکی: تفکیک کابل‌های دیتا از قدرت)\n- مبحث ۱۵ (آسانسورها: ارتباط اضطراری و سناریوی Fire Recall)\n- مبحث ۱۹ (صرفه‌جویی انرژی: الزامات رده‌های EC و EC+)\n- مبحث ۲۲ (مراقبت و نگهداری پیش‌بینانه تاسیسات)`
-            },
-            {
-                id: 'gemini-slides-1',
-                category: 'gemini',
-                badgeText: 'اسلایدهای ارائه',
-                badgeClass: 'badge-slides',
-                title: 'ارائه رسمی: سلسله‌مراتب هوشمندسازی ساختمان (معماری ۴ لایه و مقایسه BMS و IBMS)',
-                date: '۲۳ سپتامبر ۲۰۲۶',
-                desc: 'مجموعه اسلایدهای استاندارد مهندسی تدوین شده با هوش مصنوعی شامل جداول مقایسه فنی، لایه‌بندی ۴ گانه، دیاگرام‌های فیلد و پروتکل‌ها جهت ارائه به مهندسان نظام مهندسی.',
-                link: 'https://docs.google.com/presentation/d/1k4NE-YJumF_bZ7RZYfyjllY0x39Uq86wN77xdcbXJKU/edit',
-                linkText: 'مشاهده اسلایدها در Google Slides',
-                content: `اسلایدهای ارائه: سلسله‌مراتب هوشمندسازی ساختمان\n\nسرفصل‌های اسلایدها:\n- اسلاید ۱: عنوان ارائه فنی و استانداردهای مرجع (ISO 16484, IEC 62676, IEC 62443)\n- اسلاید ۲: معماری ۴ لایه مرجع IEC/ISO\n- اسلاید ۳: کالبدشکافی لایه‌های ۱ و ۲ (Field & Automation: سنسورها، DDC، PLC)\n- اسلاید ۴: کالبدشکافی لایه‌های ۳ و ۴ (Management & Cloud: سرور SCADA و بروکر MQTT)\n- اسلاید ۵: ماتریس مقایسه جامع Home Automation vs BMS vs IBMS\n- اسلاید ۶: جدول انطباق سناریوها با مباحث ۱۳، ۱۵، ۱۹ و ۲۲ مقررات ملی ساختمان`
-            },
-            {
-                id: 'gemini-doc-1',
-                category: 'gemini',
-                badgeText: 'سند فنی (Google Docs)',
-                badgeClass: 'badge-doc',
-                title: 'راهنمای هوشمندسازی ساختمان و انطباق با مباحث مقررات ملی',
-                date: '۱۱ سپتامبر ۲۰۲۶',
-                desc: 'سند تفصیلی تدوین‌شده با جمینای شامل ۴ بخش جامع: معماری سیستم‌های مدیریت ساختمان، مقایسه پروتکل‌های باز، ماتریس انطباق با مباحث مقررات ملی و چک‌لیست ۴ مرحله‌ای مهندسان ناظر.',
-                link: 'https://docs.google.com/document/d/1ScWemQFXEU0e79SdTVTb1CYEfm6HGSpdtHsMD2mosHM/edit',
-                linkText: 'مشاهده سند در Google Docs',
-                content: `راهنمای هوشمندسازی ساختمان و انطباق با مباحث مقررات ملی\n\nویژه اعضای سازمان نظام مهندسی ساختمان | راهنمای فنی، محاسباتی و نظارتی مهندسان طراح و ناظر برق و مکانیک\n\nبخش‌های اصلی سند:\n۱. معماری سه‌لایه سامانه‌های BAS/BMS (Field, Automation, Management)\n۲. تحلیل پروتکل‌های BACnet، KNX، Modbus، DALI\n۳. انطباق با مباحث ۱۳، ۱۵، ۱۹ و ۲۲ مقررات ملی ساختمان\n۴. چک‌لیست ۴ مرحله‌ای نظارت: بررسی نقشه‌های مصوب، لوله‌گذاری و کابل‌کشی، نصب تجهیزات، و تست‌های سناریویی تحویل کارگاهی.`
-            },
-            {
-                id: 'gemini-doc-2',
-                category: 'gemini',
-                badgeText: 'متن ارائه (Google Docs)',
-                badgeClass: 'badge-doc',
-                title: 'اسلایدهای ارائه فنی هوشمندسازی ساختمان و مباحث مقررات ملی',
-                date: '۱۱ سپتامبر ۲۰۲۶',
-                desc: 'متن کامل و سناریوهای مدون اسلاید به اسلاید برای سمینارها و دوره‌های آموزشی نظام مهندسی شامل نکات حقوقی، جداول BTL و مشخصات فیزیکی پروتکل‌ها.',
-                link: 'https://docs.google.com/document/d/1-Xalyy1ZZ86ybMXLDKBYtJKddGjgotd28YRE8_Wjpw8/edit',
-                linkText: 'مشاهده سند در Google Docs',
-                content: `اسلایدهای ارائه فنی هوشمندسازی ساختمان\n\nویژه سمینار و دوره‌های آموزشی اعضای سازمان نظام مهندسی ساختمان (مهندسان طراح و ناظر برق و مکانیک)\n\nشامل ماتریس مقایسه فنی پروتکل‌ها:\n- BACnet (ISO 16484-5) برای HVAC و بک‌بون بیمارستانی و عمومی\n- KNX (ISO/IEC 14543) برای روشنایی، پرده برقی و فن‌کویل\n- Modbus برای قرائت دیتای چیلر، بویلر و کنتورها با مقاومت ۱۲۰ اهم\n- DALI (IEC 62386) برای کنترل آدرس‌پذیر نور تا ۶۴ آدرس`
-            },
-            {
-                id: 'nb-2',
-                category: 'notebooklm',
-                badgeText: 'NotebookLM',
-                badgeClass: 'badge-notebook',
-                title: 'جزوه تدریس دانشگاهی فیبر نوری بر اساس کتاب کیزر و مباحث ساختمانی',
-                date: '۱۱ سپتامبر ۲۰۲۶',
-                desc: 'دفترچه و جزوه درسی دانشگاهی مهارت‌محور تدوین‌شده برای یک ترم کامل تدریس؛ شامل اصول انتشار نور، انواع فیبر SMF/MMF، بودجه تلفات نوری و زیرساخت FTTH/GPON.',
-                link: 'https://gemini.google.com/notebook/ef8003c7-02fb-4305-9db4-07ae0e6dc96f',
-                linkText: 'باز کردن دفترچه در Gemini Notebook',
-                content: `جزوه دانشگاهی فیبر نوری در ساختمان (براساس کتاب کیزر)\n\nسرفصل‌های جزوه:\n- فصل ۱: مبانی هدایت امواج نوری و قوانین بازتاب کلی\n- فصل ۲: ساختار تارهای نوری Single-Mode و Multi-Mode\n- فصل ۳: تلفات نوری، تضعیف (Attenuation) و پاشندگی (Dispersion)\n- فصل ۴: محاسبات بودجه افت لینک (Link Power Budget) و حاشیه ایمنی\n- فصل ۵: تجهیزات شبکه GPON (OLT, Splitters, FAT/FDB Boxes, ONT)\n- فصل ۶: استانداردهای تست OTDR و پاورمتر در کابل‌کشی ساختمانی.`
-            },
-            {
-                id: 'nb-3',
-                category: 'notebooklm',
-                badgeText: 'NotebookLM',
-                badgeClass: 'badge-notebook',
-                title: 'Building Management Systems and National Regulation Compliance',
-                date: '۱۹ سپتامبر ۲۰۲۶',
-                desc: 'نوت‌بوک تخصصی به زبان انگلیسی و فارسی حاوی مراجع قانونی و الزامات استانداردهای بین‌المللی در سیستم‌های اتوماسیون ساختمان و نحوه همپوشانی آن‌ها با مقررات ملی.',
-                link: 'https://notebooklm.google.com/notebook/4b48d5e8-7674-4d47-80a1-8e47a1e45e07',
-                linkText: 'باز کردن در NotebookLM عمومی',
-                content: `Notebook: Building Management Systems and National Regulation Compliance\n\nContains cross-analysis of international standards (ISO 16484, IEC 62443, IEC 62676) with Iranian National Building Regulations (Topics 13, 15, 19, 22).\n\nKey focus areas: Cybersecurity in OT networks, DDC controller independence, fire-safety recall interlocking, and energy benchmarking under EC/EC+ ratings.`
-            },
-            {
-                id: 'gemini-pdf-1',
-                category: 'gemini',
-                badgeText: 'گزارش PDF',
-                badgeClass: 'badge-pdf',
-                title: 'گزارش راهبردی و پیشنهادهای ساماندهی صنعت هوشمندسازی ساختمان (BMS)',
-                date: '۸ ژوئن ۲۰۲۶',
-                desc: 'فایل رسمی و مدیریتی ارائه شده با قلم اصلاح‌شده B Nazanin شامل تحلیل چالش‌های اجرایی و حقوقی BMS و ارائه راهکارهای نظام‌بخشی صلاحیت مهندسی.',
-                link: 'https://drive.google.com/file/d/1PiAyLCxCsxG3a7Zl_kL4bU7j2NcjYsvG/view',
-                linkText: 'مشاهده PDF در Google Drive',
-                content: `گزارش راهبردی و پیشنهادهای ساماندهی صنعت هوشمندسازی (BMS)\n\nضرورت فنی و قانونی تعیین جایگاه BMS در مقررات ملی ساختمان:\n- استخراج دقیق جایگاه BMS در مباحث جاری (بند ۱۳-۹-۸-۳ مبحث ۱۳)\n- وظایف سامانه: مانیتورینگ متمرکز، مدیریت مصرف انرژی، ثبت و ذخیره‌سازی داده‌های بهره‌برداری\n- لایه اتوماسیون تجهیزات مکانیکی (چیلرها، بویلرها، پمپ‌ها)\n- راهکارهای پیشگیرانه جهت رفع آشفتگی‌های نظارتی و الزام اخذ گواهی صلاحیت مهندسان نظام مهندسی.`
-            },
-            {
-                id: 'nb-4',
-                category: 'notebooklm',
-                badgeText: 'NotebookLM',
-                badgeClass: 'badge-notebook',
-                title: 'شبکه‌های جریان ضعیف در ساختمان',
-                date: '۱۴ ژوئیه ۲۰۲۶',
-                desc: 'دفترچه مطالعاتی با ۶ منبع مستقل شامل بررسی زیرساخت‌های شبکه داده، تلفن تحت شبکه، نظارت تصویری، کنترل تردد و کابل‌کشی فیبر نوری مجتمع‌ها.',
-                link: 'https://gemini.google.com/notebook/4b88bb3e-140b-4623-8211-67823ea55c70',
-                linkText: 'باز کردن دفترچه در Gemini Notebook',
-                content: `شبکه‌های جریان ضعیف در ساختمان\n\nدفترچه جامع با ۶ منبع تحلیلی:\n- سیستم‌های نظارت تصویری تحت شبکه (CCTV) و استاندارد IEC 62676\n- طراحی دیتاسنتر و اتاق سرور ساختمانی (MDF/IDF Racks)\n- سیستم‌های پیجینگ و اینترکام هوشمند بر بستر شبکه IP\n- زیرساخت کابل‌کشی ساخت‌یافته (Structured Cabling - Cat6A/Fiber)`
-            },
-            {
-                id: 'nb-5',
-                category: 'notebooklm',
-                badgeText: 'NotebookLM',
-                badgeClass: 'badge-notebook',
-                title: 'Building Energy Management and Efficiency Regulations',
-                date: '۱۰ دسامبر ۲۰۲۵',
-                desc: 'دفترچه تحلیلی مقررات صرفه‌جویی انرژی در ساختمان‌ها؛ ممیزی انرژی، بهینه‌سازی بار حرارتی و برودتی موتورخانه‌ها و استراتژی‌های کاهش مصرف روشنایی.',
-                link: 'https://gemini.google.com/notebook/d46fa899-0625-446f-ab81-c5aeda306b64',
-                linkText: 'باز کردن دفترچه در Gemini Notebook',
-                content: `Building Energy Management and Efficiency Regulations\n\nComprehensive source collection on building energy audits, BEMS integration, HVAC dynamic scheduling, occupancy sensing, and national energy rating criteria.`
-            }
-        ];
-
-        let activeHistoryFilter = 'all';
-
-        function getFullHistory() {
-            const local = JSON.parse(localStorage.getItem('localContentHistory') || '[]');
-            return [...local, ...staticHistoryItems];
-        }
-
-        function filterHistory(cat, el) {
-            activeHistoryFilter = cat;
-            if (el) {
-                el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
-                el.classList.add('selected');
-            }
-            renderHistory();
-        }
-
-        function renderHistory() {
-            const container = document.getElementById('historyList');
-            if (!container) return;
-            const items = getFullHistory();
-            const filtered = activeHistoryFilter === 'all' 
-                ? items 
-                : items.filter(it => it.category === activeHistoryFilter);
-
-            document.getElementById('historyCountBadge').innerText = `${filtered.length} مورد نمایش داده شده`;
-
-            if (filtered.length === 0) {
-                container.innerHTML = '<div style="text-align:center; padding:20px; color:#94a3b8; font-size:0.85rem;">موردی در این دسته‌بندی یافت نشد.</div>';
-                return;
-            }
-
-            container.innerHTML = filtered.map(item => `
-                <div class="history-card">
-                    <div class="history-header">
-                        <div style="display:flex; align-items:center; gap:6px;">
-                            <span style="font-size:1.1rem;">${item.category === 'notebooklm' ? '📘' : (item.badgeText.includes('اسلاید') ? '📊' : (item.badgeText.includes('PDF') ? '📕' : '📄'))}</span>
-                            <div class="history-title">${item.title}</div>
-                        </div>
-                        <span class="history-badge ${item.badgeClass}">${item.badgeText}</span>
-                    </div>
-                    <div style="font-size:0.72rem; color:#64748b; margin-bottom:4px;">📅 تاریخ: ${item.date}</div>
-                    <div class="history-desc">${item.desc}</div>
-                    <div class="history-actions">
-                        ${item.link ? `<a href="${item.link}" target="_blank" class="btn btn-primary btn-sm" style="text-decoration:none;">🔗 ${item.linkText || 'باز کردن منبع'}</a>` : ''}
-                        <button class="btn btn-outline btn-sm" onclick="openPreview('${item.id}')">👁️ مشاهده متن کامل</button>
-                        <button class="btn btn-outline btn-sm" onclick="copyHistoryItem('${item.id}')">📋 کپی متن</button>
-                        ${item.isLocal ? `<button class="btn btn-outline btn-sm" style="color:#dc2626; border-color:#fca5a5;" onclick="deleteLocalHistory('${item.id}')">حذف</button>` : ''}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        let currentPreviewItem = null;
-        function openPreview(id) {
-            const items = getFullHistory();
-            const item = items.find(it => it.id === id);
-            if (!item) return;
-            currentPreviewItem = item;
-
-            document.getElementById('previewTitle').innerText = item.title;
-            document.getElementById('previewMeta').innerText = `دسته‌بندی: ${item.badgeText} | تاریخ: ${item.date}`;
-            document.getElementById('previewBody').innerText = item.content || item.desc;
-            
-            const linkBtn = document.getElementById('previewLinkBtn');
-            if (item.link) {
-                linkBtn.style.display = 'inline-flex';
-                linkBtn.onclick = () => window.open(item.link, '_blank');
-                linkBtn.innerText = '🔗 ' + (item.linkText || 'باز کردن منبع اصلی');
-            } else {
-                linkBtn.style.display = 'none';
-            }
-
-            document.getElementById('previewModal').classList.add('open');
-        }
-
-        function closePreviewModal() {
-            document.getElementById('previewModal').classList.remove('open');
-            currentPreviewItem = null;
-        }
-
-        function copyPreviewText() {
-            if (!currentPreviewItem) return;
-            const textToCopy = `${currentPreviewItem.title}\n\n${currentPreviewItem.content || currentPreviewItem.desc}`;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                alert('متن با موفقیت در کلیپ‌بورد کپی شد ✅');
-            }).catch(() => {
-                alert('خطا در کپی متن.');
-            });
-        }
-
-        function copyResultText() {
-            const title = document.getElementById('resultTitle').innerText;
-            const text = document.getElementById('resultText').innerText;
-            if (!text) return;
-            navigator.clipboard.writeText(`${title}\n\n${text}`).then(() => {
-                alert('متن تولید شده در حافظه کپی شد ✅');
-            }).catch(() => {
-                alert('خطا در کپی متن.');
-            });
-        }
-
-        function printPreview() {
-            if (!currentPreviewItem) return;
-            const w = window.open('', '_blank');
-            w.document.write(`<html dir="rtl"><head><title>${currentPreviewItem.title}</title><style>body{font-family:Tahoma,sans-serif; padding:20px; line-height:1.8;}</style></head><body><h2>${currentPreviewItem.title}</h2><p style="color:#666;">${currentPreviewItem.date}</p><hr><pre style="white-space:pre-wrap; font-family:inherit;">${currentPreviewItem.content || currentPreviewItem.desc}</pre></body></html>`);
-            w.document.close();
-            w.focus();
-            setTimeout(() => { w.print(); w.close(); }, 300);
-        }
-
-        function copyHistoryItem(id) {
-            const items = getFullHistory();
-            const item = items.find(it => it.id === id);
-            if (!item) return;
-            const textToCopy = `${item.title}\n\n${item.content || item.desc}\n\nمنبع: ${item.link || 'دستیار مهندسی'}`;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                alert('اطلاعات این بخش با موفقیت کپی شد ✅');
-            }).catch(() => {
-                alert('خطا در کپی.');
-            });
-        }
-
-        function deleteLocalHistory(id) {
-            if (!confirm('آیا مایل به حذف این مورد از تاریخچه هستید؟')) return;
-            let local = JSON.parse(localStorage.getItem('localContentHistory') || '[]');
-            local = local.filter(it => it.id !== id);
-            localStorage.setItem('localContentHistory', JSON.stringify(local));
-            renderHistory();
-        }
-
-        function saveGeneratedToHistory(topic, type, text) {
-            const typeLabels = {
-                article: 'مقاله علمی',
-                notes: 'جزوه درسی',
-                booklet: 'کتابچه تخصصی',
-                notebooklm: 'منبع نوت‌بوک‌ال‌ام'
-            };
-            const typeLabel = typeLabels[type] || 'محتوای تخصصی';
-            const badgeClass = type === 'notebooklm' ? 'badge-notebook' : 'badge-local';
-
-            const newItem = {
-                id: 'gen-' + Date.now(),
-                category: type === 'notebooklm' ? 'notebooklm' : 'local',
-                badgeText: typeLabel,
-                badgeClass: badgeClass,
-                title: topic,
-                date: new Date().toLocaleDateString('fa-IR') + ' ' + new Date().toLocaleTimeString('fa-IR', {hour:'2-digit', minute:'2-digit'}),
-                desc: text.substring(0, 160) + '...',
-                content: text,
-                isLocal: true
-            };
-
-            let local = JSON.parse(localStorage.getItem('localContentHistory') || '[]');
-            local.unshift(newItem);
-            if (local.length > 50) local.pop();
-            localStorage.setItem('localContentHistory', JSON.stringify(local));
-            renderHistory();
-        }
-
-        updateStatusUI();
         renderTasks();
         renderHistory();
-        // خواندن خودکار از گیت‌هاب در صورت وجود تنظیمات
-        if (localStorage.getItem('githubConfigUrl')) {
-            syncFromGitHub(false);
-        }
     </script>
 </body>
 </html>
