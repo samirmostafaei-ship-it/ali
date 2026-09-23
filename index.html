@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>دستیار هوشمند مهندسی (نسخه ۴۰ - Gemini 3.6)</title>
-    <meta name="app-version" content="40.0">
+    <title>دستیار هوشمند مهندسی (نسخه ۴۲ - اتصال خودکار به گیت‌هاب)</title>
+    <meta name="app-version" content="42.0">
     <meta name="cache-control" content="no-cache, no-store, must-revalidate">
     <meta name="theme-color" content="#1e40af">
     <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22%D8%AF%D8%B3%D8%AA%DB%8C%D8%A7%D8%B1%20%D9%87%D9%88%D8%B4%D9%85%D9%86%D8%AF%20%D9%85%D9%87%D9%86%D8%AF%D8%B3%DB%8C%22%2C%22short_name%22%3A%22%D8%AF%D8%B3%D8%AA%DB%8C%D8%A7%D8%B1%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F8F9FA%22%2C%22theme_color%22%3A%22%231e40af%22%7D">
@@ -200,17 +200,20 @@
                 <h1>دستیار هوشمند مهندسی</h1>
                 <div style="display: flex; align-items: center; gap: 6px; margin-top: 2px;">
                     <span class="version-badge" onclick="openAboutModal()" title="کلیک برای مشاهده مشخصات نسخه و بررسی لود فایل‌ها">
-                        <span>نسخه ۴۰</span>
-                        <span style="font-size:0.65rem;">● Gemini 3.6 Flash</span>
+                        <span>نسخه ۴۲</span>
+                        <span style="font-size:0.65rem;">● سیستم فیدبک فعال</span>
                     </span>
                 </div>
             </div>
         </div>
         <div class="header-actions">
+            <button class="icon-btn" onclick="openFeedbackModal()" title="ثبت بازخورد و گزارش خطا (Feedback)" style="background: rgba(239, 68, 68, 0.25); border: 1px solid rgba(239, 68, 68, 0.4);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            </button>
             <button id="ttsToggleBtn" class="icon-btn" onclick="toggleTts()" title="خوانش صوتی پاسخ‌ها">
                 <svg id="ttsIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
             </button>
-            <button class="icon-btn" onclick="openAboutModal()" title="درباره صفحه و وضعیت لود فایل‌ها (نسخه ۴۰)">
+            <button class="icon-btn" onclick="openAboutModal()" title="درباره صفحه و وضعیت لود فایل‌ها (نسخه ۴۲)">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
             </button>
             <button class="icon-btn" onclick="openSettings()" title="تنظیمات">
@@ -486,7 +489,7 @@
             <div style="background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border: 1.5px solid #86efac; border-radius: 14px; padding: 14px; margin-bottom: 14px;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <span style="font-size: 0.9rem; font-weight: 700; color: #166534;">ورژن در حال اجرا:</span>
-                    <span style="background: #16a34a; color: white; font-size: 0.85rem; font-weight: 700; padding: 3px 12px; border-radius: 20px; box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);">نسخه ۴۰ (Version 40.0 - Gemini 3.6 Flash)</span>
+                    <span style="background: #16a34a; color: white; font-size: 0.85rem; font-weight: 700; padding: 3px 12px; border-radius: 20px; box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);">نسخه ۴۲ (Version 42.0 - همگام‌سازی مستقیم با گیت‌هاب و دور زدن تحریم)</span>
                 </div>
                 <div style="font-size: 0.78rem; color: #15803d; margin-top: 6px; line-height: 1.6;">
                     ✅ فایل‌های جدید بارگذاری شده‌اند و نسخه قبلی (۳۸) با موفقیت به‌روزرسانی شد. تمام ماژول‌ها آماده خدمت‌رسانی هستند.
@@ -499,7 +502,7 @@
                 <div style="display:flex; flex-direction:column; gap:6px; font-size: 0.82rem;">
                     <div style="display:flex; justify-content:space-between; padding:8px 10px; background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
                         <span>فایل اصلی برنامه (index.html):</span>
-                        <span style="color:#16a34a; font-weight:700;">لود شد (Build 40) ✅</span>
+                        <span style="color:#16a34a; font-weight:700;">لود شد (Build 42) ✅</span>
                     </div>
                     <div style="display:flex; justify-content:space-between; padding:8px 10px; background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
                         <span>گزینه اختصاصی نوت‌بوک‌ال‌ام (NotebookLM):</span>
@@ -515,7 +518,7 @@
                     </div>
                     <div style="display:flex; justify-content:space-between; padding:8px 10px; background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
                         <span>سرویس‌ورکر PWA و کش هوشمند:</span>
-                        <span style="color:#16a34a; font-weight:700;">ثبت شد (cache-v40) ✅</span>
+                        <span style="color:#16a34a; font-weight:700;">ثبت شد (cache-v42) ✅</span>
                     </div>
                 </div>
             </div>
@@ -560,10 +563,125 @@
         </div>
     </div>
 
+
+    <!-- دیالوگ ثبت و ارسال فیدبک و گزارش خطا -->
+    <div id="feedbackModal" class="modal">
+        <div class="modal-body" style="max-width: 540px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid #e2e8f0; padding-bottom:10px; margin-bottom:14px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="font-size:1.4rem;">💬</div>
+                    <div>
+                        <h2 style="font-size: 1.05rem; color:#0f172a;">ثبت فیدبک و گزارش خطای برنامه</h2>
+                        <span style="font-size: 0.75rem; color: #64748b;">ارسال مستقیم مشکلات به هوش مصنوعی جهت رفع در نسخه بعد</span>
+                    </div>
+                </div>
+                <button class="icon-btn" style="background:#f1f5f9; color:#64748b; width:30px; height:30px; font-weight:bold;" onclick="closeFeedbackModal()">✕</button>
+            </div>
+
+            <!-- انتخاب نوع فیدبک -->
+            <label style="font-size: 0.82rem; font-weight: 700; color: #334155;">نوع مشکل یا بازخورد:</label>
+            <div class="type-chips" style="margin: 8px 0 12px 0;">
+                <div class="chip selected" onclick="selectFeedbackType('server_error', this)">⚠️ خطای سرور / ترافیک</div>
+                <div class="chip" onclick="selectFeedbackType('content_issue', this)">📄 تولید محتوا</div>
+                <div class="chip" onclick="selectFeedbackType('chat_voice', this)">🎙️ چت و صوت</div>
+                <div class="chip" onclick="selectFeedbackType('suggestion', this)">💡 پیشنهاد بهبود</div>
+            </div>
+
+            <!-- شرح بازخورد -->
+            <label style="font-size: 0.82rem; font-weight: 700; color: #334155;">شرح مشکل یا درخواست شما:</label>
+            <textarea id="feedbackText" rows="4" placeholder="توضیح دهید چه کاری انجام دادید و چه مشکلی پیش آمد..." style="resize:vertical;"></textarea>
+
+            <!-- اطلاعات فنی و لاگ خطا به صورت خودکار -->
+            <div style="margin-top: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                    <span style="font-size: 0.78rem; font-weight: 700; color: #475569;">اطلاعات تشخیصی و لاگ سیستم:</span>
+                    <span style="font-size: 0.7rem; color: #16a34a; font-weight: 600;">ضمیمه خودکار ✅</span>
+                </div>
+                <div id="diagnosticDetails" style="font-size: 0.72rem; color: #64748b; line-height: 1.6; font-family: monospace; direction: ltr; text-align: left; background: white; padding: 6px 8px; border-radius: 6px; border: 1px solid #cbd5e1; max-height: 90px; overflow-y: auto;"></div>
+            </div>
+
+            <!-- دکمه‌های اقدام -->
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top: 14px;">
+                <button class="btn btn-primary" onclick="copyFullFeedbackReport()">
+                    📋 کپی کامل گزارش فیدبک (جهت ارسال به هوش مصنوعی)
+                </button>
+                <div style="display:flex; gap:8px;">
+                    <button class="btn btn-outline" style="flex:1;" onclick="saveFeedbackLocally()">
+                        💾 ذخیره در تاریخچه فیدبک‌ها
+                    </button>
+                    <button class="btn btn-secondary" style="flex:1;" onclick="sendFeedbackEmail()">
+                        📧 ارسال با ایمیل
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- دیالوگ راهنمای ساخت فایل در گیت‌هاب -->
+    <div id="githubHelpModal" class="modal">
+        <div class="modal-body" style="max-width: 540px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid #e2e8f0; padding-bottom:10px; margin-bottom:12px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="font-size:1.3rem;">🐙</div>
+                    <h2 style="font-size: 1.05rem; color:#0f172a;">راهنمای ذخیره و خواندن از گیت‌هاب</h2>
+                </div>
+                <button class="icon-btn" style="background:#f1f5f9; color:#64748b; width:30px; height:30px; font-weight:bold;" onclick="closeGitHubHelpModal()">✕</button>
+            </div>
+
+            <div style="font-size:0.82rem; color:#334155; line-height:1.7;">
+                <p style="margin-bottom:8px;">
+                    <b>گام اول:</b> در گیت‌هاب خود یک فایل متنی با نام <code>config.json</code> (ترجیحاً در یک ریپازیتوری Private یا به صورت Secret Gist) بسازید.
+                </p>
+                <p style="margin-bottom:6px;">
+                    <b>گام دوم:</b> محتوای زیر را در آن قرار دهید:
+                </p>
+                <pre style="direction:ltr; text-align:left; background:#1e293b; color:#f8fafc; padding:10px; border-radius:8px; font-size:0.78rem; font-family:monospace; margin-bottom:10px; overflow-x:auto;">{
+  "apiKey": "AIzaSyYOUR_GEMINI_API_KEY",
+  "baseUrl": "https://my-proxy.workers.dev",
+  "model": "gemini-3.6-flash"
+}</pre>
+                <div style="background:#fef3c7; border:1px solid #fde68a; border-radius:8px; padding:10px; color:#92400e; font-size:0.78rem; margin-bottom:10px;">
+                    ⚠️ <b>نکته مهم امنیتی و تحریم:</b><br>
+                    ۱. اگر ریپازیتوری شما عمومی (Public) باشد، گوگل بلافاصله کلید API را باطل می‌کند؛ بنابراین ریپازیتوری را <b>Private</b> بسازید یا از <b>Secret Gist</b> استفاده کنید.<br>
+                    ۲. برای دور زدن تحریم گوگل، فیلد <code>baseUrl</code> را برابر با آدرس سرور واسط (مثلاً Cloudflare Worker) قرار دهید تا درخواست بدون فیلتر و تحریم عبور کند.
+                </div>
+                <p style="margin-bottom:8px;">
+                    <b>گام سوم:</b> دکمه <b>Raw</b> را در گیت‌هاب بزنید و لینک آدرس Raw را کپی کرده و در فیلد مربوطه قرار دهید.
+                </p>
+            </div>
+
+            <button class="btn btn-primary" style="margin-top:12px;" onclick="closeGitHubHelpModal()">متوجه شدم</button>
+        </div>
+    </div>
+
     <!-- دیالوگ تنظیمات -->
     <div id="settingsModal" class="modal">
         <div class="modal-body">
             <h2 style="font-size: 1.05rem; margin-bottom: 12px;">تنظیمات دستیار و شبکه</h2>
+            <!-- بخش خواندن خودکار از گیت‌هاب -->
+            <div style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); border: 1.5px solid #93c5fd; border-radius: 14px; padding: 14px; margin-bottom: 16px;">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom: 6px;">
+                    <span style="font-size: 1.3rem;">🐙</span>
+                    <div>
+                        <h3 style="font-size: 0.92rem; font-weight:700; color: #1e3a8a;">خواندن خودکار API و آدرس سرور از گیت‌هاب</h3>
+                        <span style="font-size: 0.72rem; color: #475569;">عدم نیاز به وارد کردن مستقیم کلید و به‌روزرسانی متمرکز</span>
+                    </div>
+                </div>
+
+                <label style="font-size: 0.78rem; font-weight: 700; color: #334155; display:block; margin-top:8px;">آدرس فایل کانفیگ در گیت‌هاب (Raw URL یا GitHub Gist):</label>
+                <input type="text" id="githubConfigUrlInput" placeholder="https://raw.githubusercontent.com/username/repo/main/config.json">
+
+                <label style="font-size: 0.78rem; font-weight: 700; color: #334155; display:block; margin-top:8px;">توکن گیت‌هاب (اختیاری - فقط برای مخازن Private):</label>
+                <input type="password" id="githubTokenInput" placeholder="ghp_... (تنها در صورت خصوصی بودن مخزن لازم است)">
+
+                <div style="display:flex; gap:8px; margin-top:10px;">
+                    <button class="btn btn-primary btn-sm" style="flex:1.2;" onclick="syncFromGitHub(true)">🔄 دریافت و همگام‌سازی از گیت‌هاب</button>
+                    <button class="btn btn-outline btn-sm" style="flex:1;" onclick="showGitHubHelpModal()">❓ راهنمای ساخت فایل</button>
+                </div>
+                <div id="githubSyncStatus" style="font-size:0.75rem; margin-top:8px; font-weight:600; min-height:18px;"></div>
+            </div>
+
             
             <label style="font-size: 0.85rem; font-weight: 600;">کلید Gemini API (Google AI Studio):</label>
             <input type="text" id="apiKeyInput" placeholder="AIzaSy...">
@@ -613,7 +731,7 @@
         // PWA Service Worker با کش نسخه ۳۹
         if ('serviceWorker' in navigator) {
             const swCode = `
-                const CACHE_NAME = 'smart-assistant-v40';
+                const CACHE_NAME = 'smart-assistant-v42';
                 self.addEventListener('install', e => {
                     self.skipWaiting();
                 });
@@ -632,7 +750,7 @@
             `;
             const blob = new Blob([swCode], { type: 'application/javascript' });
             navigator.serviceWorker.register(URL.createObjectURL(blob)).then(reg => {
-                console.log('ServiceWorker v40 registered successfully');
+                console.log('ServiceWorker v41 registered successfully');
             }).catch(console.error);
         }
 
@@ -716,6 +834,7 @@
             const text = input.value.trim();
             if (!text) return;
 
+            lastFailedChatMessage = text;
             addMessageToChat(text, 'user');
             input.value = '';
 
@@ -737,7 +856,7 @@
                 return;
             }
 
-            // ارسال پیام به Gemini با مدل gemini-3.6-flash
+            // ارسال پیام به Gemini با مدل gemini-3.6-flash و سیستم خودکار بازیابی ترافیک بالا
             const systemPrompt = `شما دستیار شخصی و مهندسی آقای سید علی میرمصطفائی (متخصص فیبر نوری، هوشمندسازی ساختمان BMS/IBMS و نیروگاه‌های خورشیدی) هستید. لحن شما حرفه‌ای، محترمانه، دقیق و صمیمی باشد. پاسخ‌های کوتاه، کاربردی و روان به زبان فارسی بدهید.`;
 
             try {
@@ -746,11 +865,34 @@
                 speakText(aiReply);
             } catch (e) {
                 if (e.message !== 'NO_API_KEY') {
-                    addMessageToChat('خطای اتصال به سرور: ' + e.message, 'ai');
+                    const errStr = e.message;
+                    logSystemError(errStr);
+                    const container = document.getElementById('chatMessages');
+                    const errDiv = document.createElement('div');
+                    errDiv.className = 'msg msg-ai';
+                    errDiv.style.background = '#fef2f2';
+                    errDiv.style.border = '1px solid #fecaca';
+                    errDiv.style.color = '#991b1b';
+                    errDiv.innerHTML = `
+                        <div style="font-weight:bold; margin-bottom:4px;">⚠️ خطای ارتباط با سرور:</div>
+                        <div style="font-size:0.82rem; line-height:1.6; margin-bottom:8px;">${errStr}</div>
+                        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                            <button class="btn btn-sm btn-primary" style="padding:4px 10px; font-size:0.78rem;" onclick="retryChatMessage()">🔄 تلاش مجدد</button>
+                            <button class="btn btn-sm btn-outline" style="padding:4px 10px; font-size:0.78rem; color:#b91c1c; border-color:#fca5a5;" onclick="openFeedbackModal('${encodeURIComponent(errStr)}')">💬 ارسال فیدبک</button>
+                        </div>
+                    `;
+                    container.appendChild(errDiv);
+                    container.scrollTop = container.scrollHeight;
                 }
             }
         }
 
+        async function retryChatMessage() {
+            if (lastFailedChatMessage) {
+                document.getElementById('chatInput').value = lastFailedChatMessage;
+                sendChatMessage();
+            }
+        }
         function addMessageToChat(text, sender) {
             const container = document.getElementById('chatMessages');
             const div = document.createElement('div');
@@ -798,8 +940,115 @@
         ];
 
 
-        // هسته ارتباط با API مدل جدید gemini-3.6-flash همراه با بازیابی خودکار
-        async function callGeminiApi(promptText, systemPrompt = '', maxTokens = 4096, temperature = 0.4) {
+        
+        // سیستم ثبت خطا و لاگ عیب‌یابی
+        let lastCapturedError = 'هیچ خطایی ثبت نشده است.';
+        let lastFailedTopic = '';
+        let lastFailedType = '';
+        let lastFailedChatMessage = '';
+        let currentFeedbackCategory = 'server_error';
+
+        function logSystemError(err) {
+            const time = new Date().toLocaleTimeString('fa-IR');
+            lastCapturedError = `[${time}] ${err}`;
+            try {
+                let errLogs = JSON.parse(localStorage.getItem('systemErrorLogs') || '[]');
+                errLogs.unshift({ time: new Date().toISOString(), message: err });
+                if (errLogs.length > 20) errLogs.pop();
+                localStorage.setItem('systemErrorLogs', JSON.stringify(errLogs));
+            } catch(e) {}
+        }
+
+        window.onerror = function(msg, url, line) {
+            logSystemError(`خطای اسکریپت: ${msg} (سطر ${line})`);
+        };
+        window.onunhandledrejection = function(e) {
+            logSystemError(`خطای پرامیس: ${e.reason}`);
+        };
+
+        // باز و بسته کردن پنجره فیدبک
+        function openFeedbackModal(prefilledError = '') {
+            if (prefilledError) {
+                lastCapturedError = decodeURIComponent(prefilledError);
+            }
+            updateDiagnosticInfo();
+            const textEl = document.getElementById('feedbackText');
+            if (lastCapturedError && lastCapturedError !== 'هیچ خطایی ثبت نشده است.' && !textEl.value) {
+                textEl.value = `با خطای زیر مواجه شدم:\n${lastCapturedError}`;
+            }
+            document.getElementById('feedbackModal').classList.add('open');
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById('feedbackModal').classList.remove('open');
+        }
+
+        function selectFeedbackType(type, el) {
+            currentFeedbackCategory = type;
+            el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function updateDiagnosticInfo() {
+            const diagEl = document.getElementById('diagnosticDetails');
+            if (!diagEl) return;
+            const model = localStorage.getItem('geminiModel') || 'gemini-3.6-flash';
+            const base = localStorage.getItem('customBaseUrl') || 'default-google-ai';
+            diagEl.innerText = `App Version: 41.0 (Build 2026.09.23)\nActive Model: ${model}\nProxy/Base: ${base}\nLast Error: ${lastCapturedError}\nUserAgent: ${navigator.userAgent}`;
+        }
+
+        function copyFullFeedbackReport() {
+            const text = document.getElementById('feedbackText').value.trim();
+            const model = localStorage.getItem('geminiModel') || 'gemini-3.6-flash';
+            const report = `📋 گزارش بازخورد و خطای برنامه دستیار هوشمند (نسخه ۴۱):\n` +
+                           `دسته‌بندی: ${currentFeedbackCategory}\n` +
+                           `شرح مشکل کاربر: ${text || 'بدون توضیح اضافی'}\n` +
+                           `مدل فعال: ${model}\n` +
+                           `آخرین خطای ثبت‌شده: ${lastCapturedError}\n` +
+                           `زمان: ${new Date().toLocaleString('fa-IR')}\n` +
+                           `مشخصات مرورگر: ${navigator.userAgent}`;
+
+            navigator.clipboard.writeText(report).then(() => {
+                alert('گزارش فیدبک با موفقیت در حافظه کپی شد! ✅\nمی‌توانید آن را مستقیماً برای برطرف‌سازی ارسال کنید.');
+                closeFeedbackModal();
+            }).catch(() => {
+                alert('خطا در کپی متن.');
+            });
+        }
+
+        function saveFeedbackLocally() {
+            const text = document.getElementById('feedbackText').value.trim();
+            if (!text) { alert('لطفاً شرح بازخورد را بنویسید.'); return; }
+            let list = JSON.parse(localStorage.getItem('userFeedbackList') || '[]');
+            list.unshift({
+                id: Date.now(),
+                category: currentFeedbackCategory,
+                text: text,
+                error: lastCapturedError,
+                time: new Date().toLocaleString('fa-IR')
+            });
+            localStorage.setItem('userFeedbackList', JSON.stringify(list));
+            alert('بازخورد شما در حافظه برنامه ذخیره شد ✅');
+            closeFeedbackModal();
+        }
+
+        function sendFeedbackEmail() {
+            const text = document.getElementById('feedbackText').value.trim();
+            const subject = encodeURIComponent('گزارش خطای دستیار هوشمند مهندسی');
+            const body = encodeURIComponent(`شرح مشکل:\n${text}\n\nآخرین خطا:\n${lastCapturedError}\n\nنسخه: ۴۱`);
+            window.open(`mailto:s.a.mirmostafaei@gmail.com?subject=${subject}&body=${body}`, '_blank');
+        }
+
+        // مدل‌های جایگزین برای مقابله با ترافیک بالا (High Demand)
+        const FALLBACK_MODELS = [
+            'gemini-3.6-flash',
+            'gemini-2.5-flash',
+            'gemini-1.5-flash',
+            'gemini-2.5-pro'
+        ];
+
+        // هسته ارتباط با API با مدیریت صف، ترافیک بالا و خطاهای مدل
+        async function callGeminiApi(promptText, systemPrompt = '', maxTokens = 4096, temperature = 0.4, statusCallback = null) {
             const key = localStorage.getItem('geminiApiKey');
             if (!key) {
                 alert('لطفاً ابتدا از آیکون ⚙️ چرخ‌دنده در بالای صفحه، کلید Gemini API خود را وارد کنید.');
@@ -809,50 +1058,96 @@
 
             const customBase = localStorage.getItem('customBaseUrl') || 'https://generativelanguage.googleapis.com';
             const baseHost = customBase.replace(/\/$/, '');
-            let model = localStorage.getItem('geminiModel') || 'gemini-3.6-flash';
+            let initialModel = localStorage.getItem('geminiModel') || 'gemini-3.6-flash';
 
-            async function requestWithModel(modelName) {
-                const url = `${baseHost}/v1beta/models/${modelName}:generateContent?key=${key}`;
-                const contents = [];
-                if (systemPrompt) {
-                    contents.push({ role: 'user', parts: [{ text: `${systemPrompt}\n\n${promptText}` }] });
-                } else {
-                    contents.push({ parts: [{ text: promptText }] });
+            // ترتیب بررسی مدل‌ها: اول مدل انتخابی، سپس سایر مدل‌های لیست جایگزین
+            const modelsToTry = [initialModel, ...FALLBACK_MODELS.filter(m => m !== initialModel)];
+
+            let lastErr = null;
+
+            for (let i = 0; i < modelsToTry.length; i++) {
+                const currentModel = modelsToTry[i];
+                if (i > 0 && statusCallback) {
+                    statusCallback(`ترافیک بالا در مدل قبلی؛ در حال سوئیچ و تلاش با مدل پشتیبان (${currentModel})...`);
                 }
 
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: contents,
-                        generationConfig: { maxOutputTokens: maxTokens, temperature: temperature }
-                    })
-                });
+                try {
+                    const url = `${baseHost}/v1beta/models/${currentModel}:generateContent?key=${key}`;
+                    const contents = [];
+                    if (systemPrompt) {
+                        contents.push({ role: 'user', parts: [{ text: `${systemPrompt}\n\n${promptText}` }] });
+                    } else {
+                        contents.push({ parts: [{ text: promptText }] });
+                    }
 
-                const json = await response.json();
-                return { status: response.status, ok: response.ok, data: json };
-            }
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: contents,
+                            generationConfig: { maxOutputTokens: maxTokens, temperature: temperature }
+                        })
+                    });
 
-            let res = await requestWithModel(model);
+                    const json = await response.json();
+                    const rawStr = JSON.stringify(json);
 
-            // بررسی خطای قدیمی بودن مدل و سوئیچ خودکار به gemini-3.6-flash
-            const rawResp = JSON.stringify(res.data);
-            if (!res.ok && (rawResp.includes('no longer available') || rawResp.includes('gemini-3.6-flash') || rawResp.includes('models/'))) {
-                console.warn('Old model error detected, automatically switching to gemini-3.6-flash:', rawResp);
-                model = 'gemini-3.6-flash';
-                localStorage.setItem('geminiModel', 'gemini-3.6-flash');
-                res = await requestWithModel('gemini-3.6-flash');
-            }
+                    // بررسی موفقیت
+                    if (response.ok && json.candidates && json.candidates[0].content && json.candidates[0].content.parts) {
+                        if (currentModel !== initialModel) {
+                            console.log(`Successfully recovered using fallback model: ${currentModel}`);
+                        }
+                        return json.candidates[0].content.parts[0].text;
+                    }
 
-            if (res.data.candidates && res.data.candidates[0].content && res.data.candidates[0].content.parts) {
-                return res.data.candidates[0].content.parts[0].text;
-            } else {
-                if (res.data.error && res.data.error.message) {
-                    throw new Error(res.data.error.message);
+                    // خطای ترافیک بالا (High Demand / 429 / 503)
+                    const isHighDemand = !response.ok && (
+                        response.status === 429 || 
+                        response.status === 503 || 
+                        rawStr.includes('high demand') || 
+                        rawStr.includes('Spikes in demand') || 
+                        rawStr.includes('RESOURCE_EXHAUSTED') ||
+                        rawStr.includes('Overloaded')
+                    );
+
+                    // خطای از رده خارج بودن مدل (No longer available)
+                    const isDeprecated = !response.ok && (
+                        rawStr.includes('no longer available') || 
+                        rawStr.includes('is not found')
+                    );
+
+                    let errMsg = (json.error && json.error.message) ? json.error.message : rawStr;
+                    lastErr = new Error(errMsg);
+
+                    if (isHighDemand || isDeprecated) {
+                        console.warn(`Model ${currentModel} returned ${isHighDemand ? 'high demand' : 'deprecated'}. Retrying with next model...`);
+                        // اگر هنوز مدل دیگری باقی مانده، کمی مکث و تلاش با مدل بعدی
+                        if (i < modelsToTry.length - 1) {
+                            await new Promise(r => setTimeout(r, 1200));
+                            continue;
+                        }
+                    }
+
+                    // خطای احراز هویت (کلید نامعتبر) نیازی به امتحان سایر مدل‌ها ندارد
+                    if (response.status === 400 && rawStr.includes('API_KEY_INVALID')) {
+                        throw new Error('کلید API وارد شده نامعتبر است. لطفاً از بخش تنظیمات کلید صحیح را وارد نمایید.');
+                    }
+
+                } catch (networkErr) {
+                    if (networkErr.message === 'NO_API_KEY') throw networkErr;
+                    lastErr = networkErr;
+                    console.warn(`Network/Fetch error with ${currentModel}:`, networkErr.message);
+                    if (i < modelsToTry.length - 1) {
+                        await new Promise(r => setTimeout(r, 1000));
+                        continue;
+                    }
                 }
-                throw new Error(JSON.stringify(res.data));
             }
+
+            logSystemError(lastErr ? lastErr.message : 'خطای نامشخص در ارتباط با سرور');
+            throw lastErr || new Error('پاسخی از سرور دریافت نشد.');
         }
+
 
         async function callGemini(topic, type) {
             let instruction = "یک مقاله جامع و علمی مهندسی بنویسید شامل چکیده، مبانی فنی، استانداردهای بین‌المللی و تحلیل.";
@@ -878,6 +1173,8 @@
         }
 
         async function executeGeneration(topic, type) {
+            lastFailedTopic = topic;
+            lastFailedType = type;
             const typeLabels = {
                 article: 'مقاله علمی',
                 notes: 'جزوه آموزشی',
@@ -892,17 +1189,58 @@
             document.getElementById('notebooklmResultAction').style.display = (type === 'notebooklm') ? 'block' : 'none';
 
             try {
-                const text = await callGemini(topic, type);
+                const statusCb = (statusMsg) => {
+                    document.getElementById('resultMeta').innerText = `قالب: ${typeLabel} | ${statusMsg}`;
+                };
+                const text = await callGeminiApi(
+                    type === 'notebooklm'
+                        ? `یک سند پژوهشی غنی و ساختاریافته ویژه استفاده به عنوان منبع تحلیلی در NotebookLM تدوین کنید؛ شامل چکیده اجرایی، مفاهیم کلیدی، ارجاعات صریح به استانداردهای IEC/ISO و مقررات ملی، تحلیل تطبیقی عمیق، و پرسش‌ها و پاسخ‌های چالشی.\n\nموضوع: ${topic}`
+                        : `یک محتوای تخصصی به صورت ${typeLabel} درباره موضوع زیر بنویسید:\n\nموضوع: ${topic}`,
+                    '',
+                    8192,
+                    0.4,
+                    statusCb
+                );
+
                 if (text) {
                     document.getElementById('resultMeta').innerText = `قالب: ${typeLabel} | زمان: ${new Date().toLocaleTimeString('fa-IR')}`;
                     document.getElementById('resultText').innerText = text;
                     saveGeneratedToHistory(topic, type, text);
                 }
             } catch (e) {
-                document.getElementById('resultText').innerText = 'خطا در ارتباط با سرور:\n' + e.message;
+                const errText = e.message;
+                logSystemError(errText);
+                document.getElementById('resultMeta').innerText = `⚠️ خطا در اتصال | زمان: ${new Date().toLocaleTimeString('fa-IR')}`;
+                
+                const isDemand = errText.includes('high demand') || errText.includes('Spikes in demand');
+                const friendlyMsg = isDemand 
+                    ? 'ترافیک تقاضای جهانی روی این مدل لحظه‌ای افزایش یافته است (High Demand). سیستم به صورت خودکار مدل‌های دیگر را نیز تست می‌کند، اما می‌توانید مجدداً دکمه تلاش را بزنید یا فیدبک ارسال نمایید.'
+                    : errText;
+
+                document.getElementById('resultText').innerHTML = `
+                    <div style="background:#fef2f2; border:1.5px solid #fecaca; border-radius:12px; padding:14px; color:#991b1b;">
+                        <div style="display:flex; align-items:center; gap:8px; font-weight:bold; font-size:0.92rem; margin-bottom:6px; color:#b91c1c;">
+                            <span>⚠️</span>
+                            <span>خطای اتصال به سرور هوش مصنوعی</span>
+                        </div>
+                        <div style="font-size:0.82rem; line-height:1.7; margin-bottom:12px;">${friendlyMsg}</div>
+                        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                            <button class="btn btn-primary btn-sm" onclick="retryLastGeneration()">🔄 تلاش مجدد فوری</button>
+                            <button class="btn btn-outline btn-sm" style="color:#b91c1c; border-color:#fca5a5;" onclick="openFeedbackModal('${encodeURIComponent(errText)}')">💬 ارسال فیدبک و گزارش به هوش مصنوعی</button>
+                            <button class="btn btn-secondary btn-sm" onclick="openSettings()">⚙️ تغییر مدل یا آدرس سرور</button>
+                        </div>
+                    </div>
+                `;
             }
         }
 
+        async function retryLastGeneration() {
+            if (lastFailedTopic && lastFailedType) {
+                await executeGeneration(lastFailedTopic, lastFailedType);
+            } else {
+                await generateImmediate();
+            }
+        }
         function playAlarmSound() {
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -970,9 +1308,99 @@
             renderTasks();
         }
 
+
+        // مدیریت خواندن تنظیمات از گیت‌هاب (GitHub Config Sync)
+        function showGitHubHelpModal() {
+            document.getElementById('githubHelpModal').classList.add('open');
+        }
+        function closeGitHubHelpModal() {
+            document.getElementById('githubHelpModal').classList.remove('open');
+        }
+
+        async function syncFromGitHub(isManual = false) {
+            const urlInput = document.getElementById('githubConfigUrlInput');
+            const tokenInput = document.getElementById('githubTokenInput');
+            const statusEl = document.getElementById('githubSyncStatus');
+
+            const url = (urlInput ? urlInput.value.trim() : '') || localStorage.getItem('githubConfigUrl');
+            const token = (tokenInput ? tokenInput.value.trim() : '') || localStorage.getItem('githubToken');
+
+            if (!url) {
+                if (isManual) alert('لطفاً ابتدا آدرس فایل خام در گیت‌هاب (GitHub Raw URL) را وارد فرمایید.');
+                return;
+            }
+
+            if (statusEl) {
+                statusEl.style.color = '#0284c7';
+                statusEl.innerText = '⏳ در حال دریافت تنظیمات از گیت‌هاب...';
+            }
+
+            try {
+                const headers = {};
+                if (token) {
+                    headers['Authorization'] = `token ${token}`;
+                    headers['Accept'] = 'application/vnd.github.v3.raw';
+                }
+
+                // جلوگیری از کش شدن با کوئری تایم‌استمپ
+                const fetchUrl = url + (url.includes('?') ? '&' : '?') + 't=' + Date.now();
+                const res = await fetch(fetchUrl, { headers });
+
+                if (!res.ok) {
+                    throw new Error(`خطای دریافت از گیت‌هاب (${res.status}): ${res.statusText}`);
+                }
+
+                const config = await res.json();
+
+                let updatedKeys = [];
+                if (config.apiKey) {
+                    localStorage.setItem('geminiApiKey', config.apiKey);
+                    if (document.getElementById('apiKeyInput')) document.getElementById('apiKeyInput').value = config.apiKey;
+                    updatedKeys.push('کلید API');
+                }
+                if (config.baseUrl) {
+                    localStorage.setItem('customBaseUrl', config.baseUrl);
+                    if (document.getElementById('baseUrlInput')) document.getElementById('baseUrlInput').value = config.baseUrl;
+                    updatedKeys.push('آدرس سرور واسط');
+                }
+                if (config.model) {
+                    localStorage.setItem('geminiModel', config.model);
+                    if (document.getElementById('modelSelect')) document.getElementById('modelSelect').value = config.model;
+                    updatedKeys.push('مدل: ' + config.model);
+                }
+
+                localStorage.setItem('githubConfigUrl', url);
+                if (token) localStorage.setItem('githubToken', token);
+
+                const msg = `✅ همگام‌سازی موفق با گیت‌هاب (${updatedKeys.join(' ، ')})`;
+                if (statusEl) {
+                    statusEl.style.color = '#16a34a';
+                    statusEl.innerText = msg;
+                }
+                if (isManual) {
+                    alert(msg + '\nتنظیمات به صورت خودکار در برنامه اعمال گردید.');
+                }
+            } catch (err) {
+                const errMsg = '❌ خطا در اتصال به گیت‌هاب: ' + err.message;
+                if (statusEl) {
+                    statusEl.style.color = '#dc2626';
+                    statusEl.innerText = errMsg;
+                }
+                if (isManual) {
+                    alert(errMsg + '\nلطفاً مطمئن شوید آدرس Raw فایل صحیح است و در صورت Private بودن، توکن گیت‌هاب را وارد کرده‌اید.');
+                }
+            }
+        }
+
         function openSettings() {
             document.getElementById('apiKeyInput').value = localStorage.getItem('geminiApiKey') || '';
             document.getElementById('baseUrlInput').value = localStorage.getItem('customBaseUrl') || '';
+            if (document.getElementById('githubConfigUrlInput')) {
+                document.getElementById('githubConfigUrlInput').value = localStorage.getItem('githubConfigUrl') || '';
+            }
+            if (document.getElementById('githubTokenInput')) {
+                document.getElementById('githubTokenInput').value = localStorage.getItem('githubToken') || '';
+            }
             
             const savedModel = localStorage.getItem('geminiModel') || 'gemini-3.6-flash';
             const selectEl = document.getElementById('modelSelect');
@@ -1001,6 +1429,12 @@
         function saveSettings() {
             localStorage.setItem('geminiApiKey', document.getElementById('apiKeyInput').value.trim());
             localStorage.setItem('customBaseUrl', document.getElementById('baseUrlInput').value.trim());
+            if (document.getElementById('githubConfigUrlInput')) {
+                localStorage.setItem('githubConfigUrl', document.getElementById('githubConfigUrlInput').value.trim());
+            }
+            if (document.getElementById('githubTokenInput')) {
+                localStorage.setItem('githubToken', document.getElementById('githubTokenInput').value.trim());
+            }
             
             const selectEl = document.getElementById('modelSelect');
             let chosenModel = selectEl.value;
@@ -1022,7 +1456,7 @@
 
 
         // مدیریت نسخه و کش
-        const APP_VERSION = '40.0';
+        const APP_VERSION = '42.0';
         function openAboutModal() {
             document.getElementById('aboutModal').classList.add('open');
         }
@@ -1318,6 +1752,10 @@
         updateStatusUI();
         renderTasks();
         renderHistory();
+        // خواندن خودکار از گیت‌هاب در صورت وجود تنظیمات
+        if (localStorage.getItem('githubConfigUrl')) {
+            syncFromGitHub(false);
+        }
     </script>
 </body>
 </html>
