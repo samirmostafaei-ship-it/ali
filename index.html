@@ -4,73 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>دستیار هوشمند مهندسی</title>
-    <meta name="theme-color" content="#1565C0">
-    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22%D8%AF%D8%B3%D8%AA%DB%8C%D8%A7%D8%B1%20%D9%87%D9%88%D8%B4%D9%85%D9%86%D8%AF%20%D9%85%D9%87%D9%86%D8%AF%D8%B3%DB%8C%22%2C%22short_name%22%3A%22%D8%AF%D8%B3%D8%AA%DB%8C%D8%A7%D8%B1%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F8F9FA%22%2C%22theme_color%22%3A%22%231565C0%22%7D">
+    <meta name="theme-color" content="#1e40af">
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22%D8%AF%D8%B3%D8%AA%DB%8C%D8%A7%D8%B1%20%D9%87%D9%88%D8%B4%D9%85%D9%86%D8%AF%20%D9%85%D9%87%D9%86%D8%AF%D8%B3%DB%8C%22%2C%22short_name%22%3A%22%D8%AF%D8%B3%D8%AA%DB%8C%D8%A7%D8%B1%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F8F9FA%22%2C%22theme_color%22%3A%22%231e40af%22%7D">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vazirmatn@33.003/Vazirmatn-font-face.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Vazirmatn, system-ui, sans-serif; }
-        body { background-color: #f1f5f9; color: #1e293b; padding-bottom: 80px; }
-        header { background: #1565C0; color: white; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Vazirmatn, system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #f8fafc; color: #0f172a; padding-bottom: 80px; }
+        header { background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%); color: white; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15); }
+        .header-brand { display: flex; align-items: center; gap: 10px; }
+        .brand-icon { width: 34px; height: 34px; background: rgba(255, 255, 255, 0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; backdrop-filter: blur(4px); }
         header h1 { font-size: 1.05rem; font-weight: 700; }
-        .header-actions { display: flex; gap: 8px; align-items: center; }
-        .icon-btn { background: none; border: none; color: white; font-size: 1.25rem; cursor: pointer; padding: 4px; border-radius: 6px; }
+        .header-actions { display: flex; gap: 10px; align-items: center; }
+        .icon-btn { background: rgba(255, 255, 255, 0.12); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
+        .icon-btn:hover { background: rgba(255, 255, 255, 0.25); }
+        .icon-btn svg { width: 18px; height: 18px; fill: currentColor; }
+        
         .container { padding: 14px; max-width: 600px; margin: 0 auto; }
-        .card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+        .card { background: white; border-radius: 16px; padding: 16px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; }
         .status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 10px; }
-        .status-active { background: #e8f5e9; color: #2e7d32; }
-        .status-inactive { background: #ffebee; color: #c62828; }
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 12px; border-radius: 8px; font-weight: 600; border: none; cursor: pointer; font-size: 0.95rem; margin-top: 8px; transition: 0.2s; }
-        .btn-primary { background: #1565C0; color: white; }
-        .btn-danger { background: #d32f2f; color: white; }
-        .btn-outline { background: white; border: 1.5px solid #1565C0; color: #1565C0; }
+        .status-active { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+        .status-inactive { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; border-radius: 12px; font-weight: 600; border: none; cursor: pointer; font-size: 0.95rem; margin-top: 8px; transition: 0.2s; }
+        .btn-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25); }
+        .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; box-shadow: 0 3px 8px rgba(239, 68, 68, 0.25); }
+        .btn-outline { background: white; border: 1.5px solid #2563eb; color: #2563eb; }
         .btn-secondary { background: #0288D1; color: white; }
-        .btn-sm { width: auto; padding: 6px 12px; font-size: 0.85rem; margin: 0; }
-        input, textarea, select { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 6px; font-size: 0.95rem; background: white; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; border-top: 1px solid #e2e8f0; height: 62px; z-index: 100; box-shadow: 0 -2px 5px rgba(0,0,0,0.04); }
-        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.75rem; color: #64748b; cursor: pointer; }
-        .nav-item.active { color: #1565C0; font-weight: 700; }
-        .nav-icon { font-size: 1.3rem; margin-bottom: 2px; }
+        .btn-sm { width: auto; padding: 6px 14px; font-size: 0.85rem; margin: 0; border-radius: 8px; }
+        
+        input, textarea, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; margin-top: 6px; font-size: 0.95rem; background: white; outline: none; transition: 0.2s; }
+        input:focus, textarea:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        
+        /* چت زنده با هوش مصنوعی */
+        .chat-container { display: flex; flex-direction: column; height: calc(100vh - 230px); min-height: 420px; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 8px 4px; display: flex; flex-direction: column; gap: 12px; }
+        .msg { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 0.92rem; line-height: 1.7; word-break: break-word; }
+        .msg-ai { align-self: flex-start; background: white; color: #0f172a; border-bottom-right-radius: 4px; border: 1px solid #e2e8f0; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+        .msg-user { align-self: flex-end; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; border-bottom-left-radius: 4px; }
+        .chat-input-bar { display: flex; align-items: center; gap: 8px; background: white; padding: 8px 12px; border-radius: 30px; box-shadow: 0 3px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; margin-top: 10px; }
+        .chat-input-bar input { border: none; margin: 0; padding: 6px 10px; font-size: 0.95rem; background: transparent; }
+        .chat-input-bar input:focus { box-shadow: none; }
+        .mic-btn { width: 42px; height: 42px; border-radius: 50%; border: none; background: #f1f5f9; color: #2563eb; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; flex-shrink: 0; }
+        .mic-btn.recording { background: #ef4444; color: white; animation: pulse 1.2s infinite; }
+        .send-btn { width: 42px; height: 42px; border-radius: 50%; border: none; background: #2563eb; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        
+        /* ناوبری پایین */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; border-top: 1px solid #e2e8f0; height: 65px; z-index: 100; box-shadow: 0 -3px 10px rgba(0,0,0,0.04); }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.72rem; color: #64748b; cursor: pointer; transition: 0.2s; }
+        .nav-item.active { color: #2563eb; font-weight: 700; }
+        .nav-item svg { width: 22px; height: 22px; margin-bottom: 3px; fill: none; stroke: currentColor; stroke-width: 2; }
+        
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; padding: 16px; }
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; padding: 16px; backdrop-filter: blur(2px); }
         .modal.open { display: flex; }
-        .modal-body { background: white; border-radius: 14px; width: 100%; max-width: 500px; padding: 20px; max-height: 85vh; overflow-y: auto; }
-        .output-box { background: #f8fafc; border-radius: 8px; padding: 14px; margin-top: 12px; font-size: 0.9rem; line-height: 1.85; border-right: 4px solid #1565C0; white-space: pre-wrap; color: #1e293b; max-height: 400px; overflow-y: auto; }
-        .install-banner { background: #e0f2fe; border: 1px solid #bae6fd; border-radius: 10px; padding: 12px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
-        .type-chips { display: flex; gap: 6px; margin: 8px 0; }
-        .chip { flex: 1; padding: 8px; text-align: center; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem; cursor: pointer; background: white; }
-        .chip.selected { background: #1565C0; color: white; border-color: #1565C0; font-weight: 600; }
-        @media print {
-            header, .bottom-nav, .btn, .status-badge, .card:not(#resultCard) { display: none !important; }
-            body { padding: 0; background: white; }
-            #resultCard { box-shadow: none; padding: 0; margin: 0; }
-            .output-box { border: none; max-height: none; overflow: visible; font-size: 11pt; }
-        }
+        .modal-body { background: white; border-radius: 18px; width: 100%; max-width: 500px; padding: 22px; max-height: 85vh; overflow-y: auto; }
+        
+        .type-chips { display: flex; gap: 8px; margin: 10px 0; }
+        .chip { flex: 1; padding: 9px; text-align: center; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 0.85rem; cursor: pointer; background: white; font-weight: 500; transition: 0.2s; }
+        .chip.selected { background: #2563eb; color: white; border-color: #2563eb; font-weight: 700; }
+        .output-box { background: #f8fafc; border-radius: 12px; padding: 16px; margin-top: 12px; font-size: 0.92rem; line-height: 1.85; border-right: 4px solid #2563eb; white-space: pre-wrap; color: #1e293b; max-height: 420px; overflow-y: auto; }
+    
+        /* کارت‌های شبکه‌های اجتماعی */
+        .social-card { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 12px; background: #ffffff; border: 1px solid #e2e8f0; text-decoration: none; color: inherit; transition: all 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+        .social-card:hover, .social-card:active { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.08); background: #f8fafc; }
+        .social-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+        .social-info { display: flex; flex-direction: column; }
+        .social-title { font-size: 0.88rem; font-weight: 700; color: #0f172a; }
+        .social-sub { font-size: 0.72rem; color: #64748b; margin-top: 1px; }
+
     </style>
 </head>
 <body>
 
     <header>
-        <h1>دستیار هوشمند مهندسی</h1>
+        <div class="header-brand">
+            <div class="brand-icon">⚡</div>
+            <h1>دستیار هوشمند مهندسی</h1>
+        </div>
         <div class="header-actions">
-            <button id="pwaInstallBtn" class="btn-sm btn-primary" style="background:#0288D1; display:none;" onclick="triggerPwaInstall()">📥 نصب اپ</button>
-            <button class="icon-btn" onclick="openSettings()">⚙️</button>
+            <button id="ttsToggleBtn" class="icon-btn" onclick="toggleTts()" title="خوانش صوتی پاسخ‌ها">
+                <svg id="ttsIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            </button>
+            <button class="icon-btn" onclick="openSettings()" title="تنظیمات">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </button>
         </div>
     </header>
 
     <div class="container">
-        <!-- بنر راهنمای نصب PWA -->
-        <div id="installGuide" class="install-banner" style="display:none;">
-            <span style="font-size:0.85rem; color:#0369a1;">📱 برای نصب به عنوان برنامه: از منوی مرورگر <b>Add to Home screen</b> را بزنید.</span>
-            <button class="icon-btn" style="color:#0369a1; font-size:1rem;" onclick="dismissInstall()">✕</button>
+
+        <!-- تب ۱: گفتگوی صوتی و متنی با جمینای (دستیار شخصی) -->
+        <div id="tab-chat" class="tab-content active">
+            <div class="chat-container">
+                <div id="chatMessages" class="chat-messages">
+                    <div class="msg msg-ai">
+                        سلام مهندس میرمصطفائی عزیز. من دستیار هوشمند شما هستم. می‌توانید با صوت یا متن با من گفتگو کنید، موضوعی برای تدوین مقاله/جزوه بگویید یا بفرمایید: «یادآوری کن فردا جلسه دارم» تا مستقیماً به کارهایتان اضافه کنم.
+                    </div>
+                </div>
+
+                <div class="chat-input-bar">
+                    <button id="micBtn" class="mic-btn" onclick="toggleVoiceRecording()" title="دستیار صوتی">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                    </button>
+                    <input type="text" id="chatInput" placeholder="گفتگو یا ثبت کار (با صوت یا متن)..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+                    <button class="send-btn" onclick="sendChatMessage()">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <!-- تب ۱: هوش مصنوعی و تولید خودکار -->
-        <div id="tab-ai" class="tab-content active">
+        <!-- تب ۲: تولید خودکار و مقالات -->
+        <div id="tab-ai" class="tab-content">
             <div class="card">
                 <div id="statusBadge" class="status-badge status-active">● وضعیت: تولید خودکار روزانه فعال است</div>
                 <p style="font-size: 0.85rem; color: #475569; line-height: 1.6;">
-                    دستیار به صورت مستمر و خودکار مقالات، جزوات و کتابچه‌های تخصصی (BMS، فیبر نوری FTTH، مقررات ملی و نیروگاه‌های خورشیدی) را تدوین کرده و آماده نگه می‌دارد.
+                    دستیار به صورت مستمر و خودکار مقالات، جزوات و کتابچه‌های تخصصی (BMS، فیبر نوری، مقررات ملی و نیروگاه خورشیدی) را تدوین و ذخیره می‌کند.
                 </p>
                 <button id="toggleBtn" class="btn btn-danger" onclick="toggleAutoMode()">🛑 لغو و توقف تولید خودکار (Cancel)</button>
             </div>
@@ -93,54 +144,138 @@
             <div id="resultCard" class="card" style="display:none; margin-top: 14px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
                     <div>
-                        <h3 id="resultTitle" style="font-size: 0.95rem; color: #1565C0;"></h3>
+                        <h3 id="resultTitle" style="font-size: 0.95rem; color: #1e40af;"></h3>
                         <span id="resultMeta" style="font-size: 0.75rem; color: #64748b;"></span>
                     </div>
-                    <button class="btn btn-secondary btn-sm" onclick="downloadPdf()">📄 چاپ / PDF</button>
+                    <button class="btn btn-secondary btn-sm" onclick="window.print()">📄 چاپ / PDF</button>
                 </div>
                 <div id="resultText" class="output-box"></div>
             </div>
         </div>
 
-        <!-- تب ۲: پیام‌ها و شبکه‌های اجتماعی -->
-        <div id="tab-messages" class="tab-content">
-            <div class="card">
-                <h3 style="font-size: 0.95rem; margin-bottom: 6px;">دسترسی مستقیم به پیام‌رسان‌ها</h3>
-                <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 12px;">با لمس هر گزینه، مستقیماً وارد همان اپلیکیشن می‌شوید:</p>
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <a href="tg://" class="btn btn-outline" style="text-decoration:none;">✈️ باز کردن تلگرام (Telegram)</a>
-                    <a href="whatsapp://" class="btn btn-outline" style="text-decoration:none;">💬 باز کردن واتساپ (WhatsApp)</a>
-                    <a href="https://linkedin.com" target="_blank" class="btn btn-outline" style="text-decoration:none;">💼 باز کردن لینکدین (LinkedIn)</a>
-                    <a href="https://mail.google.com" target="_blank" class="btn btn-outline" style="text-decoration:none;">📧 باز کردن جیمیل (Gmail)</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- تب ۳: یادآورها و کارهای روزانه -->
+        <!-- تب ۳: یادآورها و وظایف روزانه -->
         <div id="tab-tasks" class="tab-content">
             <div class="card">
                 <h3 style="font-size: 0.95rem; margin-bottom: 8px;">افزودن یادآور روزانه</h3>
-                <input type="text" id="taskTitle" placeholder="عنوان کار (مثال: بررسی کابل‌های پروژه)">
+                <input type="text" id="taskTitle" placeholder="عنوان کار (مثال: بررسی کابل‌های پروژه یا تماس با مهندس ناظر)">
                 <input type="number" id="taskMins" placeholder="یادآوری بعد از چند دقیقه؟" value="15">
                 <button class="btn btn-primary" onclick="addTask()">⏰ زمان‌بندی یادآور</button>
             </div>
             <div class="card">
-                <h3 style="font-size: 0.95rem; margin-bottom: 8px;">فهرست یادآورهای امروز</h3>
+                <h3 style="font-size: 0.95rem; margin-bottom: 8px;">فهرست یادآورها و کارهای شما</h3>
                 <div id="tasksList" style="font-size: 0.85rem; color: #64748b;">هیچ یادآوری ثبت نشده است.</div>
             </div>
         </div>
+
+        <!-- تب ۴: پیام‌ها و شبکه‌های اجتماعی -->
+        <div id="tab-messages" class="tab-content">
+            <div class="card">
+                <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 4px; color: #0f172a;">درگاه ارتباطی پیام‌رسان‌ها و شبکه‌ها</h3>
+                <p style="font-size: 0.82rem; color: #64748b; margin-bottom: 14px; line-height: 1.6;">
+                    با لمس هر پیام‌رسان، مستقیماً اپلیکیشن مربوطه روی گوشی شما باز می‌شود:
+                </p>
+
+                <div style="font-size: 0.82rem; font-weight: 700; color: #1e40af; margin-bottom: 8px;">پیام‌رسان‌های ایرانی:</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
+                    <!-- ایتا -->
+                    <a href="eitaa://" onclick="setTimeout(() => window.open('https://web.eitaa.com', '_blank'), 800)" class="social-card" style="border-right: 4px solid #ea580c;">
+                        <div class="social-icon" style="background: #ffedd5; color: #ea580c;">🟠</div>
+                        <div class="social-info">
+                            <span class="social-title">ایتا (Eitaa)</span>
+                            <span class="social-sub">پیام‌رسان و کانال‌ها</span>
+                        </div>
+                    </a>
+
+                    <!-- بله -->
+                    <a href="ble://" onclick="setTimeout(() => window.open('https://web.bale.ai', '_blank'), 800)" class="social-card" style="border-right: 4px solid #059669;">
+                        <div class="social-icon" style="background: #d1fae5; color: #059669;">🟢</div>
+                        <div class="social-info">
+                            <span class="social-title">بله (Bale)</span>
+                            <span class="social-sub">پیام‌رسان و خدمات</span>
+                        </div>
+                    </a>
+
+                    <!-- روبیکا -->
+                    <a href="rubika://" onclick="setTimeout(() => window.open('https://web.rubika.ir', '_blank'), 800)" class="social-card" style="border-right: 4px solid #7c3aed;">
+                        <div class="social-icon" style="background: #ede9fe; color: #7c3aed;">🟣</div>
+                        <div class="social-info">
+                            <span class="social-title">روبیکا (Rubika)</span>
+                            <span class="social-sub">پیام‌رسان و محتوا</span>
+                        </div>
+                    </a>
+
+                    <!-- سروش پلاس -->
+                    <a href="soroush://" onclick="setTimeout(() => window.open('https://web.splus.ir', '_blank'), 800)" class="social-card" style="border-right: 4px solid #0284c7;">
+                        <div class="social-icon" style="background: #e0f2fe; color: #0284c7;">🔵</div>
+                        <div class="social-info">
+                            <span class="social-title">سروش (Soroush)</span>
+                            <span class="social-sub">سروش پلاس</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div style="font-size: 0.82rem; font-weight: 700; color: #1e40af; margin-bottom: 8px;">شبکه‌ها و پیام‌رسان‌های بین‌المللی:</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <!-- تلگرام -->
+                    <a href="tg://" onclick="setTimeout(() => window.open('https://web.telegram.org', '_blank'), 800)" class="social-card" style="border-right: 4px solid #0288d1;">
+                        <div class="social-icon" style="background: #e1f5fe; color: #0288d1;">✈️</div>
+                        <div class="social-info">
+                            <span class="social-title">تلگرام</span>
+                            <span class="social-sub">Telegram</span>
+                        </div>
+                    </a>
+
+                    <!-- واتساپ -->
+                    <a href="whatsapp://" onclick="setTimeout(() => window.open('https://web.whatsapp.com', '_blank'), 800)" class="social-card" style="border-right: 4px solid #16a34a;">
+                        <div class="social-icon" style="background: #dcfce7; color: #16a34a;">💬</div>
+                        <div class="social-info">
+                            <span class="social-title">واتساپ</span>
+                            <span class="social-sub">WhatsApp</span>
+                        </div>
+                    </a>
+
+                    <!-- اینستاگرام -->
+                    <a href="instagram://" onclick="setTimeout(() => window.open('https://instagram.com', '_blank'), 800)" class="social-card" style="border-right: 4px solid #db2777;">
+                        <div class="social-icon" style="background: #fce7f3; color: #db2777;">📷</div>
+                        <div class="social-info">
+                            <span class="social-title">اینستاگرام</span>
+                            <span class="social-sub">Instagram</span>
+                        </div>
+                    </a>
+
+                    <!-- لینکدین -->
+                    <a href="https://linkedin.com" target="_blank" class="social-card" style="border-right: 4px solid #0a66c2;">
+                        <div class="social-icon" style="background: #e0f2fe; color: #0a66c2;">💼</div>
+                        <div class="social-info">
+                            <span class="social-title">لینکدین</span>
+                            <span class="social-sub">LinkedIn</span>
+                        </div>
+                    </a>
+
+                    <!-- جیمیل -->
+                    <a href="mailto:" onclick="setTimeout(() => window.open('https://mail.google.com', '_blank'), 800)" class="social-card" style="border-right: 4px solid #ea4335; grid-column: span 2;">
+                        <div class="social-icon" style="background: #fee2e2; color: #ea4335;">📧</div>
+                        <div class="social-info">
+                            <span class="social-title">جیمیل (Google Mail)</span>
+                            <span class="social-sub">مدیریت ایمیل‌ها و مکاتبات رسمی</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- دیالوگ تنظیمات -->
     <div id="settingsModal" class="modal">
         <div class="modal-body">
-            <h2 style="font-size: 1.05rem; margin-bottom: 12px;">تنظیمات هوش مصنوعی و دور زدن محدودیت</h2>
+            <h2 style="font-size: 1.05rem; margin-bottom: 12px;">تنظیمات دستیار و شبکه</h2>
             
             <label style="font-size: 0.85rem; font-weight: 600;">کلید Gemini API (Google AI Studio):</label>
             <input type="text" id="apiKeyInput" placeholder="AIzaSy...">
 
             <label style="font-size: 0.85rem; font-weight: 600; display:block; margin-top: 10px;">آدرس سرور واسط (Reverse Proxy / Cloudflare Worker):</label>
-            <p style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">جهت دور زدن فیلترینگ یا تحریم با دامنه‌های غیرگوگل:</p>
+            <p style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">جهت دور زدن تحریم و محدودیت مکانی با دامنه‌های غیرگوگل:</p>
             <input type="text" id="baseUrlInput" placeholder="https://my-proxy.workers.dev (اختیاری)">
 
             <div style="display: flex; gap: 8px; margin-top: 16px;">
@@ -150,24 +285,28 @@
         </div>
     </div>
 
-    <!-- ناوبری پایین صفحه -->
+    <!-- ناوبری پایین صفحه با آیکون‌های مدرن SVG -->
     <div class="bottom-nav">
-        <div class="nav-item active" onclick="switchTab('ai', this)">
-            <div class="nav-icon">✨</div>
-            <div>هوش مصنوعی</div>
+        <div class="nav-item active" onclick="switchTab('chat', this)">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <div>گفتگو و صوت</div>
         </div>
-        <div class="nav-item" onclick="switchTab('messages', this)">
-            <div class="nav-icon">💬</div>
-            <div>شبکه‌ها</div>
+        <div class="nav-item" onclick="switchTab('ai', this)">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <div>تولید محتوا</div>
         </div>
         <div class="nav-item" onclick="switchTab('tasks', this)">
-            <div class="nav-icon">⏰</div>
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             <div>یادآورها</div>
+        </div>
+        <div class="nav-item" onclick="switchTab('messages', this)">
+            <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <div>شبکه‌ها</div>
         </div>
     </div>
 
     <script>
-        // PWA Service Worker Registration using Blob
+        // PWA Service Worker
         if ('serviceWorker' in navigator) {
             const swCode = `
                 self.addEventListener('install', e => self.skipWaiting());
@@ -178,32 +317,147 @@
             navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(console.error);
         }
 
-        // PWA Install Prompt
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('pwaInstallBtn').style.display = 'inline-block';
-            document.getElementById('installGuide').style.display = 'flex';
-        });
-
-        function triggerPwaInstall() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(() => {
-                    deferredPrompt = null;
-                    document.getElementById('pwaInstallBtn').style.display = 'none';
-                });
-            }
-        }
-
-        function dismissInstall() {
-            document.getElementById('installGuide').style.display = 'none';
-        }
-
         let isAuto = localStorage.getItem('isAuto') !== 'false';
         let currentType = 'article';
         let tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+        let ttsEnabled = localStorage.getItem('ttsEnabled') === 'true';
+        let recognition = null;
+        let isRecording = false;
+
+        // خوانش صوتی (Text to Speech)
+        function toggleTts() {
+            ttsEnabled = !ttsEnabled;
+            localStorage.setItem('ttsEnabled', ttsEnabled);
+            updateTtsIcon();
+            alert(ttsEnabled ? 'خوانش صوتی پاسخ‌ها فعال شد 🔊' : 'خوانش صوتی پاسخ‌ها غیرفعال شد 🔇');
+        }
+
+        function updateTtsIcon() {
+            const btn = document.getElementById('ttsToggleBtn');
+            btn.style.background = ttsEnabled ? 'rgba(34, 197, 94, 0.4)' : 'rgba(255, 255, 255, 0.12)';
+        }
+        updateTtsIcon();
+
+        function speakText(text) {
+            if (!ttsEnabled || !('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            const cleanText = text.replace(/[#*`_\-]/g, '');
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.lang = 'fa-IR';
+            utterance.rate = 1.0;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // دستیار صوتی (Speech Recognition)
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRec();
+            recognition.lang = 'fa-IR';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = () => {
+                isRecording = true;
+                document.getElementById('micBtn').classList.add('recording');
+            };
+
+            recognition.onresult = (event) => {
+                const speechResult = event.results[0][0].transcript;
+                document.getElementById('chatInput').value = speechResult;
+                sendChatMessage();
+            };
+
+            recognition.onend = () => {
+                isRecording = false;
+                document.getElementById('micBtn').classList.remove('recording');
+            };
+
+            recognition.onerror = (e) => {
+                isRecording = false;
+                document.getElementById('micBtn').classList.remove('recording');
+                console.error(e);
+            };
+        }
+
+        function toggleVoiceRecording() {
+            if (!recognition) {
+                alert('مرورگر شما از ورودی صوتی پشتیبانی نمی‌کند یا دسترسی میکروفون داده نشده است.');
+                return;
+            }
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        }
+
+        // گفتگو و افزودن هوشمند کارهای روزانه
+        async function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            addMessageToChat(text, 'user');
+            input.value = '';
+
+            const key = localStorage.getItem('geminiApiKey');
+            if (!key) {
+                addMessageToChat('لطفاً ابتدا از آیکون ⚙️ چرخ‌دنده، کلید Gemini API خود را وارد کنید.', 'ai');
+                openSettings();
+                return;
+            }
+
+            // تشخیص هوشمند ثبت تسک در گفتگو
+            const reminderMatch = text.match(/(یادآوری|یادآور|تسک|کار|جلسه|قرار)\s*(کن|بگذار|ثبت کن|بذار)?\s*(.+)/);
+            if (reminderMatch && (text.includes('یادآور') || text.includes('تسک') || text.includes('جلسه') || text.includes('ساعت'))) {
+                const taskName = text;
+                scheduleTaskDirect(taskName, 15);
+                const reply = `✅ یادآور شما برای «${taskName}» با موفقیت در بخش یادآورها ثبت و زمان‌بندی شد.`;
+                addMessageToChat(reply, 'ai');
+                speakText(reply);
+                return;
+            }
+
+            // ارسال پیام به Gemini
+            const customBase = localStorage.getItem('customBaseUrl') || 'https://generativelanguage.googleapis.com';
+            const baseHost = customBase.replace(/\/$/, '');
+            const url = `${baseHost}/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
+
+            const systemPrompt = `شما دستیار شخصی و مهندسی آقای سید علی میرمصطفائی (متخصص فیبر نوری، هوشمندسازی ساختمان BMS/IBMS و نیروگاه‌های خورشیدی) هستید. لحن شما حرفه‌ای، محترمانه، دقیق و صمیمی باشد. پاسخ‌های کوتاه، کاربردی و روان به زبان فارسی بدهید.`;
+
+            try {
+                const res = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [
+                            { role: 'user', parts: [{ text: `${systemPrompt}\n\nکاربر: ${text}` }] }
+                        ],
+                        generationConfig: { maxOutputTokens: 2048, temperature: 0.5 }
+                    })
+                });
+
+                const data = await res.json();
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    const aiReply = data.candidates[0].content.parts[0].text;
+                    addMessageToChat(aiReply, 'ai');
+                    speakText(aiReply);
+                } else {
+                    addMessageToChat('خطا در دریافت پاسخ: ' + JSON.stringify(data), 'ai');
+                }
+            } catch (e) {
+                addMessageToChat('خطای اتصال به سرور: ' + e.message, 'ai');
+            }
+        }
+
+        function addMessageToChat(text, sender) {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = `msg msg-${sender}`;
+            div.innerText = text;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
 
         function updateStatusUI() {
             const b = document.getElementById('statusBadge');
@@ -238,8 +492,7 @@
             "طراحی شبکه فیبر نوری FTTH، محاسبات تلفات نوری (Link Budget) و ساختار اسپلیترها در ساختمان‌های تجاری",
             "انطباق چک‌لیست‌های نظارت مهندسان برق با مبحث ۱۳ و ۱۹ مقررات ملی ساختمان در سیستم‌های BMS",
             "سیستم‌های مدیریت و پایش انرژی در نیروگاه‌های خورشیدی فتوولتائیک و الزامات نظارتی تحویل تجهیزات",
-            "طراحی سیستم‌های نظارت تصویری مداربسته مبتنی بر استاندارد IEC 62676 و مدیریت پهنای باند و ذخیره‌سازی",
-            "راهنمای کاربردی عیب‌یابی خطوط فیبر نوری با دستگاه‌های OTDR و تست توان سنجی (Power Meter)"
+            "طراحی سیستم‌های نظارت تصویری مداربسته مبتنی بر استاندارد IEC 62676 و مدیریت پهنای باند و ذخیره‌سازی"
         ];
 
         async function callGemini(topic, type) {
@@ -286,10 +539,7 @@
 
         async function generateManual() {
             const topic = document.getElementById('manualTopic').value.trim();
-            if (!topic) {
-                alert('لطفاً موضوع را وارد کنید.');
-                return;
-            }
+            if (!topic) { alert('لطفاً موضوع را وارد کنید.'); return; }
             await executeGeneration(topic, currentType);
         }
 
@@ -307,15 +557,10 @@
                     document.getElementById('resultText').innerText = text;
                 }
             } catch (e) {
-                document.getElementById('resultText').innerText = 'خطا در ارتباط با سرور:\n' + e.message + '\n\n(نکته: در صورت قرار داشتن در منطقه دارای محدودیت، آدرس سرور واسط یا پروکسی را در تنظیمات وارد نمایید)';
+                document.getElementById('resultText').innerText = 'خطا در ارتباط با سرور:\n' + e.message;
             }
         }
 
-        function downloadPdf() {
-            window.print();
-        }
-
-        // صدای هشدار آلارم با Web Audio API
         function playAlarmSound() {
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -335,7 +580,12 @@
             const title = document.getElementById('taskTitle').value.trim();
             const mins = parseInt(document.getElementById('taskMins').value) || 15;
             if (!title) return;
+            scheduleTaskDirect(title, mins);
+            alert(`یادآور برای ${mins} دقیقه دیگر زمان‌بندی شد.`);
+            document.getElementById('taskTitle').value = '';
+        }
 
+        function scheduleTaskDirect(title, mins) {
             if ('Notification' in window && Notification.permission !== 'granted') {
                 Notification.requestPermission();
             }
@@ -356,9 +606,6 @@
                     alert('⏰ موعد کار فرا رسید: ' + title);
                 }
             }, mins * 60000);
-
-            alert(`یادآور برای ساعت ${timeStr} زمان‌بندی شد.`);
-            document.getElementById('taskTitle').value = '';
         }
 
         function renderTasks() {
@@ -370,7 +617,7 @@
                         <b>${t.title}</b>
                         <div style="font-size:0.75rem; color:#0288D1;">موعد: ${t.timeStr}</div>
                     </div>
-                    <button style="color:#d32f2f; background:none; border:none; cursor:pointer; font-weight:bold;" onclick="deleteTask(${i})">حذف</button>
+                    <button style="color:#dc2626; background:none; border:none; cursor:pointer; font-weight:bold;" onclick="deleteTask(${i})">حذف</button>
                 </div>
             `).join('');
         }
