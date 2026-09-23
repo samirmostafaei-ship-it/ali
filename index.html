@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>دستیار هوشمند مهندسی</title>
+    <meta name="theme-color" content="#1565C0">
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22%D8%AF%D8%B3%D8%AA%DB%8C%D8%A7%D8%B1%20%D9%87%D9%88%D8%B4%D9%85%D9%86%D8%AF%20%D9%85%D9%87%D9%86%D8%AF%D8%B3%DB%8C%22%2C%22short_name%22%3A%22%D8%AF%D8%B3%D8%AA%DB%8C%D8%A7%D8%B1%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F8F9FA%22%2C%22theme_color%22%3A%22%231565C0%22%7D">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vazirmatn@33.003/Vazirmatn-font-face.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Vazirmatn, system-ui, sans-serif; }
+        body { background-color: #f1f5f9; color: #1e293b; padding-bottom: 80px; }
+        header { background: #1565C0; color: white; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        header h1 { font-size: 1.05rem; font-weight: 700; }
+        .header-actions { display: flex; gap: 8px; align-items: center; }
+        .icon-btn { background: none; border: none; color: white; font-size: 1.25rem; cursor: pointer; padding: 4px; border-radius: 6px; }
+        .container { padding: 14px; max-width: 600px; margin: 0 auto; }
+        .card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+        .status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 10px; }
+        .status-active { background: #e8f5e9; color: #2e7d32; }
+        .status-inactive { background: #ffebee; color: #c62828; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 12px; border-radius: 8px; font-weight: 600; border: none; cursor: pointer; font-size: 0.95rem; margin-top: 8px; transition: 0.2s; }
+        .btn-primary { background: #1565C0; color: white; }
+        .btn-danger { background: #d32f2f; color: white; }
+        .btn-outline { background: white; border: 1.5px solid #1565C0; color: #1565C0; }
+        .btn-secondary { background: #0288D1; color: white; }
+        .btn-sm { width: auto; padding: 6px 12px; font-size: 0.85rem; margin: 0; }
+        input, textarea, select { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 6px; font-size: 0.95rem; background: white; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; border-top: 1px solid #e2e8f0; height: 62px; z-index: 100; box-shadow: 0 -2px 5px rgba(0,0,0,0.04); }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.75rem; color: #64748b; cursor: pointer; }
+        .nav-item.active { color: #1565C0; font-weight: 700; }
+        .nav-icon { font-size: 1.3rem; margin-bottom: 2px; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; padding: 16px; }
+        .modal.open { display: flex; }
+        .modal-body { background: white; border-radius: 14px; width: 100%; max-width: 500px; padding: 20px; max-height: 85vh; overflow-y: auto; }
+        .output-box { background: #f8fafc; border-radius: 8px; padding: 14px; margin-top: 12px; font-size: 0.9rem; line-height: 1.85; border-right: 4px solid #1565C0; white-space: pre-wrap; color: #1e293b; max-height: 400px; overflow-y: auto; }
+        .install-banner { background: #e0f2fe; border: 1px solid #bae6fd; border-radius: 10px; padding: 12px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+        .type-chips { display: flex; gap: 6px; margin: 8px 0; }
+        .chip { flex: 1; padding: 8px; text-align: center; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem; cursor: pointer; background: white; }
+        .chip.selected { background: #1565C0; color: white; border-color: #1565C0; font-weight: 600; }
+        @media print {
+            header, .bottom-nav, .btn, .status-badge, .card:not(#resultCard) { display: none !important; }
+            body { padding: 0; background: white; }
+            #resultCard { box-shadow: none; padding: 0; margin: 0; }
+            .output-box { border: none; max-height: none; overflow: visible; font-size: 11pt; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>دستیار هوشمند مهندسی</h1>
+        <div class="header-actions">
+            <button id="pwaInstallBtn" class="btn-sm btn-primary" style="background:#0288D1; display:none;" onclick="triggerPwaInstall()">📥 نصب اپ</button>
+            <button class="icon-btn" onclick="openSettings()">⚙️</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- بنر راهنمای نصب PWA -->
+        <div id="installGuide" class="install-banner" style="display:none;">
+            <span style="font-size:0.85rem; color:#0369a1;">📱 برای نصب به عنوان برنامه: از منوی مرورگر <b>Add to Home screen</b> را بزنید.</span>
+            <button class="icon-btn" style="color:#0369a1; font-size:1rem;" onclick="dismissInstall()">✕</button>
+        </div>
+
+        <!-- تب ۱: هوش مصنوعی و تولید خودکار -->
+        <div id="tab-ai" class="tab-content active">
+            <div class="card">
+                <div id="statusBadge" class="status-badge status-active">● وضعیت: تولید خودکار روزانه فعال است</div>
+                <p style="font-size: 0.85rem; color: #475569; line-height: 1.6;">
+                    دستیار به صورت مستمر و خودکار مقالات، جزوات و کتابچه‌های تخصصی (BMS، فیبر نوری FTTH، مقررات ملی و نیروگاه‌های خورشیدی) را تدوین کرده و آماده نگه می‌دارد.
+                </p>
+                <button id="toggleBtn" class="btn btn-danger" onclick="toggleAutoMode()">🛑 لغو و توقف تولید خودکار (Cancel)</button>
+            </div>
+
+            <button class="btn btn-primary" onclick="generateImmediate()">⚡ تولید آنی موضوع خودکار بعدی (بدون نوشتن درخواست)</button>
+
+            <!-- بخش تولید اختیاری با موضوع دلخواه -->
+            <div class="card" style="margin-top: 14px;">
+                <h3 style="font-size: 0.95rem; margin-bottom: 6px;">تولید موضوع دلخواه (اختیاری)</h3>
+                <input type="text" id="manualTopic" placeholder="موضوع مورد نظر خود را بنویسید (اختیاری)...">
+                <div class="type-chips">
+                    <div class="chip selected" onclick="selectType('article', this)">مقاله</div>
+                    <div class="chip" onclick="selectType('notes', this)">جزوه درسی</div>
+                    <div class="chip" onclick="selectType('booklet', this)">کتابچه</div>
+                </div>
+                <button class="btn btn-outline" onclick="generateManual()">تولید محتوای دلخواه</button>
+            </div>
+
+            <!-- کارت نمایش نتیجه -->
+            <div id="resultCard" class="card" style="display:none; margin-top: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+                    <div>
+                        <h3 id="resultTitle" style="font-size: 0.95rem; color: #1565C0;"></h3>
+                        <span id="resultMeta" style="font-size: 0.75rem; color: #64748b;"></span>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="downloadPdf()">📄 چاپ / PDF</button>
+                </div>
+                <div id="resultText" class="output-box"></div>
+            </div>
+        </div>
+
+        <!-- تب ۲: پیام‌ها و شبکه‌های اجتماعی -->
+        <div id="tab-messages" class="tab-content">
+            <div class="card">
+                <h3 style="font-size: 0.95rem; margin-bottom: 6px;">دسترسی مستقیم به پیام‌رسان‌ها</h3>
+                <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 12px;">با لمس هر گزینه، مستقیماً وارد همان اپلیکیشن می‌شوید:</p>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <a href="tg://" class="btn btn-outline" style="text-decoration:none;">✈️ باز کردن تلگرام (Telegram)</a>
+                    <a href="whatsapp://" class="btn btn-outline" style="text-decoration:none;">💬 باز کردن واتساپ (WhatsApp)</a>
+                    <a href="https://linkedin.com" target="_blank" class="btn btn-outline" style="text-decoration:none;">💼 باز کردن لینکدین (LinkedIn)</a>
+                    <a href="https://mail.google.com" target="_blank" class="btn btn-outline" style="text-decoration:none;">📧 باز کردن جیمیل (Gmail)</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- تب ۳: یادآورها و کارهای روزانه -->
+        <div id="tab-tasks" class="tab-content">
+            <div class="card">
+                <h3 style="font-size: 0.95rem; margin-bottom: 8px;">افزودن یادآور روزانه</h3>
+                <input type="text" id="taskTitle" placeholder="عنوان کار (مثال: بررسی کابل‌های پروژه)">
+                <input type="number" id="taskMins" placeholder="یادآوری بعد از چند دقیقه؟" value="15">
+                <button class="btn btn-primary" onclick="addTask()">⏰ زمان‌بندی یادآور</button>
+            </div>
+            <div class="card">
+                <h3 style="font-size: 0.95rem; margin-bottom: 8px;">فهرست یادآورهای امروز</h3>
+                <div id="tasksList" style="font-size: 0.85rem; color: #64748b;">هیچ یادآوری ثبت نشده است.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- دیالوگ تنظیمات -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-body">
+            <h2 style="font-size: 1.05rem; margin-bottom: 12px;">تنظیمات هوش مصنوعی و دور زدن محدودیت</h2>
+            
+            <label style="font-size: 0.85rem; font-weight: 600;">کلید Gemini API (Google AI Studio):</label>
+            <input type="text" id="apiKeyInput" placeholder="AIzaSy...">
+
+            <label style="font-size: 0.85rem; font-weight: 600; display:block; margin-top: 10px;">آدرس سرور واسط (Reverse Proxy / Cloudflare Worker):</label>
+            <p style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">جهت دور زدن فیلترینگ یا تحریم با دامنه‌های غیرگوگل:</p>
+            <input type="text" id="baseUrlInput" placeholder="https://my-proxy.workers.dev (اختیاری)">
+
+            <div style="display: flex; gap: 8px; margin-top: 16px;">
+                <button class="btn btn-primary" onclick="saveSettings()">ذخیره تنظیمات</button>
+                <button class="btn btn-outline" onclick="closeSettings()">بستن</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ناوبری پایین صفحه -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="switchTab('ai', this)">
+            <div class="nav-icon">✨</div>
+            <div>هوش مصنوعی</div>
+        </div>
+        <div class="nav-item" onclick="switchTab('messages', this)">
+            <div class="nav-icon">💬</div>
+            <div>شبکه‌ها</div>
+        </div>
+        <div class="nav-item" onclick="switchTab('tasks', this)">
+            <div class="nav-icon">⏰</div>
+            <div>یادآورها</div>
+        </div>
+    </div>
+
+    <script>
+        // PWA Service Worker Registration using Blob
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                self.addEventListener('install', e => self.skipWaiting());
+                self.addEventListener('activate', e => self.clients.claim());
+                self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));
+            `;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(console.error);
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('pwaInstallBtn').style.display = 'inline-block';
+            document.getElementById('installGuide').style.display = 'flex';
+        });
+
+        function triggerPwaInstall() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(() => {
+                    deferredPrompt = null;
+                    document.getElementById('pwaInstallBtn').style.display = 'none';
+                });
+            }
+        }
+
+        function dismissInstall() {
+            document.getElementById('installGuide').style.display = 'none';
+        }
+
+        let isAuto = localStorage.getItem('isAuto') !== 'false';
+        let currentType = 'article';
+        let tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+
+        function updateStatusUI() {
+            const b = document.getElementById('statusBadge');
+            const btn = document.getElementById('toggleBtn');
+            if (isAuto) {
+                b.className = 'status-badge status-active';
+                b.innerText = '● وضعیت: تولید خودکار روزانه فعال است';
+                btn.className = 'btn btn-danger';
+                btn.innerText = '🛑 لغو و توقف تولید خودکار (Cancel)';
+            } else {
+                b.className = 'status-badge status-inactive';
+                b.innerText = '○ وضعیت: تولید خودکار متوقف شده است';
+                btn.className = 'btn btn-primary';
+                btn.innerText = '▶️ فعال‌سازی مجدد تولید خودکار';
+            }
+        }
+
+        function toggleAutoMode() {
+            isAuto = !isAuto;
+            localStorage.setItem('isAuto', isAuto);
+            updateStatusUI();
+        }
+
+        function selectType(t, el) {
+            currentType = t;
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        const topics = [
+            "تحلیل جامع پروتکل‌های باز هوشمندسازی ساختمان (BACnet, KNX, LoRaWAN) و مقایسه لایه فیزیکی",
+            "طراحی شبکه فیبر نوری FTTH، محاسبات تلفات نوری (Link Budget) و ساختار اسپلیترها در ساختمان‌های تجاری",
+            "انطباق چک‌لیست‌های نظارت مهندسان برق با مبحث ۱۳ و ۱۹ مقررات ملی ساختمان در سیستم‌های BMS",
+            "سیستم‌های مدیریت و پایش انرژی در نیروگاه‌های خورشیدی فتوولتائیک و الزامات نظارتی تحویل تجهیزات",
+            "طراحی سیستم‌های نظارت تصویری مداربسته مبتنی بر استاندارد IEC 62676 و مدیریت پهنای باند و ذخیره‌سازی",
+            "راهنمای کاربردی عیب‌یابی خطوط فیبر نوری با دستگاه‌های OTDR و تست توان سنجی (Power Meter)"
+        ];
+
+        async function callGemini(topic, type) {
+            const key = localStorage.getItem('geminiApiKey');
+            if (!key) {
+                alert('لطفاً ابتدا از آیکون ⚙️ چرخ‌دنده در بالای صفحه، کلید Gemini API خود را وارد کنید.');
+                openSettings();
+                return null;
+            }
+
+            const customBase = localStorage.getItem('customBaseUrl') || 'https://generativelanguage.googleapis.com';
+            const baseHost = customBase.replace(/\/$/, '');
+            const url = `${baseHost}/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
+
+            let instruction = "یک مقاله جامع و علمی مهندسی بنویسید شامل چکیده، مبانی فنی، استانداردهای بین‌المللی و تحلیل.";
+            if (type === 'notes') instruction = "یک جزوه درسی و آموزشی ساختاریافته بنویسید شامل سرفصل‌ها، نکات اجرایی و پرسش و پاسخ.";
+            if (type === 'booklet') instruction = "یک کتابچه و هندبوک جامع مهندسی چندبخشی تدوین کنید شامل فهرست، فصول فنی و چک‌لیست‌های نظارت.";
+
+            const prompt = `${instruction}\n\nموضوع: ${topic}\n\nپاسخ را کاملاً تخصصی، ساختاریافته و با تیتربندی منظم فارسی بنویسید.`;
+
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }],
+                    generationConfig: { maxOutputTokens: 8192, temperature: 0.4 }
+                })
+            });
+
+            const data = await res.json();
+            if (data.candidates && data.candidates[0].content.parts[0].text) {
+                return data.candidates[0].content.parts[0].text;
+            } else {
+                throw new Error(JSON.stringify(data));
+            }
+        }
+
+        async function generateImmediate() {
+            const randomTopic = topics[Math.floor(Math.random() * topics.length)];
+            const types = ['article', 'notes', 'booklet'];
+            const randomType = types[Math.floor(Math.random() * types.length)];
+            await executeGeneration(randomTopic, randomType);
+        }
+
+        async function generateManual() {
+            const topic = document.getElementById('manualTopic').value.trim();
+            if (!topic) {
+                alert('لطفاً موضوع را وارد کنید.');
+                return;
+            }
+            await executeGeneration(topic, currentType);
+        }
+
+        async function executeGeneration(topic, type) {
+            const typeLabel = type === 'article' ? 'مقاله علمی' : (type === 'notes' ? 'جزوه آموزشی' : 'کتابچه تخصصی');
+            document.getElementById('resultCard').style.display = 'block';
+            document.getElementById('resultTitle').innerText = topic;
+            document.getElementById('resultMeta').innerText = `قالب: ${typeLabel} | در حال تدوین با هوش مصنوعی...`;
+            document.getElementById('resultText').innerText = 'لطفاً چند ثانیه صبر کنید؛ در حال برقراری ارتباط با مدل...';
+
+            try {
+                const text = await callGemini(topic, type);
+                if (text) {
+                    document.getElementById('resultMeta').innerText = `قالب: ${typeLabel} | زمان: ${new Date().toLocaleTimeString('fa-IR')}`;
+                    document.getElementById('resultText').innerText = text;
+                }
+            } catch (e) {
+                document.getElementById('resultText').innerText = 'خطا در ارتباط با سرور:\n' + e.message + '\n\n(نکته: در صورت قرار داشتن در منطقه دارای محدودیت، آدرس سرور واسط یا پروکسی را در تنظیمات وارد نمایید)';
+            }
+        }
+
+        function downloadPdf() {
+            window.print();
+        }
+
+        // صدای هشدار آلارم با Web Audio API
+        function playAlarmSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.5);
+                osc.stop(audioCtx.currentTime + 1.5);
+            } catch (e) {}
+        }
+
+        function addTask() {
+            const title = document.getElementById('taskTitle').value.trim();
+            const mins = parseInt(document.getElementById('taskMins').value) || 15;
+            if (!title) return;
+
+            if ('Notification' in window && Notification.permission !== 'granted') {
+                Notification.requestPermission();
+            }
+
+            const targetTime = Date.now() + mins * 60000;
+            const timeStr = new Date(targetTime).toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+            
+            const task = { id: Date.now(), title, timeStr, targetTime };
+            tasks.push(task);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            renderTasks();
+
+            setTimeout(() => {
+                playAlarmSound();
+                if ('Notification' in window && Notification.permission === 'granted') {
+                    new Notification('⏰ یادآور دستیار هوشمند', { body: title });
+                } else {
+                    alert('⏰ موعد کار فرا رسید: ' + title);
+                }
+            }, mins * 60000);
+
+            alert(`یادآور برای ساعت ${timeStr} زمان‌بندی شد.`);
+            document.getElementById('taskTitle').value = '';
+        }
+
+        function renderTasks() {
+            const el = document.getElementById('tasksList');
+            if (tasks.length === 0) { el.innerHTML = 'هیچ یادآوری ثبت نشده است.'; return; }
+            el.innerHTML = tasks.map((t, i) => `
+                <div style="padding: 10px 0; border-bottom: 1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <b>${t.title}</b>
+                        <div style="font-size:0.75rem; color:#0288D1;">موعد: ${t.timeStr}</div>
+                    </div>
+                    <button style="color:#d32f2f; background:none; border:none; cursor:pointer; font-weight:bold;" onclick="deleteTask(${i})">حذف</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteTask(i) {
+            tasks.splice(i, 1);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            renderTasks();
+        }
+
+        function openSettings() {
+            document.getElementById('apiKeyInput').value = localStorage.getItem('geminiApiKey') || '';
+            document.getElementById('baseUrlInput').value = localStorage.getItem('customBaseUrl') || '';
+            document.getElementById('settingsModal').classList.add('open');
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsModal').classList.remove('open');
+        }
+
+        function saveSettings() {
+            localStorage.setItem('geminiApiKey', document.getElementById('apiKeyInput').value.trim());
+            localStorage.setItem('customBaseUrl', document.getElementById('baseUrlInput').value.trim());
+            closeSettings();
+            alert('تنظیمات با موفقیت ذخیره شد.');
+        }
+
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            el.classList.add('active');
+        }
+
+        updateStatusUI();
+        renderTasks();
+    </script>
+</body>
+</html>
