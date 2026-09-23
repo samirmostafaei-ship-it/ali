@@ -274,6 +274,15 @@
             <label style="font-size: 0.85rem; font-weight: 600;">کلید Gemini API (Google AI Studio):</label>
             <input type="text" id="apiKeyInput" placeholder="AIzaSy...">
 
+            
+            <label style="font-size: 0.85rem; font-weight: 600; display:block; margin-top: 10px;">انتخاب مدل هوش مصنوعی:</label>
+            <select id="modelSelect">
+                <option value="gemini-3.8-flash">Gemini 3.8 Flash (مدل حساب شما - جدیدترین و قدرتمندترین)</option>
+                <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
+                <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+            </select>
+
             <label style="font-size: 0.85rem; font-weight: 600; display:block; margin-top: 10px;">آدرس سرور واسط (Reverse Proxy / Cloudflare Worker):</label>
             <p style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">جهت دور زدن تحریم و محدودیت مکانی با دامنه‌های غیرگوگل:</p>
             <input type="text" id="baseUrlInput" placeholder="https://my-proxy.workers.dev (اختیاری)">
@@ -315,6 +324,40 @@
             `;
             const blob = new Blob([swCode], { type: 'application/javascript' });
             navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(console.error);
+        }
+
+        
+        const FALLBACK_MODELS = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-2.5-flash', 'gemini-2.0-flash'];
+
+        async function requestGeminiWithFallback(baseHost, key, bodyPayload) {
+            let userModel = localStorage.getItem('geminiModel') || 'gemini-3.8-flash';
+            let modelsToTry = [userModel, ...FALLBACK_MODELS.filter(m => m !== userModel)];
+            
+            let lastError = null;
+            for (let model of modelsToTry) {
+                try {
+                    const endpoint = `${baseHost}/v1beta/models/${model}:generateContent?key=${key}`;
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(bodyPayload)
+                    });
+                    const data = await res.json();
+                    if (res.ok && data.candidates && data.candidates[0].content) {
+                        localStorage.setItem('geminiModel', model); // مدل فعال را ذخیره کن
+                        return data;
+                    }
+                    if (data.error && data.error.code === 404) {
+                        console.warn(`Model ${model} returned 404, trying next...`);
+                        lastError = data.error.message;
+                        continue;
+                    }
+                    throw new Error(data.error ? data.error.message : JSON.stringify(data));
+                } catch(err) {
+                    lastError = err.message;
+                }
+            }
+            throw new Error(lastError || 'هیچ‌یک از مدل‌های در دسترس پاسخ ندادند.');
         }
 
         let isAuto = localStorage.getItem('isAuto') !== 'false';
@@ -421,30 +464,21 @@
             // ارسال پیام به Gemini
             const customBase = localStorage.getItem('customBaseUrl') || 'https://generativelanguage.googleapis.com';
             const baseHost = customBase.replace(/\/$/, '');
-            const url = `${baseHost}/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
+            const selectedModel = localStorage.getItem('geminiModel') || 'gemini-3.8-flash';
+            const url = `${baseHost}/v1beta/models/${selectedModel}:generateContent?key=${key}`;
 
             const systemPrompt = `شما دستیار شخصی و مهندسی آقای سید علی میرمصطفائی (متخصص فیبر نوری، هوشمندسازی ساختمان BMS/IBMS و نیروگاه‌های خورشیدی) هستید. لحن شما حرفه‌ای، محترمانه، دقیق و صمیمی باشد. پاسخ‌های کوتاه، کاربردی و روان به زبان فارسی بدهید.`;
 
             try {
-                const res = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [
-                            { role: 'user', parts: [{ text: `${systemPrompt}\n\nکاربر: ${text}` }] }
-                        ],
-                        generationConfig: { maxOutputTokens: 2048, temperature: 0.5 }
-                    })
+                const data = await requestGeminiWithFallback(baseHost, key, {
+                    contents: [
+                        { role: 'user', parts: [{ text: `${systemPrompt}\n\nکاربر: ${text}` }] }
+                    ],
+                    generationConfig: { maxOutputTokens: 2048, temperature: 0.5 }
                 });
-
-                const data = await res.json();
-                if (data.candidates && data.candidates[0].content.parts[0].text) {
-                    const aiReply = data.candidates[0].content.parts[0].text;
-                    addMessageToChat(aiReply, 'ai');
-                    speakText(aiReply);
-                } else {
-                    addMessageToChat('خطا در دریافت پاسخ: ' + JSON.stringify(data), 'ai');
-                }
+                const aiReply = data.candidates[0].content.parts[0].text;
+                addMessageToChat(aiReply, 'ai');
+                speakText(aiReply);
             } catch (e) {
                 addMessageToChat('خطای اتصال به سرور: ' + e.message, 'ai');
             }
@@ -505,7 +539,8 @@
 
             const customBase = localStorage.getItem('customBaseUrl') || 'https://generativelanguage.googleapis.com';
             const baseHost = customBase.replace(/\/$/, '');
-            const url = `${baseHost}/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
+            const selectedModel = localStorage.getItem('geminiModel') || 'gemini-3.8-flash';
+            const url = `${baseHost}/v1beta/models/${selectedModel}:generateContent?key=${key}`;
 
             let instruction = "یک مقاله جامع و علمی مهندسی بنویسید شامل چکیده، مبانی فنی، استانداردهای بین‌المللی و تحلیل.";
             if (type === 'notes') instruction = "یک جزوه درسی و آموزشی ساختاریافته بنویسید شامل سرفصل‌ها، نکات اجرایی و پرسش و پاسخ.";
@@ -513,21 +548,11 @@
 
             const prompt = `${instruction}\n\nموضوع: ${topic}\n\nپاسخ را کاملاً تخصصی، ساختاریافته و با تیتربندی منظم فارسی بنویسید.`;
 
-            const res = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: prompt }] }],
-                    generationConfig: { maxOutputTokens: 8192, temperature: 0.4 }
-                })
+            const data = await requestGeminiWithFallback(baseHost, key, {
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: { maxOutputTokens: 8192, temperature: 0.4 }
             });
-
-            const data = await res.json();
-            if (data.candidates && data.candidates[0].content.parts[0].text) {
-                return data.candidates[0].content.parts[0].text;
-            } else {
-                throw new Error(JSON.stringify(data));
-            }
+            return data.candidates[0].content.parts[0].text;
         }
 
         async function generateImmediate() {
@@ -631,6 +656,7 @@
         function openSettings() {
             document.getElementById('apiKeyInput').value = localStorage.getItem('geminiApiKey') || '';
             document.getElementById('baseUrlInput').value = localStorage.getItem('customBaseUrl') || '';
+            document.getElementById('modelSelect').value = localStorage.getItem('geminiModel') || 'gemini-3.8-flash';
             document.getElementById('settingsModal').classList.add('open');
         }
 
@@ -641,6 +667,7 @@
         function saveSettings() {
             localStorage.setItem('geminiApiKey', document.getElementById('apiKeyInput').value.trim());
             localStorage.setItem('customBaseUrl', document.getElementById('baseUrlInput').value.trim());
+            localStorage.setItem('geminiModel', document.getElementById('modelSelect').value);
             closeSettings();
             alert('تنظیمات با موفقیت ذخیره شد.');
         }
