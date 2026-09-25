@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>دستیار هوشمند مهندسی | نسخه حرفه‌ای</title>
+    <title>دستیار هوشمند مهندسی | نسخه ورسل (ضد تحریم)</title>
     <meta name="theme-color" content="#1e3a8a">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vazirmatn@33.003/Vazirmatn-font-face.css">
     <style>
@@ -545,7 +545,7 @@
             <div class="brand-title">
                 <h1>دستیار هوشمند مهندسی</h1>
                 <div class="status-pill">
-                    <span style="font-size:8px;">●</span> اتصال مستقیم گوگل با VPN
+                    <span style="font-size:8px;">●</span> سرور واسط ضدتحریم ورسل (Vercel Edge)
                 </div>
             </div>
         </div>
@@ -829,9 +829,21 @@
                 contents.push({ parts: [{ text: promptText }] });
             }
 
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${cleanKey}`;
-            
-            const response = await fetch(url, {
+            // در صورتی که برنامه روی Vercel اجرا شود، مستقیماً از اندپوینت /api/gemini خود ورسل استفاده می‌کند
+            // سرورهای ورسل در آمریکا/اروپا مستقر هستند و تحریم مکانی گوگل را کاملاً دور می‌زنند
+            let targetEndpoint;
+            const isVercelHost = window.location.hostname.includes('vercel.app');
+            const customProxy = localStorage.getItem('customBaseUrl');
+
+            if (isVercelHost) {
+                targetEndpoint = `/api/gemini?model=${model}&key=${encodeURIComponent(cleanKey)}`;
+            } else if (customProxy) {
+                targetEndpoint = `${customProxy.replace(/\/$/, '')}/api/gemini?model=${model}&key=${encodeURIComponent(cleanKey)}`;
+            } else {
+                targetEndpoint = `/api/gemini?model=${model}&key=${encodeURIComponent(cleanKey)}`;
+            }
+
+            const response = await fetch(targetEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
